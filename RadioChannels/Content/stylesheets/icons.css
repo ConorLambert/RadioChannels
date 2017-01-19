@@ -1,0 +1,87 @@
+/* NAVIGATION */
+
+#navigation span {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+    font-size: 1.4em;
+    left: 0;
+}
+
+#item-radio-stations span:before {
+    content: "\f001";
+    font-family: FontAwesome;        
+}
+
+#item-favourites span:before, #add-favourite:before {
+    content: "\f006";
+    font-family: FontAwesome;
+}
+
+#item-sign-in span:before {
+    content: "\f007";
+    font-family: FontAwesome;
+    padding-left: 1px; 
+    padding-right: 2px;
+}
+
+
+
+/* CATEGORIES */
+
+#categories ul li:hover {
+    border: 1px inset aqua;
+}
+
+
+
+/* AUDIO PLAYER */
+
+.audio-player-button:hover {
+    opacity: 1; 
+}
+
+.audio-player-button::before {
+    position: absolute;
+    top: -1px;
+    bottom: 0;
+    left: -12px;
+    right: 0;
+    width: 0px;
+    height: 0px;
+    margin: auto;
+    line-height: 1px;
+    font-size: 20px; 
+}
+
+.audio-player-button.icon-pause::before {
+    font-size: 18px;
+    top: 1px;
+    left: -15px; 
+}
+
+.audio-player-button.icon-backward::before {
+    left: -17px; 
+}
+
+.audio-player-button.small::before {
+  font-size: 15px; 
+}
+
+.volume-down:before, .volume-up:before {
+    vertical-align: middle;
+}
+
+.volume-down:before {
+    content: "\f027";
+    font-family: FontAwesome;
+    font-size: 1.8em;
+    font-style: normal;
+}
+
+.volume-up:before {
+    content: "\f028";
+    font-family: FontAwesome;
+    font-size: 1.8em;
+    font-style: normal;
+}

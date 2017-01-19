@@ -1,0 +1,269 @@
+html, body {
+    margin: 0;
+    height: 100%;
+    width: 100%;    
+    color: #A6CBFF;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 62.5%;
+    background-color: #002138;
+}
+
+a {
+    text-decoration: none;
+    color:inherit;
+}
+
+ul {
+    margin-top: 0px;
+    list-style: none;
+    padding: 0;
+}
+
+
+
+/* LAYOUT */
+
+#page_wrapper {
+    height: 100%;
+    width 100%;
+}
+
+#navigation {   
+    left: 0;
+    top: 0;
+    position: fixed;
+    padding-top: 40px;
+    height: 100%;
+    background-color: #132040;
+    width: 13%;
+    border-right: 3px solid #2D4F7F;
+    font-size: 2.5em;   
+    z-index: 1;
+}
+
+#page_header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #2D4F7F;
+    height: 35px;
+    z-index: 5;
+}
+
+main {
+    margin-top: 40px;
+    margin-left: 185px;
+    padding-left: 50px;
+    min-height: 100%;
+}
+
+#audio-player {
+    bottom: 0;
+    position:fixed;
+    line-height: 05em;
+    width: 100%;
+    z-index: 5;
+    background-color: #2D4F7F;  
+    text-align: center;
+}
+
+
+
+/* NAVIGATION */
+
+#navigation ul {    
+    padding-left: 4px;
+    position: absolute;  
+    width: 99%;
+}
+
+#navigation ul li {
+    margin-top: 20px;
+    padding-left: 4px;
+    text-align:left;
+}
+
+.nav-clicked {
+    margin-left: -4px;
+    border-left: 4px solid #CCCFD2;
+    background: -webkit-linear-gradient(top, #1e5799 0%, #2D4F7F 10%);
+}
+
+
+
+/* RADIO STATIONS */
+
+#main-heading {
+    display: inline-block;   
+    width: 95%;
+    border-bottom: 1px solid #2D4F7F;
+    text-transform: uppercase;
+    font-weight: 100;
+    font-size: 3.3em;
+}
+
+#categories {
+    margin-bottom: 70px;
+    margin-top: -20px;
+    font-size: 2.2em; 
+}
+
+#categories ul {
+    margin-top: 0px;
+}
+
+#categories ul li {
+    display: inline-block;
+    margin-right: 5px;
+    background-color: #2D4F7F;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px inset #002138;
+}
+
+#categories ul .clicked {
+    background-color: #FFFFFF;
+    color: #0049B0;
+}
+
+#categories ul li, #stations ul li {
+    float: left;    
+}
+
+#stations ul {
+    clear: left;
+}
+
+#stations ul li {
+    margin-right: 20px;
+    font-size: 2.0em;
+}
+
+.title {
+    margin-bottom: -15px;
+}
+
+.title a {
+    color: #fefefe;
+    text-transform: uppercase;
+    font-weight: normal;
+}
+
+.label {
+    text-transform: uppercase;
+    font-size: 10px;
+    color: #2D4F7F;
+}
+
+.track, .artist{
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.track {
+    color: #fefefe;
+}
+
+
+
+/* AUDIO PLAYER */
+
+#audio-player {
+    font-size: 1.8em;
+}
+
+#audio-player div {
+    display: inline-block;
+}
+
+.audio-player-image {
+    line-height: inherit;
+}
+
+.audio-player-image img {
+    position: relative;
+    height: 100%;
+    width: 60px;
+    vertical-align: middle;
+    margin-right: 20px;
+    -webkit-backface-visibility: hidden; 
+}
+
+.audio-player-song-name {    
+    vertical-align: middle;
+    color: white;
+    text-transform: uppercase; 
+    margin-right: 100px;
+}
+
+#add-favourite {
+    vertical-align: middle;
+    padding: 0px 10px; 
+    border-left: 1px solid #002138;
+    border-right: 1px solid #002138;
+    font-size: 1.9em;
+}
+
+.audio-player-controls {
+    display: inline-block;
+    margin-left: 30px;
+    margin-right: 80px;
+    padding-right: 40px;
+    border-right: 1px solid #002138;
+}
+
+.audio-player-button.small {
+    width: 25px;
+    height: 25px;
+    margin-top: 5px; 
+}
+
+.audio-player-button {
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  width: 35px;
+  height: 35px;
+  margin: 0 5px;
+  border-radius: 100%;
+  border: 3px solid;
+  opacity: 0.8;
+  cursor: pointer; 
+}
+
+.audio-player-progress {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 3px;
+    border-radius: 25px;
+    width: 300px;
+    margin-left: 20px;
+    background-color: #A6CBFF;
+    overflow: hidden; 
+}
+
+.audio-player-progress-bar {
+  -webkit-transition: width 200ms linear;
+  -moz-transition: width 200ms linear;
+  -o-transition: width 200ms linear;
+  transition: width 200ms linear;
+  display: block;
+  height: 100%;
+  width: 0;
+  max-width: 100%;
+  background-color: #808e97;
+  border-radius: 25px; 
+}
+
+.audio-player-volume-bar {
+    display: inline-block;
+    vertical-align: middle;
+    width: 170px;
+    height: 4px;
+    margin-left : 20px;
+    margin-right: 20px;
+    background-color: #A6CBFF;;
+    overflow: hidden;
+}

@@ -68,6 +68,7 @@ namespace RadioChannels.Controllers
                         channel.Playlist = reader.ReadToEnd();
                     }                    
                 }
+
                 if (details["name"] != null)
                     channel.Name = details["name"].InnerText;
                 if (details["mt"] != null)
@@ -82,8 +83,6 @@ namespace RadioChannels.Controllers
                     channel.LC = details["lc"].InnerText;
                 if (details["genre"] != null)
                     channel.Genre = details["genre"].InnerText;
-                
-
 
                 channels.Add(channel);
             }
@@ -108,14 +107,14 @@ namespace RadioChannels.Controllers
         }
 
 
-        // GET api/<controller>/5
-        // get all channels that have the associated genre
+        // GET api/<controller>/20
+        // get all channels that have the associated genre and apply pagination
         [HttpGet]
-        public List<Channel> GetChannels(string genre)
+        public List<Channel> GetChannels(string genre, int index)
         {
-            System.Diagnostics.Debug.WriteLine("In Get Channels Genre: " + genre);
-            urlTemplate = "http://api.shoutcast.com/legacy/genresearch?k={0}&genre={1}";
-            url = string.Format(urlTemplate, api_key, genre);
+            var limit = 20; // pagination limit
+            urlTemplate = "http://api.shoutcast.com/legacy/genresearch?k={0}&genre={1}&limit={2},{3}";
+            url = string.Format(urlTemplate, api_key, genre, index, limit);
             XmlDocument response = MakeRequest(url);
             List<Channel> channels = ProcessResponse(response);
 

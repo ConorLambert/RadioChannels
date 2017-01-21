@@ -1,5 +1,7 @@
 var api_key = "sJXVu3hXGmKjJiIx";
 var channels = [];
+var offset = 0;
+var current_genre = "";
 
 function formatChannel(channel) {
     var name = "Unknown";
@@ -30,12 +32,15 @@ function formatChannel(channel) {
 function getChannels(genre) {
     var uri = "";
 
+    var count;
+    if ($('#stations ul').children('li') !== null)
+        count = $('#stations ul li').length;
+
     if (genre === "all")
         uri = 'api/channels';
     else
-        uri = 'api/channels/' + genre;      
-
-    $('#stations ul').empty();
+        uri = 'api/channels/' + genre + '/' + count;
+      
     $.getJSON(uri)
         .done(function (data) {
             var toAppend = "";
@@ -44,7 +49,7 @@ function getChannels(genre) {
                 toAppend += '<li id="'+ key + '">' + formatChannel(channel) + '</li>';                            
             });
             $('#stations ul').append(toAppend);
-
+            
             // add listener for station selection
             $(".image").on("click", function () {
                 // find the station
@@ -60,6 +65,8 @@ function getChannels(genre) {
                 var song_name = $(this).closest('li').find('.track').text();
                 $('.audio-player-song-name').text(song_name);
             });
+
+            
         });    
 }
 
@@ -70,9 +77,19 @@ $(document).ready(function () {
     $("#genres").on("click", "a", function () {
         // remove the current list of stations if any
         $('#stations ul').empty();
-        var genre = $(this).text().toLowerCase();
-        getChannels(genre);
-    });    
+        current_genre = $(this).text().toLowerCase();
+        getChannels(current_genre);
+    });   
+
+    jQuery(function ($) {
+        
+        $("#stations").on('scroll', function () {
+            if ($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {                                
+                getChannels(current_genre);
+            }
+        })
+        
+    }); 
 });
 
 function initializePlayer() {

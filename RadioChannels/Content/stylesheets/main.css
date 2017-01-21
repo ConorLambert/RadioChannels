@@ -1,11 +1,15 @@
+html {
+}
+
 html, body {
     margin: 0;
-    height: 100%;
     width: 100%;
+    height: 99%;
     color: #A6CBFF;
     font-family: 'Nunito Sans', sans-serif;
     font-size: 62.5%;
     background-color: #002138;
+    overflow: hidden;
 }
 
 a {
@@ -55,6 +59,7 @@ main {
     margin-left: 185px;
     padding-left: 50px;
     min-height: 100%;
+    height: 100%;
 }
 
 #audio-player {
@@ -108,41 +113,54 @@ main {
     font-size: 2.2em;
 }
 
-    #categories ul {
-        margin-top: 0px;
-    }
+#categories ul {
+    margin-top: 0px;
+}
 
-        #categories ul li {
-            display: inline-block;
-            margin-right: 5px;
-            background-color: #2D4F7F;
-            padding: 5px;
-            border-radius: 5px;
-            border: 1px inset #002138;
-        }
+#categories ul li {
+    display: inline-block;
+    margin-right: 5px;
+    background-color: #2D4F7F;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px inset #002138;
+}
 
-        #categories ul .clicked {
-            background-color: #FFFFFF;
-            color: #0049B0;
-        }
+#categories ul .clicked {
+    background-color: #FFFFFF;
+    color: #0049B0;
+}
 
-        #categories ul li, #stations ul li {
-            float: left;
-        }
+#categories ul li, #stations ul li {
+    float: left;
+}
+
+#stations-container {
+    height: 400px;
+    width: 100%;
+    overflow: hidden;
+}
+
+#stations {    
+    height: 99%;
+    width: 100%;
+    overflow-y: auto;
+    padding-right: 20px;
+}
 
 #stations ul {
     clear: left;
 }
 
-    #stations ul li {
-        margin-right: 50px;
-        margin-bottom: 50px;
-        padding: 10px;
-        font-size: 2.0em;
-        border: 1px solid #2D4F7F;
-        width: 150px;
-        background-color: #132040;
-    }
+#stations ul li {
+    margin-right: 50px;
+    margin-bottom: 50px;
+    padding: 10px;
+    font-size: 2.0em;
+    border: 1px solid #2D4F7F;
+    width: 150px;
+    background-color: #132040;
+}
 
 .image {
     text-align: center;
@@ -195,23 +213,23 @@ main {
     font-size: 1.8em;
 }
 
-#audio-player div {
-    display: inline-block;
-}
+    #audio-player div {
+        display: inline-block;
+    }
 
 .audio-player-image {
     line-height: inherit;
     width: 150px;
 }
 
-.audio-player-image img {
-    position: relative;
-    height: 100%;
-    width: 60px;
-    vertical-align: middle;
-    margin-right: 20px;
-    -webkit-backface-visibility: hidden;
-}
+    .audio-player-image img {
+        position: relative;
+        height: 100%;
+        width: 60px;
+        vertical-align: middle;
+        margin-right: 20px;
+        -webkit-backface-visibility: hidden;
+    }
 
 .audio-player-song-name {
     vertical-align: middle;

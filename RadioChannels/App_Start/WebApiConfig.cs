@@ -19,6 +19,12 @@ namespace RadioChannels
                 routeTemplate: "api/{controller}/{genre}",
                 defaults: new { genre = RouteParameter.Optional }
             );
+
+            config.Routes.MapHttpRoute(
+                name: "GenreApi",
+                routeTemplate: "api/{controller}/{genre}/{index}",
+                defaults: new { index = RouteParameter.Optional }
+            );
         }
     }
 }

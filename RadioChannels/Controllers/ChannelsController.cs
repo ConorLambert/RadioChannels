@@ -58,7 +58,16 @@ namespace RadioChannels.Controllers
                 XmlAttributeCollection details = station.Attributes;
                 Channel channel = new Channel();
                 if (details["id"] != null)
+                {
                     channel.Id = details["id"].InnerText;
+                    var playlistRequest = WebRequest.Create(@"http://yp.shoutcast.com/sbin/tunein-station.m3u?id=" + channel.Id);
+                    using (var playlistResponse = playlistRequest.GetResponse())
+                    using (var content = playlistResponse.GetResponseStream())
+                    using (var reader = new StreamReader(content))
+                    {
+                        channel.Playlist = reader.ReadToEnd();
+                    }                    
+                }
                 if (details["name"] != null)
                     channel.Name = details["name"].InnerText;
                 if (details["mt"] != null)
@@ -73,13 +82,15 @@ namespace RadioChannels.Controllers
                     channel.LC = details["lc"].InnerText;
                 if (details["genre"] != null)
                     channel.Genre = details["genre"].InnerText;
+                
+
 
                 channels.Add(channel);
             }
 
             return channels;
         }
-
+        
 
         // GET api/<controller>
         [HttpGet]

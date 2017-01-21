@@ -25,10 +25,12 @@ namespace RadioChannels
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/Site.css"));
-
-            bundles.Add(new ScriptBundle("~/bundles/angularjs").Include(
-                "~/Scripts/angular.js"));
+                      "~/Content/stylesheets/font-awesome.css",
+                      "~/Content/stylesheets/main.css",
+                      "~/Content/stylesheets/loading.css",
+                      "~/Content/stylesheets/icons.css" ));
+           
+           bundles.Add(new ScriptBundle("~/bundles/angularjs").Include("~/Scripts/angular.js"));
         }
     }
 }

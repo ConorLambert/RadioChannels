@@ -163,12 +163,8 @@
     <Content Include="app.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\font-awesome.css" />
-    <Content Include="Content\icons.css" />
     <Content Include="Content\images\sunhawk-small%402x.jpg" />
     <Content Include="Content\images\sunhawk-small-2%402x.jpg" />
-    <Content Include="Content\loading.css" />
-    <Content Include="Content\main.css" />
     <Content Include="Content\Site-def.css" />
     <Content Include="Content\stylesheets\font-awesome.css" />
     <Content Include="Content\stylesheets\icons.css" />
@@ -260,7 +256,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>62639</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:62639/</IISUrl>
+          <IISUrl>http://localhost:55555/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

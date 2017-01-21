@@ -29,10 +29,22 @@
 
 /* CATEGORIES */
 
-#categories ul li:hover {
+#categories ul li:hover, #stations ul li:hover {
     border: 1px inset aqua;
 }
 
+.default-logo:before {
+    content: "\f025";
+    font-family: FontAwesome;
+    font-size: 6.4em;
+}
+
+.default-logo:hover:before {
+    content: "\f144";
+    font-family: FontAwesome;
+    font-size: 6.4em;
+    cursor: pointer;
+}
 
 
 /* AUDIO PLAYER */

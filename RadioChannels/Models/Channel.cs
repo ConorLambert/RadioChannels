@@ -15,6 +15,7 @@ namespace RadioChannels.Models
         public string Logo { get; set; }
         public string LC { get; set; }
         public string Genre { get; set; }      
+        public string Playlist { get; set; }
        
     }
 }

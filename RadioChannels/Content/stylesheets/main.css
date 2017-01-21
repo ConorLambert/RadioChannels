@@ -135,8 +135,29 @@ main {
 }
 
 #stations ul li {
-    margin-right: 20px;
+    margin-right: 50px;
+    margin-bottom: 50px;
+    padding: 10px;
     font-size: 2.0em;
+    border: 1px solid #2D4F7F;
+    width: 150px;
+    background-color: #132040;
+}
+
+.image {
+    text-align: center;
+}
+
+.default-logo {
+    display: block;
+}
+
+.info {
+    text-align: center;
+}
+
+.hidden {
+    display: none;
 }
 
 .title {
@@ -155,7 +176,7 @@ main {
     color: #2D4F7F;
 }
 
-.track, .artist{
+.track, .artist, .title{
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -264,6 +285,6 @@ main {
     height: 4px;
     margin-left : 20px;
     margin-right: 20px;
-    background-color: #A6CBFF;;
+    background-color: #A6CBFF;
     overflow: hidden;
 }

@@ -18,7 +18,6 @@ function formatChannel(channel) {
                   </div> \
                   <div class="info"> \
                     <h3 class="title"> <a href="/00sclubhits">' + name + '</a> </h3> \
-                    <a class="radio-id hidden">' + channel.Id + '</a ><a class="playlist hidden">' + channel.Playlist + '</a ><a class="media-type hidden">' + channel.MediaType + '</a > \
                     <p class="now-playing"> \
                         <span class="label">now playing</span> \
                         <a class="track" href="/tracks/1054430/00sclubhits">' + currentTrack + '</a> \
@@ -49,9 +48,17 @@ function getChannels(genre) {
             // add listener for station selection
             $(".image").on("click", function () {
                 // find the station
-                var channel = parseInt($(this).closest('li').attr('id'));
+                var channel = channels[parseInt($(this).closest('li').attr('id'))];
                 // send request to stream
-                tuneIn(channels[channel]);
+                tuneIn(channel);
+                if (channel.Logo !== null) {
+                    $(".audio-player-image img").attr('src', channel.Logo + '?' + Math.random());
+                    $(".audio-player-image img").show();
+                } else {
+                    $(".audio-player-image img").hide();
+                }
+                var song_name = $(this).closest('li').find('.track').text();
+                $('.audio-player-song-name').text(song_name);
             });
         });    
 }
@@ -96,8 +103,7 @@ function initializePlayer() {
             //if (streamingTrack || (stream && stream.isPlaying == true))
             //{
             //    player.jPlayer("setMedia", { mp3: stream.mp3 }).jPlayer("play");
-            //}
-            alert(JSON.stringify(e));
+            //}            
             console.log(e);
         }
     });    
@@ -111,17 +117,13 @@ function tuneIn(channel) {
         stream = station;
         stream.mp3 = aac ? url + '&type=.flv' : url;
     */
-
-    // get playlist file and extract available listed streams
-    //if (channel.MediaType === )
-
+    
     var streams = []; 
     channel.Playlist.split("\n").forEach(function (line) {
         if (line.trim().charAt(0) !== '#')                
             streams.push({"mp3" : line.trim() + "/;"});
-    });            
-        
-    // stream.mp3 = "http://51.254.130.212:8000/;";// ?type=http"; //&amp;nocache=2196"; //    
+    });                    
+    
     streams.every(function (stream) {
         try {
             $('#jplayer').jPlayer('setMedia', stream).jPlayer('play');
@@ -129,10 +131,6 @@ function tuneIn(channel) {
         } catch (e) {
             console.log(e);
         }
-    });
-
-    // attempt stream from URL
-        // else play stream
-        // $('#jplayer').jPlayer('setMedia', stream).jPlayer('play');
+    });   
     
 }

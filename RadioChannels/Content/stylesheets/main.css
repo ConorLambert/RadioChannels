@@ -1,7 +1,7 @@
 html, body {
     margin: 0;
     height: 100%;
-    width: 100%;    
+    width: 100%;
     color: #A6CBFF;
     font-family: 'Nunito Sans', sans-serif;
     font-size: 62.5%;
@@ -10,7 +10,7 @@ html, body {
 
 a {
     text-decoration: none;
-    color:inherit;
+    color: inherit;
 }
 
 ul {
@@ -28,7 +28,7 @@ ul {
     width 100%;
 }
 
-#navigation {   
+#navigation {
     left: 0;
     top: 0;
     position: fixed;
@@ -37,7 +37,7 @@ ul {
     background-color: #132040;
     width: 13%;
     border-right: 3px solid #2D4F7F;
-    font-size: 2.5em;   
+    font-size: 2.5em;
     z-index: 1;
 }
 
@@ -59,29 +59,29 @@ main {
 
 #audio-player {
     bottom: 0;
-    position:fixed;
+    position: fixed;
     line-height: 05em;
     width: 100%;
     z-index: 5;
-    background-color: #2D4F7F;  
-    text-align: center;
+    background-color: #2D4F7F;
+    /* text-align: center; */
 }
 
 
 
 /* NAVIGATION */
 
-#navigation ul {    
+#navigation ul {
     padding-left: 4px;
-    position: absolute;  
+    position: absolute;
     width: 99%;
 }
 
-#navigation ul li {
-    margin-top: 20px;
-    padding-left: 4px;
-    text-align:left;
-}
+    #navigation ul li {
+        margin-top: 20px;
+        padding-left: 4px;
+        text-align: left;
+    }
 
 .nav-clicked {
     margin-left: -4px;
@@ -94,7 +94,7 @@ main {
 /* RADIO STATIONS */
 
 #main-heading {
-    display: inline-block;   
+    display: inline-block;
     width: 95%;
     border-bottom: 1px solid #2D4F7F;
     text-transform: uppercase;
@@ -105,44 +105,44 @@ main {
 #categories {
     margin-bottom: 70px;
     margin-top: -20px;
-    font-size: 2.2em; 
+    font-size: 2.2em;
 }
 
-#categories ul {
-    margin-top: 0px;
-}
+    #categories ul {
+        margin-top: 0px;
+    }
 
-#categories ul li {
-    display: inline-block;
-    margin-right: 5px;
-    background-color: #2D4F7F;
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px inset #002138;
-}
+        #categories ul li {
+            display: inline-block;
+            margin-right: 5px;
+            background-color: #2D4F7F;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px inset #002138;
+        }
 
-#categories ul .clicked {
-    background-color: #FFFFFF;
-    color: #0049B0;
-}
+        #categories ul .clicked {
+            background-color: #FFFFFF;
+            color: #0049B0;
+        }
 
-#categories ul li, #stations ul li {
-    float: left;    
-}
+        #categories ul li, #stations ul li {
+            float: left;
+        }
 
 #stations ul {
     clear: left;
 }
 
-#stations ul li {
-    margin-right: 50px;
-    margin-bottom: 50px;
-    padding: 10px;
-    font-size: 2.0em;
-    border: 1px solid #2D4F7F;
-    width: 150px;
-    background-color: #132040;
-}
+    #stations ul li {
+        margin-right: 50px;
+        margin-bottom: 50px;
+        padding: 10px;
+        font-size: 2.0em;
+        border: 1px solid #2D4F7F;
+        width: 150px;
+        background-color: #132040;
+    }
 
 .image {
     text-align: center;
@@ -164,11 +164,11 @@ main {
     margin-bottom: -15px;
 }
 
-.title a {
-    color: #fefefe;
-    text-transform: uppercase;
-    font-weight: normal;
-}
+    .title a {
+        color: #fefefe;
+        text-transform: uppercase;
+        font-weight: normal;
+    }
 
 .label {
     text-transform: uppercase;
@@ -176,7 +176,7 @@ main {
     color: #2D4F7F;
 }
 
-.track, .artist, .title{
+.track, .artist, .title {
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -201,6 +201,7 @@ main {
 
 .audio-player-image {
     line-height: inherit;
+    width: 150px;
 }
 
 .audio-player-image img {
@@ -209,19 +210,23 @@ main {
     width: 60px;
     vertical-align: middle;
     margin-right: 20px;
-    -webkit-backface-visibility: hidden; 
+    -webkit-backface-visibility: hidden;
 }
 
-.audio-player-song-name {    
+.audio-player-song-name {
     vertical-align: middle;
     color: white;
-    text-transform: uppercase; 
-    margin-right: 100px;
+    text-transform: uppercase;
+    margin-right: 20px;
+    width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 #add-favourite {
     vertical-align: middle;
-    padding: 0px 10px; 
+    padding: 0px 10px;
     border-left: 1px solid #002138;
     border-right: 1px solid #002138;
     font-size: 1.9em;
@@ -238,20 +243,20 @@ main {
 .audio-player-button.small {
     width: 25px;
     height: 25px;
-    margin-top: 5px; 
+    margin-top: 5px;
 }
 
 .audio-player-button {
-  display: inline-block;
-  position: relative;
-  vertical-align: middle;
-  width: 35px;
-  height: 35px;
-  margin: 0 5px;
-  border-radius: 100%;
-  border: 3px solid;
-  opacity: 0.8;
-  cursor: pointer; 
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    width: 35px;
+    height: 35px;
+    margin: 0 5px;
+    border-radius: 100%;
+    border: 3px solid;
+    opacity: 0.8;
+    cursor: pointer;
 }
 
 .audio-player-progress {
@@ -262,20 +267,20 @@ main {
     width: 300px;
     margin-left: 20px;
     background-color: #A6CBFF;
-    overflow: hidden; 
+    overflow: hidden;
 }
 
 .audio-player-progress-bar {
-  -webkit-transition: width 200ms linear;
-  -moz-transition: width 200ms linear;
-  -o-transition: width 200ms linear;
-  transition: width 200ms linear;
-  display: block;
-  height: 100%;
-  width: 0;
-  max-width: 100%;
-  background-color: #808e97;
-  border-radius: 25px; 
+    -webkit-transition: width 200ms linear;
+    -moz-transition: width 200ms linear;
+    -o-transition: width 200ms linear;
+    transition: width 200ms linear;
+    display: block;
+    height: 100%;
+    width: 0;
+    max-width: 100%;
+    background-color: #808e97;
+    border-radius: 25px;
 }
 
 .audio-player-volume-bar {
@@ -283,7 +288,7 @@ main {
     vertical-align: middle;
     width: 170px;
     height: 4px;
-    margin-left : 20px;
+    margin-left: 20px;
     margin-right: 20px;
     background-color: #A6CBFF;
     overflow: hidden;

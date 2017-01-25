@@ -22,11 +22,49 @@ function formatChannel(channel) {
                     <h3 class="title"> <a href="/00sclubhits">' + name + '</a> </h3> \
                     <p class="now-playing"> \
                         <span class="label">now playing</span> \
-                        <a class="track" href="/tracks/1054430/00sclubhits">' + currentTrack + '</a> \
+                        <a class="track" href="insert/beatport/here">' + currentTrack + '</a> \
                     </p>  \
                   </div>';   
 }
 
+// GET ALL CHANNELS BY GENRE
+function getFavourites(user_id) {
+    var uri = "";
+
+    var count;
+    if ($('#stations ul').children('li') !== null)
+        count = $('#stations ul li').length;
+
+    uri = 'favourites/' + user_id;
+
+    $.getJSON(uri)
+        .done(function (data) {
+            var toAppend = "";
+            $.each(data, function (key, channel) {
+                channels[key] = channel;
+                toAppend += '<li id="' + key + '">' + formatChannel(channel) + '</li>';
+            });
+            $('#stations ul').append(toAppend);
+
+            // add listener for station selection
+            $(".image").on("click", function () {
+                // find the station
+                var channel = channels[parseInt($(this).closest('li').attr('id'))];
+                // send request to stream
+                tuneIn(channel);
+                if (channel.Logo !== null) {
+                    $(".audio-player-image img").attr('src', channel.Logo + '?' + Math.random());
+                    $(".audio-player-image img").show();
+                } else {
+                    $(".audio-player-image img").hide();
+                }
+                var song_name = $(this).closest('li').find('.track').text();
+                $('.audio-player-song-name').text(song_name);
+            });
+
+
+        });
+}
 
 // GET ALL CHANNELS BY GENRE
 function getChannels(genre) {

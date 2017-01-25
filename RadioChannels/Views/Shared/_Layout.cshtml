@@ -20,35 +20,14 @@
         <header id="page_header"></header>
         <nav id="navigation">
             <ul>
-                <li id="item-radio-stations"><span></span><a href="#">Radio Stations</a></li>
-                <li id="item-favourites"><span></span><a href="#">Favourites</a></li>
-                <li id="item-sign-in"><span></span><a href="#">Sign In</a></li>
+                <li></li>
+                <li id="item-radio-stations"><span></span><a>@Html.ActionLink("Radio Stations", "Index", "Home")</a></li>
+                <li id="item-favourites"><span></span><a>@Html.ActionLink("Favourites", "Favourites", "Home")</a></li> 
+                <li id="item-sign-in"><span></span><a>@Html.ActionLink("Sign In", "SignIn", "Home")</a></li>
             </ul>
         </nav>
         <main>
-            <h2 id="main-heading">Radio Stations</h2>
-            <div id="categories">
-                <ul id="genres">
-                    <li><a href="#">All</a></li>
-                    <li><a href="#">Acid House</a></li>
-                    <li><a href="#">Chillout</a></li>
-                    <li><a href="#">Electro</a></li>
-                    <li><a href="#">Drum And Bass</a></li>                    
-                    <li><a href="#">Dubstep</a></li>
-                    <li><a href="#">Deep House</a></li>
-                    <li><a href="#">House</a></li>
-                    <li><a href="#">Hard House</a></li>                                                      
-                    <li><a href="#">Progressive</a></li>
-                    <li><a href="#">Techno</a></li>
-                    <li><a href="#">Trance</a></li>
-                    <li><a href="#">Trip Hop</a></li>
-                </ul>
-            </div>
-            <div id="stations-container">
-                <div id="stations">
-                    <ul></ul>
-                </div>
-            </div>
+            @RenderBody()
         </main>
         <div id="audio-player" class="audio-player-wrapper">
             <div id="jplayer" class="jp-jplayer" style="width: 0px; height: 0px;">
@@ -70,8 +49,7 @@
                 <i class="volume-up" aria-hidden="true"></i>
             </div>
         </div>
-    </div>
-    @RenderBody()
+    </div>    
     <footer>
         The Footer Goes Here
     </footer>

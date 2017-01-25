@@ -71,3 +71,7 @@ C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels
 C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\obj\Debug\RadioChannels.csprojResolveAssemblyReference.cache
 C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\obj\Debug\RadioChannels.dll
 C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\obj\Debug\RadioChannels.pdb
+C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\bin\EntityFramework.dll
+C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\bin\EntityFramework.SqlServer.dll
+C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\bin\EntityFramework.xml
+C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\bin\EntityFramework.SqlServer.xml

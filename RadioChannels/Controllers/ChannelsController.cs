@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Xml;
 using RadioChannels.Models;
+using RadioChannels.DAL;
+using Newtonsoft.Json;
+using System.Web.Services.Description;
+using System.Text;
 
 namespace RadioChannels.Controllers
 {
@@ -16,7 +20,7 @@ namespace RadioChannels.Controllers
         string api_key;
         string urlTemplate;
         string url;
-        HttpClient httpClient;
+        HttpClient httpClient;        
 
         public ChannelsController()
         {
@@ -88,8 +92,7 @@ namespace RadioChannels.Controllers
             }
 
             return channels;
-        }
-        
+        }        
 
         // GET api/<controller>
         [HttpGet]
@@ -106,19 +109,26 @@ namespace RadioChannels.Controllers
             return channels;
         }
 
-
         // GET api/<controller>/20
         // get all channels that have the associated genre and apply pagination
         [HttpGet]
-        public List<Channel> GetChannels(string genre, int index)
+        public List<Channel> GetChannels(string some_var, int index)
         {
             var limit = 20; // pagination limit
             urlTemplate = "http://api.shoutcast.com/legacy/genresearch?k={0}&genre={1}&limit={2},{3}";
-            url = string.Format(urlTemplate, api_key, genre, index, limit);
+            url = string.Format(urlTemplate, api_key, some_var, index, limit);
             XmlDocument response = MakeRequest(url);
             List<Channel> channels = ProcessResponse(response);
-
             return channels;
-        }        
+        }                  
+             
+        public Channel GetChannel(string name)
+        {            
+            urlTemplate = "http://api.shoutcast.com/legacy/stationsearch?k={0}&search={1}";
+            url = string.Format(urlTemplate, api_key, name);
+            XmlDocument response = MakeRequest(url);
+            List<Channel> channels = ProcessResponse(response);
+            return channels.ElementAt(0); // JsonConvert.SerializeObject(channels.ElementAt(0));
+        }
     }
 }

@@ -1,6 +1,12 @@
-﻿@{
+﻿
+
+@{
     ViewBag.Title = "Home Page";
 }
+
+<p>
+    Hello @User.Identity.Name
+</p>
 
 <h2 id="main-heading">Radio Stations</h2>
 <div id="categories">
@@ -21,7 +27,14 @@
     </ul>
 </div>
 <div id="stations-container">
+    <p>
+        
+    </p>
     <div id="stations">
         <ul></ul>
     </div>
+
+    <p>
+        <a href="@Url.Action("logout", "home")">Log Out</a>
+    </p>
 </div>

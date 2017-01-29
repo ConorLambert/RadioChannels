@@ -1,3 +1,19 @@
-﻿@{
-    ViewBag.Title = "Registration";
+﻿@model RadioChannels.Models.User
+
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2>Register</h2>
+
+@Html.ValidationSummary(true)
+
+@using (Html.BeginForm())
+{
+    @Html.DisplayNameFor(model => model.UserName) @Html.TextBoxFor(model => model.UserName);
+    @Html.DisplayNameFor(model => model.Email) @Html.TextBoxFor(model => model.Email);
+    @Html.DisplayNameFor(model => model.PasswordHash) @Html.TextBoxFor(model => model.PasswordHash);
+    <p>
+        <button type="submit">Register</button>
+    </p>
 }

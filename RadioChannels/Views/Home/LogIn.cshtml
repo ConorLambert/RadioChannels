@@ -1,0 +1,19 @@
+﻿@model RadioChannels.Models.User
+
+@{
+    ViewBag.Title = "Log In";
+}
+
+<h2>Log In</h2>
+
+@Html.ValidationSummary(true)
+
+@using (Html.BeginForm())
+{
+    @Html.DisplayNameFor(model => model.Email) @Html.TextBoxFor(model => model.Email);
+    @Html.DisplayNameFor(model => model.PasswordHash) @Html.TextBoxFor(model => model.PasswordHash);
+    <p>
+        <button type="submit">Log In</button>
+    </p>    
+}
+@Html.ActionLink("Register", "Register", "Home")

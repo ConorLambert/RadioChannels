@@ -1,14 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace RadioChannels.Models
 {
-	public class User
+	public class User : IdentityUser
 	{
-        public int ID { get; set; }
-        public string Username { get; set; }
-        public string Email { get; set; }
+        [Key]
+        public override string Id { get; set; }
+
+        public override string UserName { get; set; }
+
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        public override string Email { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        public override string PasswordHash { get; set; }
+
+        [HiddenInput]
+        public string ReturnUrl { get; set; }
     }
 }

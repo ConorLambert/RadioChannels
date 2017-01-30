@@ -5,21 +5,23 @@ using Microsoft.Owin.Security.Cookies;
 using Owin;
 using RadioChannels.DAL;
 using RadioChannels.Models;
-using System;
+using static RadioChannels.App_Start.IdentityConfig;
 
 namespace RadioChannels
 {
-    public class Startup
-    {     
+    public partial class Startup
+    {
         public void Configuration(IAppBuilder app)
-        {      
+        {
+            app.CreatePerOwinContext(RadioContext.Create);
+            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+
             // this is the same as before
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/auth/login")
-            });
-            
+                LoginPath = new PathString("/Home/login")
+            });            
         }
     }
 }

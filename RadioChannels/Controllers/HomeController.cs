@@ -8,6 +8,9 @@ using System.Web.Mvc;
 using Microsoft.Owin.Security;
 using System.Web;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using static RadioChannels.App_Start.IdentityConfig;
+
 
 namespace RadioChannels.Controllers
 {
@@ -16,24 +19,43 @@ namespace RadioChannels.Controllers
     {
         //private RadioContext context;
         private WebApiAccess access = new WebApiAccess();
-        private readonly UserManager<User> userManager;
+        // private readonly UserManager<User> userManager;        
         private RadioContext context;
+        private ApplicationUserManager userManager;
 
         public HomeController()
+        {            
+            //userManager = createUserManager();
+        }
+        
+        public HomeController(ApplicationUserManager userManager)
         {
-            userManager = createUserManager();
+            UserManager = userManager;
+        }
+        private ApplicationUserManager _userManager;
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
         }
 
         // configure the user manager
         private UserManager<User> createUserManager()
         {
-            context = new RadioContext();   
-            var usermanager = new UserManager<User>(new UserStore<User>(context));
+            var usermanager = new UserManager<User>(new UserStore<User>(context)); //context = HttpContext.GetOwinContext().Get<RadioContext>(); // new RadioContext();               
             // allow alphanumeric characters in username
             usermanager.UserValidator = new UserValidator<User>(usermanager)
             {
                 AllowOnlyAlphanumericUserNames = false
             };
+
+            //context.SeedData(userManager);
 
             return usermanager;
         }
@@ -43,12 +65,14 @@ namespace RadioChannels.Controllers
 
         public ActionResult Index()
         {
+            setContextProperties();
             return View();
         }        
 
         [HttpGet]
         public ActionResult LogIn(string returnUrl)
         {
+            setContextProperties();
             var model = new User
             {
                 ReturnUrl = returnUrl
@@ -60,6 +84,7 @@ namespace RadioChannels.Controllers
         [HttpPost]
         public async Task<ActionResult> LogIn(User model)
         {
+            setContextProperties();
             if (!ModelState.IsValid)
             {
                 return View();
@@ -82,12 +107,14 @@ namespace RadioChannels.Controllers
         [HttpGet]
         public ActionResult Register()
         {
+            setContextProperties();
             return View();
         }
 
         [HttpPost]
         public async Task<ActionResult> Register(User model)
         {
+            setContextProperties();
             if (!ModelState.IsValid)
             {
                 return View();
@@ -109,16 +136,17 @@ namespace RadioChannels.Controllers
             return View();
         }
 
+        [HttpGet]
         public async Task<ActionResult> Favourites()
         {
+            setContextProperties();
             ViewBag.Message = "Favourites";
 
             // get the user id
-            var user = userManager.FindById(""); // current User Id
-
+            var currentUserId = User.Identity.GetUserId(); // current User Id
 
             // get the list of favourites related to our current user based on their id
-            List<Favourite> favourites = context.Favourite.Where(x => x.UserId == user.Id).ToList();            
+            List<Favourite> favourites = context.Favourite.Where(x => x.UserId == currentUserId).ToList();            
             if (favourites == null)
             {
                 return HttpNotFound();
@@ -136,6 +164,12 @@ namespace RadioChannels.Controllers
 
 
         // HELPER METHODS
+
+        public void setContextProperties()
+        {
+            this.context = HttpContext.GetOwinContext().Get<RadioContext>();
+            this.userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+        }
 
         private IAuthenticationManager GetAuthenticationManager()
         {

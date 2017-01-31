@@ -99,3 +99,5 @@ C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels
 C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\obj\Debug\RadioChannels.dll
 C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\obj\Debug\RadioChannels.pdb
 C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\obj\Debug\RadioChannels.csprojResolveAssemblyReference.cache
+C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\obj\Debug\RadioChannels.Migrations.RemovedUsername.resources
+C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\obj\Debug\RadioChannels.csproj.GenerateResource.Cache

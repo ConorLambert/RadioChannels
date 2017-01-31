@@ -8,12 +8,12 @@ function formatChannel(channel) {
     var currentTrack = "Unknown";
     var img_tags = '<span class="default-logo"></span>'; 
 
-    if (channel.Name !== null)
-        name = channel.Name;
-    if (channel.CurrentTrack !== null)
-        currentTrack = channel.CurrentTrack;
-    if (channel.Logo !== null)
-        img_tags = '<img class="logo visible" src="' + channel.Logo + '">';
+    if (channel.name !== null)
+        name = channel.name;
+    if (channel.currenttrack !== null)
+        currentTrack = channel.currenttrack;
+    if (channel.logo !== null)
+        img_tags = '<img class="logo visible" src="' + channel.logo + '">';
 
     return '<div class="image"> <span class="fav-btn"></span> \
                     <span class="default-logo"></span> \
@@ -52,8 +52,8 @@ function getFavourites(user_id) {
                 var channel = channels[parseInt($(this).closest('li').attr('id'))];
                 // send request to stream
                 tuneIn(channel);
-                if (channel.Logo !== null) {
-                    $(".audio-player-image img").attr('src', channel.Logo + '?' + Math.random());
+                if (channel.logo !== null) {
+                    $(".audio-player-image img").attr('src', channel.logo + '?' + Math.random());
                     $(".audio-player-image img").show();
                 } else {
                     $(".audio-player-image img").hide();
@@ -94,8 +94,8 @@ function getChannels(genre) {
                 var channel = channels[parseInt($(this).closest('li').attr('id'))];
                 // send request to stream
                 tuneIn(channel);
-                if (channel.Logo !== null) {
-                    $(".audio-player-image img").attr('src', channel.Logo + '?' + Math.random());
+                if (channel.logo !== null) {
+                    $(".audio-player-image img").attr('src', channel.logo + '?' + Math.random());
                     $(".audio-player-image img").show();
                 } else {
                     $(".audio-player-image img").hide();
@@ -174,7 +174,7 @@ function tuneIn(channel) {
     */
     
     var streams = []; 
-    channel.Playlist.split("\n").forEach(function (line) {
+    channel.playlist.split("\n").forEach(function (line) {
         if (line.trim().charAt(0) !== '#')                
             streams.push({"mp3" : line.trim() + "/;"});
     });                    

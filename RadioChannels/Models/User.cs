@@ -9,8 +9,8 @@ namespace RadioChannels.Models
 	{
         [Key]
         public override string Id { get; set; }
-
-        public override string UserName { get; set; }
+        
+        // public override string UserName { get; set; }
 
         [Required]
         [DataType(DataType.EmailAddress)]
@@ -22,5 +22,10 @@ namespace RadioChannels.Models
 
         [HiddenInput]
         public string ReturnUrl { get; set; }
+
+        /*
+        [Display(Name = "Remember me?")]
+        public bool RememberMe { get; set; }
+        */
     }
 }

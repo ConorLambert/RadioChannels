@@ -220,6 +220,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701302347518_RemovedUsername.cs" />
+    <Compile Include="Migrations\201701302347518_RemovedUsername.Designer.cs">
+      <DependentUpon>201701302347518_RemovedUsername.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Channel.cs" />
     <Compile Include="Models\Favourite.cs" />
@@ -307,6 +311,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201701302347518_RemovedUsername.resx">
+      <DependentUpon>201701302347518_RemovedUsername.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

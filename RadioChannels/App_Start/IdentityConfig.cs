@@ -18,6 +18,10 @@ namespace RadioChannels.App_Start
             public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
             {
                 var manager = new ApplicationUserManager(new UserStore<User>(context.Get<RadioContext>()));
+                manager.UserValidator = new UserValidator<User>(manager)
+                {
+                    AllowOnlyAlphanumericUserNames = false
+                };
                 return manager;
             }
         }

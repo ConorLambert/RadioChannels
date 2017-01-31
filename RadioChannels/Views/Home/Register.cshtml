@@ -9,8 +9,7 @@
 @Html.ValidationSummary(true)
 
 @using (Html.BeginForm())
-{
-    @Html.DisplayNameFor(model => model.UserName) @Html.TextBoxFor(model => model.UserName);
+{    
     @Html.DisplayNameFor(model => model.Email) @Html.TextBoxFor(model => model.Email);
     @Html.DisplayNameFor(model => model.PasswordHash) @Html.TextBoxFor(model => model.PasswordHash);
     <p>

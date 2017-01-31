@@ -30,7 +30,7 @@ namespace RadioChannels.Migrations
             {
                 var user = new User()
                 {
-                    UserName = "JohnDoe",
+                    UserName = "john_doe@hotmail.com",
                     Email = "john_doe@hotmail.com"
                 };
 
@@ -41,7 +41,7 @@ namespace RadioChannels.Migrations
             {
                 var user = new User()
                 {
-                    UserName = "SomeChap",
+                    UserName = "some_chap@gmail.com",
                     Email = "some_chap@gmail.com"
                 };
 
@@ -52,7 +52,7 @@ namespace RadioChannels.Migrations
             {
                 var user = new User()
                 {
-                    UserName = "AnotherGuy",
+                    UserName = "another_guy@hotmail.com",
                     Email = "another_guy@hotmail.com"
                 };
 

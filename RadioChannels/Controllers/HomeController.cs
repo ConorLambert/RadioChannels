@@ -90,7 +90,7 @@ namespace RadioChannels.Controllers
                 return View();
             }
 
-            var user = await userManager.FindAsync(model.Email, model.PasswordHash);
+            var user = await userManager.FindAsync(model.Email, model.PasswordHash); // var user = await userManager.FindAsync(model.Email, model.PasswordHash);
 
             if (user != null)
             {
@@ -120,7 +120,8 @@ namespace RadioChannels.Controllers
                 return View();
             }
 
-            var result = await userManager.CreateAsync(model, model.PasswordHash);
+            model.UserName = model.Email;
+            var result = await userManager.CreateAsync(model, model.PasswordHash); // var result = await userManager.CreateAsync(model, model.PasswordHash);
 
             if (result.Succeeded)
             {
@@ -169,7 +170,7 @@ namespace RadioChannels.Controllers
         {
             this.context = HttpContext.GetOwinContext().Get<RadioContext>();
             this.userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-        }
+        }        
 
         private IAuthenticationManager GetAuthenticationManager()
         {

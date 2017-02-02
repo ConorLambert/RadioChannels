@@ -1,0 +1,27 @@
+﻿@model IEnumerable<RadioChannels.Models.Channel>
+@{
+    if (Model != null)
+    {
+        for (int i = 0; i < Model.Count(); ++i)
+        {
+            if (Model.ElementAt(i).CurrentTrack == null)
+            {
+                Model.ElementAt(i).CurrentTrack = "UNKNOWN";
+            }
+
+            <li id="@i">
+                <div class="image" onclick='tunein(@Html.Raw(Json.Encode(Model.ElementAt(i))))'>
+                    <span class="fav-btn"></span>
+                    <span class="default-logo"></span>
+                </div>
+                <div class="info">
+                    <h3 class="title"> <a href="/00sclubhits">@Model.ElementAt(i).Name</a></h3>
+                    <p class="now-playing">
+                        <span class="label">now playing</span>
+                        <a class="track" href="insert/beatport/here">@Model.ElementAt(i).CurrentTrack</a>
+                    </p>
+                </div>
+            </li>
+        }
+    }
+}

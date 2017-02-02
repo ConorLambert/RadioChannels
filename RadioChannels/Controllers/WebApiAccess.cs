@@ -17,20 +17,35 @@ namespace RadioChannels.Controllers
         public WebApiAccess()
         {
             httpClient = new HttpClient();
-            base_uri = "http://localhost:55555/api/channels/values?name=";
+            base_uri = "http://localhost:55555/api/channels/"; // base_uri = "http://localhost:55555/api/channels/values?name=";
+            
         }
 
         public async Task<Channel> GetChannelAsync(string name)
         {
-            Channel channel = null;
-            //Uri uri = new Uri(base_uri + name);
-            string uri = base_uri + Uri.EscapeDataString(name); // HttpUtility.UrlEncode(name);
+            Channel channel = null;            
+            string uri = base_uri + "values?name=" + Uri.EscapeDataString(name);
             try {
                 channel = JsonConvert.DeserializeObject<Channel>(await httpClient.GetStringAsync(uri));                
             } catch(Exception e) {
                 Console.WriteLine(e.Message);
             }
             return channel;
+        }
+
+        public async Task<List<Channel>> GetChannelsAsync(string genre, int count)
+        {
+            List<Channel> channels = null;                        
+            string uri = base_uri + genre + '/' + count.ToString(); 
+            try
+            {
+                channels = JsonConvert.DeserializeObject<List<Channel>>(await httpClient.GetStringAsync(uri));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return channels;
         }
 
     }

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<RadioChannels.Models.Channel>
+
+@{
+    ViewBag.Title = "Favourites";
+}
+
+<p>
+    Hello @User.Identity.Name
+</p>
+<h2 id="main-heading">Radio Stations</h2>
+<div id="categories">
+    <ul id="genres">
+        <li><a onclick="location.href='@Url.Action("IndexAsync", "Home", "all")'">All</a>
+        <li><a onclick='channels_ajax_request("acid house")'>Acid House</a></li>
+        <li><a onclick='channels_ajax_request("chillout")'>Chillout</a></li>
+        <li><a onclick='channels_ajax_request("electro")'>Electro</a></li>
+        <li><a onclick='channels_ajax_request("drum and bass")'>Drum And Bass</a></li>
+        <li><a onclick='channels_ajax_request("dubstep")'>Dubstep</a></li>
+        <li><a onclick='channels_ajax_request("deep house")'>Deep House</a></li>
+        <li><a onclick='channels_ajax_request("house")'>House</a></li>
+        <li><a onclick='channels_ajax_request("hard house")'>Hard House</a></li>
+        <li><a onclick='channels_ajax_request("progressive")'>Progressive</a></li>
+        <li><a onclick='channels_ajax_request("techno")'>Techno</a></li>
+        <li><a onclick='channels_ajax_request("trance")'>Trance</a></li>
+        <li><a onclick='channels_ajax_request("trip hop")'>Trip Hop</a></li>
+    </ul>
+</div>
+<div id="stations-container">
+    <p>
+
+    </p>
+    <div id="stations">
+        <ul>            
+            @for (int i = 0; i < Model.Count(); ++i)
+            {
+                <li id="@i">
+                    <div class="image">
+                        <span class="fav-btn"></span>
+                        <span class="default-logo"></span>
+                    </div>
+                    <div class="info">
+                        <h3 class="title"> <a href="/00sclubhits">@Model.ElementAt(i).Name</a></h3>
+                        <p class="now-playing">
+                            <span class="label">now playing</span>
+                            <a class="track" href="insert/beatport/here">@Model.ElementAt(i).CurrentTrack</a>
+                        </p>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+
+
+

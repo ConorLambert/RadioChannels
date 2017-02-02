@@ -28,9 +28,12 @@ namespace RadioChannels
                       "~/Content/stylesheets/font-awesome.css",
                       "~/Content/stylesheets/main.css",
                       "~/Content/stylesheets/loading.css",
-                      "~/Content/stylesheets/icons.css" ));
-           
-           bundles.Add(new ScriptBundle("~/bundles/angularjs").Include("~/Scripts/angular.js"));
+                      "~/Content/stylesheets/icons.css"));
+
+            bundles.Add(new ScriptBundle("~/js/mvc-spa").Include(
+                    "~/Scripts/jquery-{version}.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/angularjs").Include("~/Scripts/angular.js"));
         }
     }
 }

@@ -240,6 +240,7 @@
     <Content Include="Content\images\sunhawk-small-2%402x.jpg" />
     <Content Include="Content\Site-def.css" />
     <Content Include="Content\stylesheets\font-awesome.css" />
+    <Content Include="Content\stylesheets\forms.css" />
     <Content Include="Content\stylesheets\icons.css" />
     <Content Include="Content\stylesheets\loading.css" />
     <Content Include="Content\stylesheets\main.css" />
@@ -269,6 +270,7 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\control_media.js" />
     <Content Include="Scripts\find_station.js" />
+    <Content Include="Scripts\form-validator.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -277,6 +279,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\password-validator.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\Routing.js" />

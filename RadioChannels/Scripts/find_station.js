@@ -128,6 +128,7 @@ function ajax_request(url) {
             cache: false,
             success: function (data) {
                 $('#page').html(data);
+                ActionOnReady();
             }
         });
     });

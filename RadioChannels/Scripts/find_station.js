@@ -109,7 +109,7 @@ function channels_ajax_request(index) {
             type: "GET",
             contentType: "application/json; charset=utf-8",
             dataType: "html",
-            url: 'Home/IndexAsync/' + current_genre + '/' + index,
+            url: '/Home/IndexAsync/' + current_genre + '/' + index,
             cache: false,
             success: function (data) {
                 $('#stations ul').append(data);
@@ -118,17 +118,17 @@ function channels_ajax_request(index) {
     });
 }
 
-function ajax_request(url) {
+function ajax_request(dest_url, callback) {    
     jQuery(function ($) {
         $.ajax({
             type: "GET",
             contentType: "application/json; charset=utf-8",
             dataType: "html",
-            url: url,
+            url: dest_url,
             cache: false,
             success: function (data) {
                 $('#page').html(data);
-                ActionOnReady();
+                if (typeof callback === 'function' && callback()) { }
             }
         });
     });

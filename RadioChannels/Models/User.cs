@@ -11,6 +11,9 @@ namespace RadioChannels.Models
         public override string Id { get; set; }
         
         // public override string UserName { get; set; }
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
 
         [Required]
         [DataType(DataType.EmailAddress)]

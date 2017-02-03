@@ -4,16 +4,13 @@ namespace RadioChannels.Migrations
     using Microsoft.AspNet.Identity.EntityFramework;
     using RadioChannels.Models;
     using System.Data.Entity.Migrations;
-    using Microsoft.AspNet.Identity.Owin;
-    using System.Web;
-    using RadioChannels.DAL;
 
     internal sealed class Configuration : DbMigrationsConfiguration<RadioChannels.DAL.RadioContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;   
-            
+            AutomaticMigrationsEnabled = true;
+
             /*
             var radioContext = HttpContext.Current.GetOwinContext().Get<RadioContext>();
             Seed(radioContext);
@@ -22,18 +19,18 @@ namespace RadioChannels.Migrations
 
         protected override void Seed(RadioChannels.DAL.RadioContext context)
         {
-            // var userStore = new UserStore<User>(context);
             var userStore = new UserStore<User>(context);
-            var userManager = new UserManager<User>(userStore);            
+            var userManager = new UserManager<User>(userStore);
 
             if (userManager.FindByEmail("john_doe@hotmail.com") == null)
             {
                 var user = new User()
                 {
+                    FirstName = "John",
+                    LastName = "Doe",
                     UserName = "john_doe@hotmail.com",
                     Email = "john_doe@hotmail.com"
                 };
-
                 userManager.Create(user, "P@ssw0rd!");
             }
 
@@ -41,10 +38,11 @@ namespace RadioChannels.Migrations
             {
                 var user = new User()
                 {
+                    FirstName = "Some",
+                    LastName = "Chap",
                     UserName = "some_chap@gmail.com",
                     Email = "some_chap@gmail.com"
                 };
-
                 userManager.Create(user, "Password@123");
             }
 
@@ -52,12 +50,13 @@ namespace RadioChannels.Migrations
             {
                 var user = new User()
                 {
+                    FirstName = "Another",
+                    LastName = "Guy",
                     UserName = "another_guy@hotmail.com",
                     Email = "another_guy@hotmail.com"
                 };
-
                 userManager.Create(user, "Password@321");
-            }            
+            }
 
             var john_doe_id = userManager.FindByEmail("john_doe@hotmail.com").Id;
             var some_chap_id = userManager.FindByEmail("some_chap@gmail.com").Id;

@@ -18,11 +18,11 @@
         <header id="page_header"></header>
         <nav id="navigation">
             <ul>
-                <li id="item-radio-stations"><span></span><a onclick="ajax_request('Home/IndexPartial')">Home</a></li>
-                <li id="item-favourites"><span></span><a onclick="ajax_request('Favourites/Index')">Favourites</a></li> 
-                <li id="item-sign-in"><span></span><a onclick="ajax_request('Account/LogIn')">Sign In</a></li>
-                <li id="item-register"><span></span><a onclick="ajax_request('Account/Register');">Register</a></li>
-                <li><a href="@Url.Action("logout", "home")">Log Out</a></li>
+                <li id="item-radio-stations"><span></span><a onclick="ajax_request('/Home/IndexPartial')">Home</a></li>
+                <li id="item-favourites"><span></span><a onclick="ajax_request('/Favourites/Index')">Favourites</a></li> 
+                <li id="item-sign-in"><span></span><a onclick="ajax_request('/Account/LogIn', ActionOnReady)">Sign In</a></li>
+                <li id="item-register"><span></span><a onclick="ajax_request('/Account/Register', ActionOnReady)">Register</a></li>
+                <li><a href="@Url.Action("logout", "Account")">Log Out</a></li>
             </ul>
         </nav>
         <main id="page">

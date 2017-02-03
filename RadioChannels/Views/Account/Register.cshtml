@@ -12,9 +12,10 @@
 { 
     <ul class="form-style-1">
 
-        <h2>Register</h2>
-
-        <li><label>Full Name <span class="required">*</span></label><input type="text" name="field1" class="field-divided validate" placeholder="First" />&nbsp;<input type="text" name="field2" class="field-divided validate" placeholder="Last" /></li>
+        <h2>Register</h2>        
+        <li>                                                                        
+            <label>Full Name <span class="required">*</span></label>@Html.TextBoxFor(model => model.FirstName, new { @class = "field-long validate", placeholder = "First", name = "field1", type = "text" })&nbsp;@Html.TextBoxFor(model => model.LastName, new { @class = "field-long validate", placeholder = "Last", name = "field2", type = "text" })
+        </li>
         <li>
             <label>@Html.DisplayNameFor(model => model.Email)<span class="required">*</span></label>
             <!-- <input type="email" name="field3" class="field-long" /> -->

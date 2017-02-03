@@ -7,13 +7,13 @@ namespace RadioChannels.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class RemovedUsername : IMigrationMetadata
+    public sealed partial class InitialCreate : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(RemovedUsername));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate));
         
         string IMigrationMetadata.Id
         {
-            get { return "201701302347518_RemovedUsername"; }
+            get { return "201701291826426_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source

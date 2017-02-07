@@ -3,9 +3,6 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using RadioChannels.DAL;
 using RadioChannels.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -19,11 +16,68 @@ namespace RadioChannels.Controllers
         private RadioContext context;
         private ApplicationUserManager userManager;
 
-        // GET: Account
+        
         public ActionResult Index()
         {
             return PartialView();
         }
+        
+
+        // EXTERNAL LOGIN/REGISTER
+
+        public ActionResult LoginGoogle()
+        {
+            HttpContext.GetOwinContext().Authentication.Challenge(new Microsoft.Owin.Security.AuthenticationProperties
+            {
+                RedirectUri = "/Account/ExternalLinkLoginCallback"
+            }, "Google");
+            return new HttpUnauthorizedResult();
+        }
+
+        public ActionResult LoginFacebook()
+        {
+            HttpContext.GetOwinContext().Authentication.Challenge(new Microsoft.Owin.Security.AuthenticationProperties
+            {
+                RedirectUri = "/Account/ExternalLinkLoginCallback"
+            }, "Facebook");
+            return new HttpUnauthorizedResult();
+        }
+
+        public async Task<ActionResult> ExternalLinkLoginCallback()
+        {
+            setContextProperties();
+            // Handle external Login Callback
+            var loginInfo = await AuthenticationManagerExtensions.GetExternalLoginInfoAsync(HttpContext.GetOwinContext().Authentication);
+            if (loginInfo == null)
+            {
+                return RedirectToAction("Login");
+            }
+            
+            // check if the user already exists            
+            var user = new User { UserName = loginInfo.Email, Email = loginInfo.Email };
+            var result = await userManager.CreateAsync(user);
+            if (result.Succeeded) // if not
+            {
+                result = await userManager.AddLoginAsync(user.Id, loginInfo.Login);
+                if (result.Succeeded)
+                {
+                    await new SignInManager<User, string>(userManager, HttpContext.GetOwinContext().Authentication).ExternalSignInAsync(loginInfo, isPersistent: false);
+                    return RedirectToAction("index", "home");
+                } else {
+                    ModelState.AddModelError("", "Invalid email or password");
+                    return RedirectToAction("Register", ModelState);
+                }
+            }
+            else  // else its a basic external login
+            {
+                await new SignInManager<User, string>(userManager, HttpContext.GetOwinContext().Authentication).ExternalSignInAsync(loginInfo, isPersistent: false);
+                return RedirectToAction("index", "home");
+            }
+        }
+
+
+
+        // LOCAL LOGIN/REGISTER
 
         [HttpGet]
         public ActionResult LogIn(string returnUrl)
@@ -45,20 +99,17 @@ namespace RadioChannels.Controllers
             {
                 return View();
             }
-
-            var user = await userManager.FindAsync(model.Email, model.PasswordHash); // var user = await userManager.FindAsync(model.Email, model.PasswordHash);
-
+            var user = await userManager.FindAsync(model.Email, model.PasswordHash); 
             if (user != null)
             {
                 await SignIn(user);
-                return Redirect(Url.Action("index", "home")); //GetRedirectUrl(model.ReturnUrl));
+                return Redirect(Url.Action("index", "home")); // GetRedirectUrl(model.ReturnUrl));
             }
 
             // user authN failed
             ModelState.AddModelError("", "Invalid email or password");
             return PartialView();
         }
-
 
         [HttpGet]
         public ActionResult Register()
@@ -91,7 +142,7 @@ namespace RadioChannels.Controllers
             }
 
             return PartialView();
-        }
+        }        
         
         public ActionResult LogOut()
         {
@@ -108,6 +159,10 @@ namespace RadioChannels.Controllers
             GetAuthenticationManager().SignIn(identity);
         }
 
+
+
+        // HELPER METHODS
+         
         public void setContextProperties()
         {
             this.context = HttpContext.GetOwinContext().Get<RadioContext>();

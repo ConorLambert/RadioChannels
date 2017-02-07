@@ -11,6 +11,7 @@
     <link  href="~/Content/stylesheets/icons.css" rel="stylesheet" type="text/css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet" type="text/css">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <link href="https://fonts.googleapis.com/css?family=Amiri|Cantarell|Crimson+Text|Gentium+Basic|Muli|Nunito+Sans|Quattrocento+Sans|Quicksand|Raleway|Ubuntu" rel="stylesheet">
 </head>
 <body>
@@ -22,7 +23,7 @@
                 <li id="item-favourites"><span></span><a onclick="ajax_request('/Favourites/Index')">Favourites</a></li> 
                 <li id="item-sign-in"><span></span><a onclick="ajax_request('/Account/LogIn', ActionOnReady)">Sign In</a></li>
                 <li id="item-register"><span></span><a onclick="ajax_request('/Account/Register', ActionOnReady)">Register</a></li>
-                <li><a href="@Url.Action("logout", "Account")">Log Out</a></li>
+                <li><a onclick="signOut()" href="@Url.Action("logout", "Account")">Log Out</a></li>
             </ul>
         </nav>
         <main id="page">

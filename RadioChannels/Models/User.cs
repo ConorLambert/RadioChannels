@@ -19,7 +19,7 @@ namespace RadioChannels.Models
         [DataType(DataType.EmailAddress)]
         public override string Email { get; set; }
 
-        [Required]
+        // [Required]
         [DataType(DataType.Password)]
         public override string PasswordHash { get; set; }
 

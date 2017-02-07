@@ -46,6 +46,7 @@ C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels
 C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\bin\Microsoft.Owin.Host.SystemWeb.dll
 C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\bin\Microsoft.Owin.Security.Cookies.dll
 C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\bin\Microsoft.Owin.Security.dll
+C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\bin\Microsoft.Owin.Security.Google.dll
 C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\bin\Microsoft.Owin.Security.OAuth.dll
 C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\bin\Newtonsoft.Json.dll
@@ -75,6 +76,7 @@ C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels
 C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\bin\Microsoft.Owin.Host.SystemWeb.xml
 C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\bin\Microsoft.Owin.Security.xml
 C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\bin\Microsoft.Owin.Security.OAuth.xml
 C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\bin\Ninject.xml
 C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\bin\Ninject.Web.Common.xml
@@ -96,8 +98,12 @@ C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels
 C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\bin\Microsoft.AI.ServerTelemetryChannel.xml
 C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\bin\Microsoft.AI.Web.xml
+C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\obj\Debug\RadioChannels.csprojResolveAssemblyReference.cache
+C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\obj\Debug\RadioChannels.Migrations.InitialCreate.resources
+C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\obj\Debug\RadioChannels.Migrations.FullName.resources
+C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\obj\Debug\RadioChannels.csproj.GenerateResource.Cache
 C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\obj\Debug\RadioChannels.dll
 C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\obj\Debug\RadioChannels.pdb
-C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\obj\Debug\RadioChannels.Migrations.InitialCreate.resources
-C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\obj\Debug\RadioChannels.csproj.GenerateResource.Cache
-C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\obj\Debug\RadioChannels.Migrations.FullName.resources
+C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\obj\Debug\RadioChannels.Migrations.RemovePasswordRequired.resources
+C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\bin\Microsoft.Owin.Security.Facebook.xml

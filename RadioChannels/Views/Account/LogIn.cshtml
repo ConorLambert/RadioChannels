@@ -16,7 +16,7 @@
         <li>
             <label>@Html.DisplayNameFor(model => model.Email)<span class="required">*</span></label>
             <!-- <input type="email" name="field3" class="field-long" /> -->
-            @Html.TextBoxFor(model => model.Email, new { @class = "field-long validate", name = "field1", type = "email" })
+            @Html.TextBoxFor(model => model.Email, new { @class = "field-long validate", name="field1", type="email" })
         </li>
         <li>
             <label>Password<span class="required">*</span></label>           
@@ -25,6 +25,10 @@
         <li>
             <input id="submit" type="submit" value="Log In" />
             <span class="change-log-in">Dont have an account? <a onclick="ajax_request('Account/Register');">Register</a></span>
-        </li>        
+        </li>  
+        <li>
+            <div class="icon-google-plus">@Html.ActionLink("Login", "LoginGoogle")</div>
+            <div>@Html.ActionLink("Login With Facebook", "LoginFacebook")</div>
+        </li>      
     </ul>
 }

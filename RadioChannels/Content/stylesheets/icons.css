@@ -27,6 +27,12 @@
 
 
 
+/* LOGOS */
+.external-logos {
+    font-size: 1.8em;
+}
+
+
 /* CATEGORIES */
 
 #categories ul li:hover, #stations ul li:hover {

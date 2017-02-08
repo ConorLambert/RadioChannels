@@ -1,12 +1,9 @@
 ﻿using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 using RadioChannels.DAL;
-using RadioChannels.Models;
 using static RadioChannels.App_Start.IdentityConfig;
-using Microsoft.Owin.Host.SystemWeb;
 using Microsoft.Owin.Security.Google;
 using RadioChannels.Controllers;
 
@@ -18,7 +15,7 @@ namespace RadioChannels
         {
             app.CreatePerOwinContext(RadioContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
-           
+
             // this is the same as before
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
@@ -32,16 +29,25 @@ namespace RadioChannels
                 new GoogleOAuth2AuthenticationOptions()
                 {
                     ClientId = "357587284095-gim85juuaahqnpeau7f3tuuokn2bmob8.apps.googleusercontent.com",
-                    ClientSecret = "53UOuDwOm4gDlM9Hj2dFcq9T"                     
+                    ClientSecret = "53UOuDwOm4gDlM9Hj2dFcq9T"
                 });
 
-            app.UseFacebookAuthentication(new Microsoft.Owin.Security.Facebook.FacebookAuthenticationOptions {
+            app.UseFacebookAuthentication(new Microsoft.Owin.Security.Facebook.FacebookAuthenticationOptions
+            {
                 AppId = "1243205902424539",
                 AppSecret = "7ccefdfe49196eeb74a05f1710b324d5",
-                Scope = {"email"},
+                Scope = { "email" },
                 BackchannelHttpHandler = new FacebookBackChannelHandler(),
                 UserInformationEndpoint = "https://graph.facebook.com/v2.4/me?fields=id,name,email,first_name,last_name"
             });
+            
+            app.UseTwitterAuthentication(new Microsoft.Owin.Security.Twitter.TwitterAuthenticationOptions
+            {
+                ConsumerKey = "9VFMBCdIKdpWrZmiKmZFBAp9s",
+                ConsumerSecret = "frC783FH7gQxun2g0l3CzJut1WGHDevEwbjAvW5unH4uZXICog",              
+                BackchannelCertificateValidator = null ,
+                Provider = new LinqToTwitterAuthenticationProvider()
+            });            
         }
     }
 }

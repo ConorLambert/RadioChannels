@@ -24,11 +24,14 @@
         </li>        
         <li>
             <input id="submit" type="submit" value="Log In" />
-            <span class="change-log-in">Dont have an account? <a onclick="ajax_request('Account/Register');">Register</a></span>
+            <span class="change-log-in">Don't have an account? <a onclick="ajax_request('/Account/Register', ActionOnReady);">Register</a></span>
         </li>  
-        <li>
-            <div class="icon-google-plus">@Html.ActionLink("Login", "LoginGoogle")</div>
-            <div>@Html.ActionLink("Login With Facebook", "LoginFacebook")</div>
+        <li class="form-line"></li>
+        <li class="logos-placeholder">  
+            <span>Or Log In Using </span>          
+            <a class="icon-google-plus external-logos" href="@Url.Action("LoginExternal", "Account", new { provider = "Google"})"></a>
+            <a class="icon-facebook-sign external-logos" href="@Url.Action("LoginExternal", "Account", new { provider = "Facebook"})"></a>
+            <a class="icon-twitter-sign external-logos" href="@Url.Action("LoginExternal", "Account", new { provider = "Twitter"})"></a>
         </li>      
     </ul>
 }

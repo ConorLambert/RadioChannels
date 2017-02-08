@@ -20,10 +20,16 @@
         <nav id="navigation">
             <ul>
                 <li id="item-radio-stations"><span></span><a onclick="ajax_request('/Home/IndexPartial')">Home</a></li>
-                <li id="item-favourites"><span></span><a onclick="ajax_request('/Favourites/Index')">Favourites</a></li> 
-                <li id="item-sign-in"><span></span><a onclick="ajax_request('/Account/LogIn', ActionOnReady)">Sign In</a></li>
-                <li id="item-register"><span></span><a onclick="ajax_request('/Account/Register', ActionOnReady)">Register</a></li>
-                <li><a onclick="signOut()" href="@Url.Action("logout", "Account")">Log Out</a></li>
+                <li id="item-favourites"><span></span><a onclick="ajax_request('/Favourites/Index')">Favourites</a></li>                 
+                @if (Request.IsAuthenticated)
+                {
+                    <li id="item-sign-in"><span></span><a onclick="signOut()" href="@Url.Action("Logout", "Account")">Log Out</a></li>
+                }
+                else
+                {
+                    <li id="item-sign-in"><span></span><a onclick="ajax_request('/Account/Register', ActionOnReady)">Register / Sign In</a></li>
+                }
+
             </ul>
         </nav>
         <main id="page">

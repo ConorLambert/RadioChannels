@@ -6,6 +6,18 @@
     text-decoration: underline;
 }
 
+.form-line {
+    border-top: 1px solid #2D4F7F;
+}
+
+.logos-placeholder a {
+    margin-right: 20px;
+}
+
+.logos-placeholder span {
+    margin-right: 15px;
+}
+
 .password-success, .password-error {    
     font-size: 0.8em;
     position: absolute;
@@ -18,6 +30,10 @@
 
 .password-error {        
     color: red;    
+}
+
+#submit {
+    margin-right: 20px;
 }
 
 .form-style-1 {

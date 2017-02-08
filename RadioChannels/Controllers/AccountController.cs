@@ -3,6 +3,13 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using RadioChannels.DAL;
 using RadioChannels.Models;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
+using System.Runtime.Serialization.Json;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -43,16 +50,35 @@ namespace RadioChannels.Controllers
             return new HttpUnauthorizedResult();
         }
 
+        public ActionResult LoginTwitter()
+        {
+            HttpContext.GetOwinContext().Authentication.Challenge(new Microsoft.Owin.Security.AuthenticationProperties
+            {
+                RedirectUri = "/Account/ExternalLinkLoginCallback"
+            }, "Twitter");
+            return new HttpUnauthorizedResult();
+        }
+
+        public ActionResult LoginExternal(string provider)
+        {
+            HttpContext.GetOwinContext().Authentication.Challenge(new Microsoft.Owin.Security.AuthenticationProperties
+            {
+                RedirectUri = "/Account/ExternalLinkLoginCallback"
+            }, provider);
+            return new HttpUnauthorizedResult();
+        }
+
         public async Task<ActionResult> ExternalLinkLoginCallback()
         {
             setContextProperties();
+            
             // Handle external Login Callback
             var loginInfo = await AuthenticationManagerExtensions.GetExternalLoginInfoAsync(HttpContext.GetOwinContext().Authentication);
             if (loginInfo == null)
             {
                 return RedirectToAction("Login");
-            }
-            
+            }           
+
             // check if the user already exists            
             var user = new User { UserName = loginInfo.Email, Email = loginInfo.Email };
             var result = await userManager.CreateAsync(user);
@@ -73,8 +99,7 @@ namespace RadioChannels.Controllers
                 await new SignInManager<User, string>(userManager, HttpContext.GetOwinContext().Authentication).ExternalSignInAsync(loginInfo, isPersistent: false);
                 return RedirectToAction("index", "home");
             }
-        }
-
+        }    
 
 
         // LOCAL LOGIN/REGISTER
@@ -87,6 +112,11 @@ namespace RadioChannels.Controllers
             {
                 ReturnUrl = returnUrl
             };
+
+            var providers = HttpContext.GetOwinContext()
+                .Authentication.GetAuthenticationTypes(x => !string.IsNullOrEmpty(x.Caption))
+                .ToList();
+            //model.AuthProviders - providers;
 
             return PartialView(model);
         }

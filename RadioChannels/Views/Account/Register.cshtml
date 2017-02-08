@@ -31,7 +31,14 @@
         </li>
         <li>
             <input id="submit" type="submit" value="Register" />
-            <span class="change-log-in">Already have an account? <a onclick="ajax_request('Account/LogIn');">Log In</a></span>
-        </li>        
+            <span class="change-log-in">Already have an account? <a onclick="ajax_request('/Account/LogIn', ActionOnReady);">Log In</a></span>
+        </li>  
+        <li class="form-line"></li>
+        <li class="logos-placeholder">
+            <span>Or Register Using </span>
+            <a class="icon-google-plus external-logos" href="@Url.Action("LoginExternal", "Account", new { provider = "Google"})"></a>
+            <a class="icon-facebook-sign external-logos" href="@Url.Action("LoginExternal", "Account", new { provider = "Facebook"})"></a>
+            <a class="icon-twitter-sign external-logos" href="@Url.Action("LoginExternal", "Account", new { provider = "Twitter"})"></a>
+        </li>      
     </ul>
 }

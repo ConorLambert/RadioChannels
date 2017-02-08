@@ -107,3 +107,5 @@ C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels
 C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\obj\Debug\RadioChannels.Migrations.RemovePasswordRequired.resources
 C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\bin\Microsoft.Owin.Security.Facebook.dll
 C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Users\Conor\documents\visual studio 2017\Projects\RadioChannels\RadioChannels\bin\Microsoft.Owin.Security.Twitter.xml

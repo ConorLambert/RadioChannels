@@ -2,6 +2,7 @@ var api_key = "sJXVu3hXGmKjJiIx";
 var channels = [];
 var offset = 0;
 var current_genre = "";
+var current_channel = "";
 
 
 $(document).ready(function () {
@@ -11,6 +12,12 @@ $(document).ready(function () {
         current_genre = $(this).text().toLowerCase();        
         channels_ajax_request(0);
         triggerScrollEvent();
+    });
+    // VOLUME
+    $(".audio-player-volume-bar").click(function (e) {
+        var x = e.pageX - $(this).offset().left;
+        $("audio-player-volume-bar").css({ width: "25%" });
+        $("#jplayer").jPlayer("volume", x);
     });
 });
 
@@ -37,22 +44,79 @@ function initializePlayer() {
 
         },        
         flashreset: function () {},
-        error: function (e) {                        
+        error: function (e) {            
             console.log(e);
         }
     });
 }
 
-function tunein(channel) {
-    stream(channel);
-    if (channel.Logo !== null) {
-        $(".audio-player-image img").attr('src', channel.Logo + '?' + Math.random());
-        $(".audio-player-image img").show();
-    } else {
-        $(".audio-player-image img").hide();
-    }    
-    $('.audio-player-song-name').text(channel.CurrentTrack);
+// events
+
+$("#jplayer").bind($.jPlayer.event.play, function (event) {
+    $(".audio-player-controls").find(".audio-player-button").removeClass("icon-play");
+    $(".audio-player-controls").find(".audio-player-button").addClass("icon-pause");
+    $(".audio-player-progress").addClass("loading");
+});
+
+$("#jplayer").bind($.jPlayer.event.pause, function (event) { // Add a listener to report the time play began
+    $(".audio-player-controls").find(".audio-player-button").removeClass("icon-pause");
+    $(".audio-player-controls").find(".audio-player-button").addClass("icon-play");
+});
+
+$("#jplayer").bind($.jPlayer.event.error, function (event) { // Add a listener to report the time play began
+    togglePlayStationControl(current_channel);  // reset control back to default
+});
+
+$("#jplayer").bind($.jPlayer.event.loadstart, function (event) {
+    // progress bar    
+    $(".audio-player-progress").addClass("loading");
+});
+
+$("#jplayer").bind($.jPlayer.event.playing, function (event) {
+    // progress bar    
+    $(".audio-player-progress").removeClass("loading");
+    $("audio-player-progress-bar").css({width: "25%"});
+});
+
+
+function tunein(channel, elem) {
+    togglePlayStationControl(elem);
+    if (current_channel === elem) { // we have selected the channel that is currently selected              
+        toggleStreaming();    
+    } else {          
+        if ($("#jplayer").data().jPlayer.status.paused == false) 
+            togglePlayStationControl(current_channel);
+        current_channel = elem;
+        stream(channel);
+        if (channel.Logo !== null) {
+            $(".audio-player-image img").attr('src', channel.Logo + '?' + Math.random());
+            $(".audio-player-image img").show();
+        } else {
+            $(".audio-player-image img").hide();
+        }
+        $('.audio-player-song-name').text(channel.CurrentTrack);
+    }      
 }
+
+function toggleStreaming() {
+    if ($("#jplayer").data().jPlayer.status.paused == false) {
+        $('#jplayer').jPlayer('pause');
+    } else {
+        $('#jplayer').jPlayer('play');
+    }
+}
+
+function continueStream() {
+    // continue streaming the currently playing channel
+    togglePlayStationControl(current_channel);
+    toggleStreaming();
+}
+
+// li channel item play button control
+function togglePlayStationControl(item) {
+    $(item).find(".activity").toggleClass("icon-pause icon-play");
+}
+
 
 function stream(channel) {
 
@@ -79,6 +143,9 @@ function stream(channel) {
     });
 
 }
+
+
+
 
 
 // SEARCH

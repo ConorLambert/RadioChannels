@@ -20,7 +20,7 @@
         <nav id="navigation">
             <ul>
                 <li id="item-radio-stations"><span></span><a onclick="ajax_request('/Home/IndexPartial')">Home</a></li>
-                <li id="item-favourites"><span></span><a onclick="ajax_request('/Favourites/Index')">Favourites</a></li>                 
+                <li id="item-favourites"><span class="fav-btn"></span><a onclick="ajax_request('/Favourites/Index')">Favourites</a></li>                 
                 @if (Request.IsAuthenticated)
                 {
                     <li id="item-sign-in"><span></span><a onclick="signOut()" href="@Url.Action("Logout", "Account")">Log Out</a></li>
@@ -29,7 +29,6 @@
                 {
                     <li id="item-sign-in"><span></span><a onclick="ajax_request('/Account/Register', ActionOnReady)">Register / Sign In</a></li>
                 }
-
             </ul>
         </nav>
         <main id="page">
@@ -42,9 +41,9 @@
             </div>            
             <div class="audio-player-image"><img /></div>                
             <div class="audio-player-song-name"></div>
-            <div id="add-favourite"></div>
+            <div id="add-favourite" class="fav-btn"></div>
             <div class="audio-player-controls">
-                <a role="button" class="audio-player-button audio-player-place-pause-button icon-play"></a>
+                <a role="button" class="audio-player-button audio-player-place-pause-button icon-play" onclick="continueStream()"></a>
                 <span class="audio-player-progress">
                     <span class="audio-player-progress-bar"></span>
                 </span>

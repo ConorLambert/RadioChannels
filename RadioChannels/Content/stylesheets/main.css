@@ -83,11 +83,11 @@ main {
     width: 99%;
 }
 
-    #navigation ul li {
-        margin-top: 20px;
-        padding-left: 4px;
-        text-align: left;
-    }
+#navigation ul li {
+    margin-top: 20px;
+    padding-left: 4px;
+    text-align: left;
+}
 
 .nav-clicked {
     margin-left: -4px;
@@ -163,11 +163,15 @@ main {
     background-color: #132040;
 }
 
+.fav-btn {
+    font-size: 1.7em;
+}
+
 .image {
     text-align: center;
 }
 
-.default-logo {
+.activity {
     display: block;
 }
 
@@ -295,11 +299,12 @@ main {
     -o-transition: width 200ms linear;
     transition: width 200ms linear;
     display: block;
-    height: 100%;
-    width: 0;
+    height: 2px;
+    width: 15%;
     max-width: 100%;
+    color: aqua;
     background-color: #808e97;
-    border-radius: 25px;
+    border-radius: 0px;
 }
 
 .audio-player-volume-bar {

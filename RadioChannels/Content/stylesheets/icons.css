@@ -13,9 +13,10 @@
     font-family: FontAwesome;        
 }
 
-#item-favourites span:before, #add-favourite:before {
+.fav-btn:before {
     content: "\f006";
     font-family: FontAwesome;
+    cursor: pointer;
 }
 
 #item-sign-in span:before {
@@ -39,18 +40,44 @@
     border: 1px inset aqua;
 }
 
-.default-logo:before {
-    content: "\f025";
+/* place the headphone icon */
+.activity.icon-headphones {
     font-family: FontAwesome;
     font-size: 6.4em;
 }
 
-.default-logo:hover:before {
-    content: "\f144";
-    font-family: FontAwesome;
+.activity.icon-play {
     font-size: 6.4em;
     cursor: pointer;
 }
+
+/* when hovering, place the play icon */
+/*
+.activity.icon-headphones:hover {
+    content: "\f144";
+    font-family: FontAwesome;
+    font-size: 2.4em;
+    cursor: pointer;
+}
+    */
+
+.fav-btn:hover:before {
+    content: "\f005";
+    font-family: FontAwesome;
+    cursor: pointer;
+}
+
+#stations .icon-pause {
+    display: block;
+    font-size: 6.4em;
+    font-family: FontAwesome;
+}
+
+.icon-pause:hover {
+    cursor: pointer;
+}
+
+
 
 
 /* AUDIO PLAYER */

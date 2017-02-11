@@ -1,11 +1,14 @@
-var api_key = "sJXVu3hXGmKjJiIx";
+﻿var api_key = "sJXVu3hXGmKjJiIx";
 var channels = [];
 var offset = 0;
 var current_genre = "";
 var current_channel = "";
+var current_volume = 1.0;
+var oldx = 0;
+var newx = 0;
 
 
-$(document).ready(function () {
+$(document).ready(function () {        
     initializePlayer();
     $("#genres").on("click", "a", function () {        
         $('#stations ul').empty();  // remove the current list of stations if any
@@ -13,11 +16,27 @@ $(document).ready(function () {
         channels_ajax_request(0);
         triggerScrollEvent();
     });
+
     // VOLUME
-    $(".audio-player-volume-bar").click(function (e) {
+    $(".volumeBar").click(function (e) {
         var x = e.pageX - $(this).offset().left;
-        $("audio-player-volume-bar").css({ width: "25%" });
-        $("#jplayer").jPlayer("volume", x);
+        var width = parseFloat($(".volumeBar").width());
+        var new_volume = ((x / width) * 100);
+        $(".audio-player-volume-bar").css({ width: new_volume + "%" });
+        current_volume = new_volume / 100;
+        $("#jplayer").jPlayer("volume", current_volume);
+    });    
+
+    $(".volume-down").click(function () {        
+        current_volume = current_volume - 0.05 > 0 ? (current_volume - 0.05) : 0;
+        $("#jplayer").jPlayer("volume", current_volume);
+        $(".audio-player-volume-bar").css({ width: (current_volume * 100) + "%" });
+    });
+
+    $(".volume-up").click(function () {        
+        current_volume = current_volume + 0.05 < 1.0 ? (current_volume + 0.05) : 1.0;
+        $("#jplayer").jPlayer("volume", current_volume);
+        $(".audio-player-volume-bar").css({ width: (current_volume * 100) + "%" });
     });
 });
 
@@ -39,7 +58,7 @@ function initializePlayer() {
         preload: 'none',
         wmode: 'window',
         keyEnabled: true,
-        volume: 1.0,
+        volume: current_volume,
         ready: function () {
 
         },        
@@ -55,7 +74,8 @@ function initializePlayer() {
 $("#jplayer").bind($.jPlayer.event.play, function (event) {
     $(".audio-player-controls").find(".audio-player-button").removeClass("icon-play");
     $(".audio-player-controls").find(".audio-player-button").addClass("icon-pause");
-    $(".audio-player-progress").addClass("loading");
+    $(".audio-player-progress").addClass("loading");  
+    // connect stream to waves canvas
 });
 
 $("#jplayer").bind($.jPlayer.event.pause, function (event) { // Add a listener to report the time play began
@@ -80,6 +100,11 @@ $("#jplayer").bind($.jPlayer.event.playing, function (event) {
 
 
 function tunein(channel, elem) {
+    // adjust scroll viewport            
+    $('#stations').animate({
+        scrollTop: $("#stations").scrollTop() + ($(elem).position().top - $("#stations").position().top) - ($("#stations").height() / 2) + ($(elem).height() / 2)
+    }, 1000);
+    
     togglePlayStationControl(elem);
     if (current_channel === elem) { // we have selected the channel that is currently selected              
         toggleStreaming();    
@@ -118,6 +143,23 @@ function togglePlayStationControl(item) {
 }
 
 
+function nextStation() {
+    if (current_channel === undefined) return null;
+    if ($(current_channel).closest("li").next().length === 0)
+        $("#stations ul li:nth-child(1)").find(".image").trigger("onclick");
+    else                 
+        $(current_channel).closest("li").next().find(".image").trigger("onclick");
+}
+
+function previousStation() {
+    if (current_channel === undefined) return null;
+    if ($(current_channel).closest("li").prev().length === 0)
+        $("#stations ul li:nth-child(" + $('#stations ul li').length + ")").find(".image").trigger("onclick");     
+    else
+        $(current_channel).closest("li").prev().find(".image").trigger("onclick");
+}
+
+
 function stream(channel) {
 
     // HTTP "Content-Type" of "audio/aacp" is not supported
@@ -143,9 +185,6 @@ function stream(channel) {
     });
 
 }
-
-
-
 
 
 // SEARCH
@@ -200,4 +239,3 @@ function ajax_request(dest_url, callback) {
         });
     });
 }
-

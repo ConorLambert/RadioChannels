@@ -257,6 +257,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\stylesheets\audio-waves.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\sunhawk-small%402x.jpg" />
@@ -267,6 +268,7 @@
     <Content Include="Content\stylesheets\icons.css" />
     <Content Include="Content\stylesheets\loading.css" />
     <Content Include="Content\stylesheets\main.css" />
+    <Content Include="Content\stylesheets\playback-panel.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\font\fontawesome-webfont.svg" />
@@ -292,7 +294,6 @@
     <Content Include="fonts\font\fontawesome-webfont.woff" />
     <Content Include="fonts\font\FontAwesome.otf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\control_media.js" />
     <Content Include="Scripts\find_station.js" />
     <Content Include="Scripts\form-validator.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -304,6 +305,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\password-validator.js" />
+    <Content Include="Scripts\playback-panel.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\Routing.js" />

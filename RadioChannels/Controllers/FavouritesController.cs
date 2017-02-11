@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using static RadioChannels.App_Start.IdentityConfig;
+using Microsoft.AspNet.Identity;
+using System.Net.Http;
+using System.Net;
 
 namespace RadioChannels.Controllers
 {
@@ -18,6 +21,7 @@ namespace RadioChannels.Controllers
         private RadioContext context;
         private ApplicationUserManager userManager;
 
+        // GET FAVOURTIES
         [HttpGet]
         public async Task<ActionResult> Index()
         {
@@ -42,6 +46,29 @@ namespace RadioChannels.Controllers
 
             return PartialView("Favourites", channels);            
         }
+
+
+        // ADD FAVOURITES
+        [HttpPost]
+        public ActionResult AddFavourite(string id)
+        {
+            setContextProperties();
+            // get the current user logged in
+            string user = User.Identity.GetUserId();
+
+            if (user == null)
+            {                
+                return Json(new { success = false, responseText = "You must be logged in to use this feature" }, JsonRequestBehavior.AllowGet);
+            }
+
+            // add channel to Favourties database based on user id
+            context.Favourite.Add(new Favourite { UserId = user, ChannelName = id });
+            context.SaveChanges();
+            
+            //  Send "Success"
+            return Json(new { success = true, responseText = "Successfully added " + id + " to Favourites" }, JsonRequestBehavior.AllowGet);            
+        }
+
 
         public void setContextProperties()
         {

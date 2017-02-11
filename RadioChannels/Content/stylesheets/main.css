@@ -224,7 +224,7 @@ main {
 
 .audio-player-image {
     line-height: inherit;
-    width: 150px;
+    width: 100px;
 }
 
     .audio-player-image img {
@@ -232,7 +232,7 @@ main {
         height: 100%;
         width: 60px;
         vertical-align: middle;
-        margin-right: 20px;
+        margin-right: 10px;
         -webkit-backface-visibility: hidden;
     }
 
@@ -240,7 +240,7 @@ main {
     vertical-align: middle;
     color: white;
     text-transform: uppercase;
-    margin-right: 20px;
+    margin-right: 10px;
     width: 300px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -258,7 +258,7 @@ main {
 .audio-player-controls {
     display: inline-block;
     margin-left: 30px;
-    margin-right: 80px;
+    margin-right: 40px;
     padding-right: 40px;
     border-right: 1px solid #002138;
 }
@@ -274,12 +274,17 @@ main {
     position: relative;
     vertical-align: middle;
     width: 35px;
-    height: 35px;
-    margin: 0 5px;
+    height: 35px;    
+    margin-right: 20px;
     border-radius: 100%;
     border: 3px solid;
     opacity: 0.8;
     cursor: pointer;
+}
+
+.icon-forward, .icon-backward {
+    font-size: 1.3em;
+    vertical-align: middle;
 }
 
 .audio-player-progress {
@@ -289,6 +294,7 @@ main {
     border-radius: 25px;
     width: 300px;
     margin-left: 20px;
+    margin-right: 20px;
     background-color: #A6CBFF;
     overflow: hidden;
 }
@@ -299,21 +305,54 @@ main {
     -o-transition: width 200ms linear;
     transition: width 200ms linear;
     display: block;
-    height: 2px;
-    width: 15%;
+    height: 2px;    
     max-width: 100%;
-    color: aqua;
-    background-color: #808e97;
     border-radius: 0px;
 }
 
-.audio-player-volume-bar {
+.volumeBar {
     display: inline-block;
+    position: relative;
     vertical-align: middle;
     width: 170px;
     height: 4px;
     margin-left: 20px;
     margin-right: 20px;
-    background-color: #A6CBFF;
+    border: 1px solid #A6CBFF;
+    border-radius: 3px;
     overflow: hidden;
+}
+
+.audio-player-volume-bar {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    background-color: #A6CBFF;
+    position: absolute;
+}
+
+.volumeBar, .volume-up, .volume-down {
+    -webkit-user-select: none; /* Chrome/Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
+}
+
+.volumeBar:hover, .volume-up:hover, .volume-down:hover {
+    cursor: pointer;
+}
+
+
+/* TOOLTIP */
+.tooltiptext {
+    width: 320px;
+    color: #002138;
+    background-color: #A6CBFF;
+    font-size: 2.4em;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    border: 1px solid #A6CBFF;
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 3;
 }

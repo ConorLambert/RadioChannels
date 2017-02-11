@@ -14,10 +14,10 @@
                     <span class="activity icon-headphones" 
                           onmouseover="$(this).toggleClass('icon-headphones icon-play')" 
                           onmouseout="$(this).toggleClass('icon-headphones icon-play')"></span>
-                    <span class="fav-btn"></span>
+                    <span class="fav-btn" onclick="addToFavourites(this)"></span>
                 </div>
                 <div class="info">
-                    <h3 class="title"> <a>@Model.ElementAt(i).Name</a></h3>
+                    <h3 class="title"><a>@Model.ElementAt(i).Name</a></h3>
                     <p class="now-playing">
                         <span class="label">now playing</span>
                         <a class="track" href="insert/beatport/here">@Model.ElementAt(i).CurrentTrack</a>

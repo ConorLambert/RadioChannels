@@ -2,7 +2,7 @@
 var channels = [];
 var offset = 0;
 var current_genre = "";
-var current_channel = "";
+var current_channel = undefined;
 var current_volume = 1.0;
 var oldx = 0;
 var newx = 0;
@@ -10,12 +10,7 @@ var newx = 0;
 
 $(document).ready(function () {        
     initializePlayer();
-    $("#genres").on("click", "a", function () {        
-        $('#stations ul').empty();  // remove the current list of stations if any
-        current_genre = $(this).text().toLowerCase();        
-        channels_ajax_request(0);
-        triggerScrollEvent();
-    });
+    triggerGenreSelect();
 
     // VOLUME
     $(".volumeBar").click(function (e) {
@@ -38,8 +33,31 @@ $(document).ready(function () {
         $("#jplayer").jPlayer("volume", current_volume);
         $(".audio-player-volume-bar").css({ width: (current_volume * 100) + "%" });
     });
+
+    var imgWidth = $('.regular-image').width();
+    $('.artist').width(imgWidth);
+
+    $("#navigation a").on("click", function () {
+        $("#navigation li").removeClass("nav-clicked"); // Remove all highlights
+        $(this).parent('li').addClass("nav-clicked"); // Add the class only for actually clicked element
+    });
 });
 
+
+// EVENTS
+function triggerGenreSelect() {
+    $("#genres").on("click", "a", function () {
+        $('#stations ul').empty();  // remove the current list of stations if any
+        current_genre = $(this).text().toLowerCase();
+        channels_ajax_request(0);
+        triggerScrollEvent();
+    });
+
+    $("#categories a").on("click", function () {
+        $("#categories li").removeClass("clicked"); // Remove all highlights
+        $(this).parent('li').addClass("clicked"); // Add the class only for actually clicked element
+    });
+}
 
 
 // PLAYER
@@ -208,7 +226,48 @@ function triggerScrollEvent() {
 }
 
 
+
+// FAVOURITES
+
+function addToFavourites(elem) {    
+
+    if ($(elem).is("#add-favourite")) {   // if the favourite button was clicked from the audio control panel
+        if (current_channel == undefined) {  // if there is nothing playing
+            $("#page").prepend('<span class="tooltiptext">No channel is currently playing</span>');
+            return;
+        }
+    }
+
+    var channel_name = encodeURIComponent($(current_channel).closest(".image").next(".info").find(".title").text());
+
+    jQuery(function ($) {
+        $.ajax({
+            type: "POST",
+            contentType: "text; charset=utf-8",
+            url: '/Favourites/AddFavourite/?id=' + channel_name,
+            cache: false,
+            success: function (response) {
+                if (response != null && response.success) {
+                    $("#page").prepend('<span class="tooltiptext">' + response.responseText + '</span>');
+                } else {
+                    alert("success error");
+                }
+            },
+            error: function (response) {
+                alert(response.responseText);  // 
+            }
+        });
+    });
+}
+
+function removeFromFavourites(channel) {
+
+}
+
+
+
 // AJAX REQUESTS
+
 function channels_ajax_request(index) {
     jQuery(function ($) {
         $.ajax({

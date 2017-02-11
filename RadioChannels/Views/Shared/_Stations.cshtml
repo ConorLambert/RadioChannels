@@ -11,9 +11,7 @@
 
             <li id="@i">
                 <div class="image" onclick='tunein(@Html.Raw(Json.Encode(Model.ElementAt(i))), this)'>                    
-                    <span class="activity icon-headphones" 
-                          onmouseover="$(this).toggleClass('icon-headphones icon-play')" 
-                          onmouseout="$(this).toggleClass('icon-headphones icon-play')"></span>
+                    <span class="activity"></span>
                     <span class="fav-btn" onclick="addToFavourites(this)"></span>
                 </div>
                 <div class="info">

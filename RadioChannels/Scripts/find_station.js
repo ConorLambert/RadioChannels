@@ -45,6 +45,7 @@ $(document).ready(function () {
 
 
 // EVENTS
+
 function triggerGenreSelect() {
     $("#genres").on("click", "a", function () {
         $('#stations ul').empty();  // remove the current list of stations if any
@@ -58,6 +59,23 @@ function triggerGenreSelect() {
         $(this).parent('li').addClass("clicked"); // Add the class only for actually clicked element
     });
 }
+
+function triggerMouseOverIcon(elem) {
+    if (elem == undefined) elem = ".activity";
+    $(elem).on('mouseover', function () {
+        $(this).toggleClass('icon-headphones icon-play');
+    }).on('mouseout', function () {
+        $(this).toggleClass('icon-headphones icon-play');
+    });
+    $(elem).addClass('icon-headphones');
+    $(elem).removeClass('icon-play');
+}
+
+function removeMouseOverIcon(elem) {
+    $(elem).off('mouseover');    
+    $(elem).off('mouseout');    
+}
+
 
 
 // PLAYER
@@ -99,6 +117,7 @@ $("#jplayer").bind($.jPlayer.event.play, function (event) {
 $("#jplayer").bind($.jPlayer.event.pause, function (event) { // Add a listener to report the time play began
     $(".audio-player-controls").find(".audio-player-button").removeClass("icon-pause");
     $(".audio-player-controls").find(".audio-player-button").addClass("icon-play");
+    // remove hover
 });
 
 $("#jplayer").bind($.jPlayer.event.error, function (event) { // Add a listener to report the time play began
@@ -129,7 +148,15 @@ function tunein(channel, elem) {
     } else {          
         if ($("#jplayer").data().jPlayer.status.paused == false) 
             togglePlayStationControl(current_channel);
+        if (current_channel !== undefined) {
+            $(current_channel).closest("li").removeClass("is-selected");
+            triggerMouseOverIcon($('span:first', current_channel));
+            $(current_channel).closest("li").find(".label").removeClass("is-playing");
+        }
         current_channel = elem;
+        $(current_channel).closest("li").addClass("is-selected");
+        removeMouseOverIcon($('span:first', current_channel));
+        $(current_channel).closest("li").find(".label").addClass("is-playing");
         stream(channel);
         if (channel.Logo !== null) {
             $(".audio-player-image img").attr('src', channel.Logo + '?' + Math.random());
@@ -163,18 +190,28 @@ function togglePlayStationControl(item) {
 
 function nextStation() {
     if (current_channel === undefined) return null;
+    var channel_to_trigger;
     if ($(current_channel).closest("li").next().length === 0)
-        $("#stations ul li:nth-child(1)").find(".image").trigger("onclick");
-    else                 
-        $(current_channel).closest("li").next().find(".image").trigger("onclick");
+        channel_to_trigger = $("#stations ul li:nth-child(1)").find(".image"); // .trigger("onclick");
+    else
+        channel_to_trigger = $(current_channel).closest("li").next().find(".image"); // .trigger("onclick");
+    // setup the icons to be swapped for tunein function 
+    $('span:first', channel_to_trigger).removeClass("icon-headphones");
+    $('span:first', channel_to_trigger).addClass("icon-play");
+    $(channel_to_trigger).trigger("onclick");
 }
 
 function previousStation() {
     if (current_channel === undefined) return null;
+    var channel_to_trigger;
     if ($(current_channel).closest("li").prev().length === 0)
-        $("#stations ul li:nth-child(" + $('#stations ul li').length + ")").find(".image").trigger("onclick");     
+        channel_to_trigger = $("#stations ul li:nth-child(" + $('#stations ul li').length + ")").find(".image");     
     else
-        $(current_channel).closest("li").prev().find(".image").trigger("onclick");
+        channel_to_trigger = $(current_channel).closest("li").prev().find(".image");
+    // setup the icons to be swapped for tunein function 
+    $('span:first', channel_to_trigger).removeClass("icon-headphones");
+    $('span:first', channel_to_trigger).addClass("icon-play");
+    $(channel_to_trigger).trigger("onclick");
 }
 
 
@@ -234,6 +271,7 @@ function addToFavourites(elem) {
     if ($(elem).is("#add-favourite")) {   // if the favourite button was clicked from the audio control panel
         if (current_channel == undefined) {  // if there is nothing playing
             $("#page").prepend('<span class="tooltiptext">No channel is currently playing</span>');
+            $(".tooltiptext").delay(3000).fadeOut();
             return;
         }
     }
@@ -249,12 +287,13 @@ function addToFavourites(elem) {
             success: function (response) {
                 if (response != null && response.success) {
                     $("#page").prepend('<span class="tooltiptext">' + response.responseText + '</span>');
+                    $(".tooltiptext").delay(3000).fadeOut();
                 } else {
                     alert("success error");
                 }
             },
             error: function (response) {
-                alert(response.responseText);  // 
+                alert(response.responseText);  
             }
         });
     });
@@ -278,6 +317,7 @@ function channels_ajax_request(index) {
             cache: false,
             success: function (data) {
                 $('#stations ul').append(data);
+                triggerMouseOverIcon();
             }
         });
     });

@@ -2,16 +2,12 @@
 using Microsoft.AspNet.Identity.Owin;
 using RadioChannels.DAL;
 using RadioChannels.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using static RadioChannels.App_Start.IdentityConfig;
-using Microsoft.AspNet.Identity;
-using System.Net.Http;
-using System.Net;
 
 namespace RadioChannels.Controllers
 {
@@ -24,6 +20,17 @@ namespace RadioChannels.Controllers
         // GET FAVOURTIES
         [HttpGet]
         public async Task<ActionResult> Index()
+        {
+            return await GetChannelsAsync("partial");
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> IndexFull()
+        {
+            return await GetChannelsAsync("full");
+        }
+
+        public async Task<ActionResult> GetChannelsAsync(string portion)
         {
             setContextProperties();
             ViewBag.Message = "Favourites";
@@ -44,7 +51,10 @@ namespace RadioChannels.Controllers
                 channels.Add(await access.GetChannelAsync(item.ChannelName));
             }
 
-            return PartialView("Favourites", channels);            
+            if (portion == "partial")
+                return PartialView("Favourites", channels);
+            else
+                return View("Favourites", channels);
         }
 
 

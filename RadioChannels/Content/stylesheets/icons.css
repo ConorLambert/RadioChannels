@@ -37,7 +37,7 @@
 /* CATEGORIES */
 
 #categories ul li:hover, #stations ul li:hover {
-    border: 1px inset aqua;
+    border: 2px inset aqua;
 }
 
 /* place the headphone icon */

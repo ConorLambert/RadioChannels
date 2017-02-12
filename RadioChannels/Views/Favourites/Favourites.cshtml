@@ -9,7 +9,11 @@
 <div id="stations-container">    
     <div id="stations">
         <ul>
-            @RenderPage("~/Views/Shared/_Stations.cshtml")
+            @RenderPage("~/Views/Shared/_Stations.cshtml")            
         </ul>
     </div>
 </div>
+<script>    
+    $('#categories li:contains("All")').addClass("clicked");
+    triggerGenreSelect();
+</script>

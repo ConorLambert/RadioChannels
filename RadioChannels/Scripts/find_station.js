@@ -11,6 +11,7 @@ var newx = 0;
 $(document).ready(function () {        
     initializePlayer();
     triggerGenreSelect();
+    triggerMouseOverIcon();
 
     // VOLUME
     $(".volumeBar").click(function (e) {
@@ -67,7 +68,7 @@ function triggerMouseOverIcon(elem) {
     }).on('mouseout', function () {
         $(this).toggleClass('icon-headphones icon-play');
     });
-    $(elem).addClass('icon-headphones');
+    if (!$(elem).hasClass('icon-headphones')) $(elem).addClass('icon-headphones');
     $(elem).removeClass('icon-play');
 }
 
@@ -316,8 +317,11 @@ function channels_ajax_request(index) {
             url: '/Home/IndexAsync/' + current_genre + '/' + index,
             cache: false,
             success: function (data) {
-                $('#stations ul').append(data);
-                triggerMouseOverIcon();
+                var convert = $($.parseHTML(data));
+                $('#stations ul').append(convert);                
+                $(convert).find('.activity').each(function(index, elem) {
+                    triggerMouseOverIcon(elem);
+                });
             }
         });
     });

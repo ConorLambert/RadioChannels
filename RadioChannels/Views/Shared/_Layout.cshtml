@@ -8,7 +8,7 @@
     <link href="~/Content/stylesheets/font-awesome.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/stylesheets/main.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/stylesheets/loading.css" rel="stylesheet" type="text/css" />
-    <link  href="~/Content/stylesheets/icons.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/stylesheets/icons.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link href="~/Content/stylesheets/audio-waves.css" rel="stylesheet" />
     <link href="~/Content/stylesheets/playback-panel.css" rel="stylesheet" />
@@ -24,7 +24,7 @@
         <nav id="navigation">
             <ul>
                 <li id="item-radio-stations"><span></span><a onclick="ajax_request('/Home/IndexPartial', triggerGenreSelect)">Home</a></li>
-                <li id="item-favourites"><span class="fav-btn"></span><a onclick="ajax_request('/Favourites/Index', triggerGenreSelect)">Favourites</a></li>                 
+                <li id="item-favourites"><span class="fav-btn"></span><a onclick="ajax_request('/Favourites/Index', triggerMouseOverIcon);">Favourites</a></li>                 
                 @if (Request.IsAuthenticated)
                 {
                     <li id="item-sign-in"><span></span><a onclick="signOut()" href="@Url.Action("Logout", "Account")">Log Out</a></li>

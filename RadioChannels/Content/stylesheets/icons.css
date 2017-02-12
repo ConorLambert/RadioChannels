@@ -61,7 +61,7 @@
 }
     */
 
-.fav-btn:hover:before {
+.fav-btn:hover:before, .is-favourite:before {
     content: "\f005";
     font-family: FontAwesome;
     cursor: pointer;

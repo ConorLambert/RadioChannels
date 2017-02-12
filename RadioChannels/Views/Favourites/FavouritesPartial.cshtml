@@ -1,0 +1,14 @@
+﻿@RenderPage("~/Views/Shared/_Categories.cshtml")
+
+<div id="stations-container">
+    <div id="stations">
+        <ul>            
+        </ul>
+    </div>
+</div>
+<script>
+    $('#categories li:contains("All")').addClass("clicked");
+    triggerGenreSelect();   // executes only when the user navigates back to Favourites from another page    
+    if (favourites !== undefined)
+        $("#stations ul").append(favourites);   // if the user has any favourites then add them to the stations container
+</script>

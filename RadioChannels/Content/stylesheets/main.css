@@ -167,7 +167,7 @@ main {
     border: 2px solid #A6CBFF;   
 }
 
-.fav-btn {
+.fav-btn, .is-favourite {
     font-size: 1.7em;
 }
 

@@ -7,7 +7,6 @@ var current_volume = 1.0;
 var oldx = 0;
 var newx = 0;
 
-
 $(document).ready(function () {        
     initializePlayer();
     triggerGenreSelect();
@@ -265,47 +264,6 @@ function triggerScrollEvent() {
 
 
 
-// FAVOURITES
-
-function addToFavourites(elem) {    
-
-    if ($(elem).is("#add-favourite")) {   // if the favourite button was clicked from the audio control panel
-        if (current_channel == undefined) {  // if there is nothing playing
-            $("#page").prepend('<span class="tooltiptext">No channel is currently playing</span>');
-            $(".tooltiptext").delay(3000).fadeOut();
-            return;
-        }
-    }
-
-    var channel_name = encodeURIComponent($(current_channel).closest(".image").next(".info").find(".title").text());
-
-    jQuery(function ($) {
-        $.ajax({
-            type: "POST",
-            contentType: "text; charset=utf-8",
-            url: '/Favourites/AddFavourite/?id=' + channel_name,
-            cache: false,
-            success: function (response) {
-                if (response != null && response.success) {
-                    $("#page").prepend('<span class="tooltiptext">' + response.responseText + '</span>');
-                    $(".tooltiptext").delay(3000).fadeOut();
-                } else {
-                    alert("success error");
-                }
-            },
-            error: function (response) {
-                alert(response.responseText);  
-            }
-        });
-    });
-}
-
-function removeFromFavourites(channel) {
-
-}
-
-
-
 // AJAX REQUESTS
 
 function channels_ajax_request(index) {
@@ -321,6 +279,10 @@ function channels_ajax_request(index) {
                 $('#stations ul').append(convert);                
                 $(convert).find('.activity').each(function(index, elem) {
                     triggerMouseOverIcon(elem);
+                    if (isFavourite($(elem).closest("li").find(".title").text())) {
+                        $(elem).closest("li").find(".fav-btn").addClass("is-favourite");
+                        $(elem).closest("li").find(".fav-btn").removeClass("fav-btn");
+                    }
                 });
             }
         });

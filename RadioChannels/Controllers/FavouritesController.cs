@@ -30,6 +30,12 @@ namespace RadioChannels.Controllers
             return await GetChannelsAsync("full");
         }
 
+        [HttpGet]
+        public ActionResult IndexPartial()
+        {
+            return PartialView("FavouritesPartial");
+        }
+
         public async Task<ActionResult> GetChannelsAsync(string portion)
         {
             setContextProperties();

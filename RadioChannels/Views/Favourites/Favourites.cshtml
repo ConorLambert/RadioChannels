@@ -14,6 +14,11 @@
     </div>
 </div>
 <script>    
-    $('#categories li:contains("All")').addClass("clicked");
-    triggerGenreSelect();
+    $('#categories li:contains("All")').addClass("clicked");    
+    $("#stations ul").find("li").find(".fav-btn").each(function (index, elem) {
+        $(elem).addClass("is-favourite");
+        $(elem).removeClass("fav-btn");
+    });
+    favourites = $("#stations ul").find("li").clone();
+    triggerGenreSelect();   // executes only when the user navigates back to Favourites from another page    
 </script>

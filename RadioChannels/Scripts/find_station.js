@@ -146,16 +146,16 @@ function tunein(channel, elem) {
     if (current_channel === elem) { // we have selected the channel that is currently selected              
         toggleStreaming();    
     } else {          
-        if ($("#jplayer").data().jPlayer.status.paused == false) 
+        if ($("#jplayer").data().jPlayer.status.paused == false)
             togglePlayStationControl(current_channel);
         if (current_channel !== undefined) {
             $(current_channel).closest("li").removeClass("is-selected");
-            triggerMouseOverIcon($('span:first', current_channel));
+            triggerMouseOverIcon(current_channel);
             $(current_channel).closest("li").find(".label").removeClass("is-playing");
         }
         current_channel = elem;
         $(current_channel).closest("li").addClass("is-selected");
-        removeMouseOverIcon($('span:first', current_channel));
+        removeMouseOverIcon(current_channel);
         $(current_channel).closest("li").find(".label").addClass("is-playing");
         stream(channel);
         if (channel.Logo !== null) {
@@ -184,7 +184,7 @@ function continueStream() {
 
 // li channel item play button control
 function togglePlayStationControl(item) {
-    $(item).find(".activity").toggleClass("icon-pause icon-play");
+    $(item).toggleClass("icon-pause icon-play");
 }
 
 
@@ -192,12 +192,12 @@ function nextStation() {
     if (current_channel === undefined) return null;
     var channel_to_trigger;
     if ($(current_channel).closest("li").next().length === 0)
-        channel_to_trigger = $("#stations ul li:nth-child(1)").find(".image"); // .trigger("onclick");
+        channel_to_trigger = $("#stations ul li:nth-child(1)").find(".activity"); // .trigger("onclick");
     else
-        channel_to_trigger = $(current_channel).closest("li").next().find(".image"); // .trigger("onclick");
+        channel_to_trigger = $(current_channel).closest("li").next().find(".activity"); // .trigger("onclick");
     // setup the icons to be swapped for tunein function 
-    $('span:first', channel_to_trigger).removeClass("icon-headphones");
-    $('span:first', channel_to_trigger).addClass("icon-play");
+    $(channel_to_trigger).removeClass("icon-headphones");
+    $(channel_to_trigger).addClass("icon-play");
     $(channel_to_trigger).trigger("onclick");
 }
 
@@ -205,12 +205,12 @@ function previousStation() {
     if (current_channel === undefined) return null;
     var channel_to_trigger;
     if ($(current_channel).closest("li").prev().length === 0)
-        channel_to_trigger = $("#stations ul li:nth-child(" + $('#stations ul li').length + ")").find(".image");     
+        channel_to_trigger = $("#stations ul li:nth-child(" + $('#stations ul li').length + ")").find(".activity");     
     else
-        channel_to_trigger = $(current_channel).closest("li").prev().find(".image");
+        channel_to_trigger = $(current_channel).closest("li").prev().find(".activity");
     // setup the icons to be swapped for tunein function 
-    $('span:first', channel_to_trigger).removeClass("icon-headphones");
-    $('span:first', channel_to_trigger).addClass("icon-play");
+    $(channel_to_trigger).removeClass("icon-headphones");
+    $(channel_to_trigger).addClass("icon-play");
     $(channel_to_trigger).trigger("onclick");
 }
 

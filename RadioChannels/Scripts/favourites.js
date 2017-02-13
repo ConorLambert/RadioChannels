@@ -5,8 +5,6 @@
 
     // if the user is logged out then we inform them that they need to log in to use this feature
     // NOTE: the user could be logged out because of inactivity for some time
-
-
 }
 
 function isFavourite(channel) {
@@ -16,29 +14,39 @@ function isFavourite(channel) {
 
 function hasChannel(name) {
     if (favourites !== undefined) {
-        var result = false;
-        $(favourites).find(".title").each(function (index, elem) {
-            if ($(elem).text() === name) {
-                result = true;
-                return false;
-            }
-        });
-        return result;
+        return findFavourite(name) !== undefined;
     }
 }
 
-function addToFavourites(elem) {
+function findFavourite(name) {
+    var result = undefined;
+    $(favourites).find(".title").each(function (index, elem) {
+        if ($(elem).text() === name) {
+            result = elem;
+            return false;
+        }
+    });
+    return result;
+}
 
+
+function toggleFavourite(elem) {
     if ($(elem).is("#add-favourite")) {   // if the favourite button was clicked from the audio control panel
         if (current_channel == undefined) {  // if there is nothing playing
             $("#page").prepend('<span class="tooltiptext">No channel is currently playing</span>');
             $(".tooltiptext").delay(3000).fadeOut();
             return;
         }
+    }    
+    var channel_name = encodeURIComponent($(elem).closest(".image").next(".info").find(".title").text());    
+    if ($(elem).hasClass("is-favourite")) {
+        removeFromFavourites(channel_name, $(elem).closest("li"));
+    } else {             
+        addToFavourites(channel_name, $(elem).closest("li"));
     }
+}
 
-    var channel_name = encodeURIComponent($(current_channel).closest(".image").next(".info").find(".title").text());
-
+function addToFavourites(channel_name, elem) {
     jQuery(function ($) {
         $.ajax({
             type: "POST",
@@ -49,6 +57,10 @@ function addToFavourites(elem) {
                 if (response != null && response.success) {
                     $("#page").prepend('<span class="tooltiptext">' + response.responseText + '</span>');
                     $(".tooltiptext").delay(3000).fadeOut();
+                    // add to favourites collection
+                    $(elem).find(".fav-btn").addClass("is-favourite");
+                    $(elem).find(".fav-btn").removeClass("fav-btn");
+                    $(favourites).append($(elem).clone());                                                     
                 } else {
                     alert("success error");
                 }
@@ -60,6 +72,30 @@ function addToFavourites(elem) {
     });
 }
 
-function removeFromFavourites(channel) {
-
+function removeFromFavourites(channel_name, elem) {    
+    // remove from favourites
+    jQuery(function ($) {
+        $.ajax({
+            type: "PUT",
+            contentType: "text; charset=utf-8",
+            url: '/Favourites/RemoveFavourite/?id=' + channel_name,
+            cache: false,
+            success: function (response) {
+                if (response != null && response.success) {
+                    $("#page").prepend('<span class="tooltiptext">' + response.responseText + '</span>');
+                    $(".tooltiptext").delay(3000).fadeOut();
+                    // remove from favourites
+                    $(elem).find(".is-favourite").addClass("fav-btn");
+                    $(elem).find(".is-favourite").removeClass("is-favourite");
+                    elem = findFavourite(decodeURIComponent(channel_name)); // remove from favourites only not on a results list
+                    $($(elem).closest("li")).remove();                                        
+                } else {
+                    alert("success error");
+                }
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });
+    });
 }

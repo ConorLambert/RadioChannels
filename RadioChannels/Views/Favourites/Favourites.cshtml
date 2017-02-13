@@ -20,5 +20,7 @@
         $(elem).removeClass("fav-btn");
     });
     favourites = $("#stations ul").clone();
+    $("#stations ul").empty();
+    $("#stations ul").append(favourites);
     triggerGenreSelect();   // executes only when the user navigates back to Favourites from another page    
 </script>

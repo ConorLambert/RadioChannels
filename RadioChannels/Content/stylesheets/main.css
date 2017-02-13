@@ -163,6 +163,10 @@ main {
     background-color: #132040;
 }
 
+.channel-id {
+    display: none;
+}
+
 #stations ul .is-selected {
     border: 2px solid #A6CBFF;   
 }

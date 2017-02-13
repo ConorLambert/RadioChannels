@@ -9,6 +9,22 @@
 <script>
     $('#categories li:contains("All")').addClass("clicked");
     triggerGenreSelect();   // executes only when the user navigates back to Favourites from another page    
-    if (favourites !== undefined)
-        $("#stations ul").append(favourites);   // if the user has any favourites then add them to the stations container
+    if (favourites !== undefined) {
+        $("#stations ul").append(favourites);   // if the user has any favourites then add them to the stations container        
+        $(favourites).find("li").each(function (index, elem) {
+            if (!isPlaying(this)) {
+                initializeChannelItem(this);
+                triggerMouseOverIcon($(this).find(".activity"));
+            } else {
+                $("#stations ul li:eq(" + index + ")").replaceWith($(current_channel).closest("li").clone());
+                current_channel = $("#stations ul li:eq(" + index + ") .activity")[0];
+                /*
+                if (!$("li").find(".activity").hasClass("icon-pause") || !$("li").find(".activity").hasClass("icon-play")) {
+                    $("li").find(".activity").removeClass("icon-headphones");
+                }
+                current_channel = $(this).find(".activity")[0];
+                */
+            }
+        });
+    }
 </script>

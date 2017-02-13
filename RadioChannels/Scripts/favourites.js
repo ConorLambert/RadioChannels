@@ -1,7 +1,8 @@
 ﻿function getFavourites() {
     // if the user is already logged in, then the client already has the favourites in memory
-    if (favourites !== undefined)
-        ajax_request('/Favourites/IndexPartial', triggerMouseOverIcon);
+    if (favourites !== undefined) 
+        ajax_request('/Favourites/IndexPartial');
+    
 
     // if the user is logged out then we inform them that they need to log in to use this feature
     // NOTE: the user could be logged out because of inactivity for some time
@@ -18,10 +19,10 @@ function hasChannel(name) {
     }
 }
 
-function findFavourite(name) {
+function findFavourite(id) {
     var result = undefined;
-    $(favourites).find(".title").each(function (index, elem) {
-        if ($(elem).text() === name) {
+    $(favourites).find(".channel-id").each(function (index, elem) {
+        if ($(elem).attr("id") === id) {
             result = elem;
             return false;
         }
@@ -30,7 +31,7 @@ function findFavourite(name) {
 }
 
 
-function toggleFavourite(elem) {
+function toggleFavourite(channel, elem) {
     if ($(elem).is("#add-favourite")) {   // if the favourite button was clicked from the audio control panel
         if (current_channel == undefined) {  // if there is nothing playing
             $("#page").prepend('<span class="tooltiptext">No channel is currently playing</span>');
@@ -40,18 +41,18 @@ function toggleFavourite(elem) {
     }    
     var channel_name = encodeURIComponent($(elem).closest(".image").next(".info").find(".title").text());    
     if ($(elem).hasClass("is-favourite")) {
-        removeFromFavourites(channel_name, $(elem).closest("li"));
+        removeFromFavourites(channel, channel_name, $(elem).closest("li"));
     } else {             
-        addToFavourites(channel_name, $(elem).closest("li"));
+        addToFavourites(channel, channel_name, $(elem).closest("li"));
     }
 }
 
-function addToFavourites(channel_name, elem) {
+function addToFavourites(channel, channel_name, elem) {
     jQuery(function ($) {
         $.ajax({
             type: "POST",
             contentType: "text; charset=utf-8",
-            url: '/Favourites/AddFavourite/?id=' + channel_name,
+            url: '/Favourites/AddFavourite/?id=' + channel.Id + '&name=' + channel_name,
             cache: false,
             success: function (response) {
                 if (response != null && response.success) {
@@ -72,13 +73,13 @@ function addToFavourites(channel_name, elem) {
     });
 }
 
-function removeFromFavourites(channel_name, elem) {    
+function removeFromFavourites(channel, channel_name, elem) {    
     // remove from favourites
     jQuery(function ($) {
         $.ajax({
             type: "PUT",
             contentType: "text; charset=utf-8",
-            url: '/Favourites/RemoveFavourite/?id=' + channel_name,
+            url: '/Favourites/RemoveFavourite/?id=' + channel.Id + '&name=' + channel_name,
             cache: false,
             success: function (response) {
                 if (response != null && response.success) {
@@ -87,8 +88,8 @@ function removeFromFavourites(channel_name, elem) {
                     // remove from favourites
                     $(elem).find(".is-favourite").addClass("fav-btn");
                     $(elem).find(".is-favourite").removeClass("is-favourite");
-                    elem = findFavourite(decodeURIComponent(channel_name)); // remove from favourites only not on a results list
-                    $($(elem).closest("li")).remove();                                        
+                    elem = findFavourite(channel.Id); // remove from favourites only not on a results list
+                    $($(elem).closest("li")).remove();                                     
                 } else {
                     alert("success error");
                 }

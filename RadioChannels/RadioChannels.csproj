@@ -249,6 +249,10 @@
     <Compile Include="Migrations\201702062334354_RemovePasswordRequired.Designer.cs">
       <DependentUpon>201702062334354_RemovePasswordRequired.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702131559266_FavouriteChannelId.cs" />
+    <Compile Include="Migrations\201702131559266_FavouriteChannelId.Designer.cs">
+      <DependentUpon>201702131559266_FavouriteChannelId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Channel.cs" />
     <Compile Include="Models\Favourite.cs" />
@@ -360,6 +364,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702062334354_RemovePasswordRequired.resx">
       <DependentUpon>201702062334354_RemovePasswordRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702131559266_FavouriteChannelId.resx">
+      <DependentUpon>201702131559266_FavouriteChannelId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -60,6 +60,15 @@ function triggerGenreSelect() {
     });
 }
 
+function initializeChannelItem(elem) {
+    $(elem).removeClass("is-selected");
+    $(elem).find(".label").removeClass("is-playing");
+    if (!$(elem).find(".activity").hasClass('icon-headphones'))
+        $(elem).find(".activity").addClass('icon-headphones');
+    $(elem).find(".activity").removeClass('icon-play');
+    $(elem).find(".activity").removeClass('icon-pause');
+}
+
 function triggerMouseOverIcon(elem) {
     if (elem == undefined) elem = ".activity";
     $(elem).on('mouseover', function () {
@@ -143,7 +152,7 @@ function tunein(channel, elem) {
     }, 1000);
     
     togglePlayStationControl(elem);
-    if (current_channel === elem) { // we have selected the channel that is currently selected              
+    if (current_channel == elem) { // we have selected the channel that is currently selected              
         toggleStreaming();    
     } else {          
         if ($("#jplayer").data().jPlayer.status.paused == false)
@@ -166,6 +175,10 @@ function tunein(channel, elem) {
         }
         $('.audio-player-song-name').text(channel.CurrentTrack);
     }      
+}
+
+function isPlaying(elem) {
+    return $(elem).closest("li").find(".channel-id").attr("id") === $(current_channel).closest("li").find(".channel-id").attr("id");
 }
 
 function toggleStreaming() {
@@ -277,9 +290,14 @@ function channels_ajax_request(index) {
             success: function (data) {
                 var convert = $($.parseHTML(data));
                 $('#stations ul').append(convert);                
-                $(convert).find('.activity').each(function(index, elem) {
-                    triggerMouseOverIcon(elem);
-                    if (isFavourite($(elem).closest("li").find(".title").text())) {
+                $(convert).find('.activity').each(function (index, elem) {
+                    if (isPlaying(this)) {
+                        $("#stations ul li:eq(" + index + ")").replaceWith($(current_channel).closest("li").clone());
+                        current_channel = $("#stations ul li:eq(" + index + ") .activity")[0];
+                    } else {
+                        triggerMouseOverIcon(elem);
+                    }
+                    if (isFavourite($(elem).closest("li").find(".channel-id").attr("id"))) {
                         $(elem).closest("li").find(".fav-btn").addClass("is-favourite");
                         $(elem).closest("li").find(".fav-btn").removeClass("fav-btn");
                     }

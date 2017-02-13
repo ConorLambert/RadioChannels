@@ -70,7 +70,7 @@ namespace RadioChannels.Controllers
 
         // ADD FAVOURITES
         [HttpPost]
-        public ActionResult AddFavourite(string id)
+        public ActionResult AddFavourite(string id, string name)
         {
             setContextProperties();
             // get the current user logged in
@@ -82,16 +82,16 @@ namespace RadioChannels.Controllers
             }
 
             // add channel to Favourties database based on user id
-            context.Favourite.Add(new Favourite { UserId = user, ChannelName = id });
+            context.Favourite.Add(new Favourite { UserId = user, ChannelName = name, ChannelId = id });
             context.SaveChanges();
             
             //  Send "Success"
-            return Json(new { success = true, responseText = "Successfully added " + id + " to Favourites" }, JsonRequestBehavior.AllowGet);            
+            return Json(new { success = true, responseText = "Successfully added " + name + " to Favourites" }, JsonRequestBehavior.AllowGet);            
         }
 
 
         [HttpPut]
-        public ActionResult RemoveFavourite(string id)
+        public ActionResult RemoveFavourite(string id, string name)
         {
             setContextProperties();
 
@@ -103,7 +103,7 @@ namespace RadioChannels.Controllers
                 return Json(new { success = false, responseText = "You must be logged in to use this feature" }, JsonRequestBehavior.AllowGet);
             }
 
-            var myCurrent = context.Favourite.Where(u => u.ChannelName == id && u.UserId == user).FirstOrDefault(); // .Select(u => u.Id);
+            var myCurrent = context.Favourite.Where(u => u.ChannelName == name && u.UserId == user && u.ChannelId == id).FirstOrDefault(); // .Select(u => u.Id);
             //var myCurrent = new Favourite { Id = prim., UserId = user, ChannelName = id };
 
             var entry = context.Entry(myCurrent);
@@ -126,7 +126,7 @@ namespace RadioChannels.Controllers
             //context.SaveChanges();
 
             //  Send "Success"
-            return Json(new { success = true, responseText = "Successfully removed " + id + " from Favourites" }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = true, responseText = "Successfully removed " + name + " from Favourites" }, JsonRequestBehavior.AllowGet);
         }
 
 

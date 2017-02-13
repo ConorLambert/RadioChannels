@@ -68,9 +68,9 @@ namespace RadioChannels.Migrations
             context.Channel.Add(new Channel { Id = "1292811", Name = "electroradio.fm", MediaType = "audio/mpeg", BitRate = "192", CurrentTrack = "Max Graham live in the Mix - Cycles Radio", Logo = "", LC = "105", Genre = "House", Playlist = "/sbin/tunein-station.m3u" });
             context.SaveChanges();
 
-            context.Favourite.Add(new Favourite { UserId = john_doe_id, ChannelName = "Dogglounge Deep House Radio" });
-            context.Favourite.Add(new Favourite { UserId = john_doe_id, ChannelName = "54house.fm - The Heartbeat Of House Music" });
-            context.Favourite.Add(new Favourite { UserId = john_doe_id, ChannelName = "Deep House Network - Streaming Deep House & Soulful" });
+            context.Favourite.Add(new Favourite { UserId = john_doe_id, ChannelName = "Dogglounge Deep House Radio", ChannelId = "230521" });
+            context.Favourite.Add(new Favourite { UserId = john_doe_id, ChannelName = "54house.fm - The Heartbeat Of House Music", ChannelId = "128609" });
+            context.Favourite.Add(new Favourite { UserId = john_doe_id, ChannelName = "Deep House Network - Streaming Deep House & Soulful", ChannelId = "908641" });
             context.SaveChanges();
         }
     }

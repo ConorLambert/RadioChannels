@@ -18,12 +18,6 @@
             } else {
                 $("#stations ul li:eq(" + index + ")").replaceWith($(current_channel).closest("li").clone());
                 current_channel = $("#stations ul li:eq(" + index + ") .activity")[0];
-                /*
-                if (!$("li").find(".activity").hasClass("icon-pause") || !$("li").find(".activity").hasClass("icon-play")) {
-                    $("li").find(".activity").removeClass("icon-headphones");
-                }
-                current_channel = $(this).find(".activity")[0];
-                */
             }
         });
     }

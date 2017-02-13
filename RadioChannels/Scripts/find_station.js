@@ -173,7 +173,7 @@ function tunein(channel, elem) {
         } else {
             $(".audio-player-image img").hide();
         }
-        $('.audio-player-song-name').text(channel.CurrentTrack);
+        $('.audio-player-song-name').text($(elem).closest("li").find(".track").text());
     }      
 }
 
@@ -276,6 +276,46 @@ function triggerScrollEvent() {
 }
 
 
+// REFERESH
+
+function refreshInfo(elem) {
+    // get channel name and id 
+    var channel_name = encodeURIComponent($(elem).closest("li").find(".title").text());
+    var id = $(elem).closest("li").find(".channel-id").attr("id");
+
+    // get channel name
+    var url = '/api/Channels/GetChannel/?id=' + id + '&name=' + channel_name;    
+    jQuery(function ($) {
+        $.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            url: url,
+            cache: false,
+            success: function (data) {
+                var result = JSON.parse(data);
+                track_name = result.currenttrack;
+                $(elem).closest("li").find(".track").text(track_name);
+            }
+        });
+    });
+}
+
+
+function scrollInfo(elem) {
+
+    // the larger the text, the longer the transition time must be and the wider between left and width must be
+    if ($(elem)[0].scrollWidth > $(elem).innerWidth()) {
+        var percent = ($(elem).innerWidth() / $(elem)[0].scrollWidth) * 100;       
+        var transition_time = percent / 10; 
+        $(elem).css({ "left": "-300%", "width": "400%" });
+        $(elem).css({ "-webkit-transition": "left 3s, width 3s", "-moz - transition": "left 3s, width 3s", "transition": "left 8s, width 8s"});
+    }
+}
+
+
+
+
 
 // AJAX REQUESTS
 
@@ -289,8 +329,17 @@ function channels_ajax_request(index) {
             cache: false,
             success: function (data) {
                 var convert = $($.parseHTML(data));
-                $('#stations ul').append(convert);                
+                $('#stations ul').append(convert);
                 $(convert).find('.activity').each(function (index, elem) {
+                    // add scroll info event to each element
+                    $(elem).closest("li").find(".transitionable").each(function (index, elem) {
+                        $(elem).on("mouseover", function (item) {
+                            scrollInfo(elem);
+                        })
+                        $(elem).on("mouseleave", function (item) {
+                            $(elem).css({ "left": "0%", "width" : "100%" });
+                        })
+                    })
                     if (isPlaying(this)) {
                         $("#stations ul li:eq(" + index + ")").replaceWith($(current_channel).closest("li").clone());
                         current_channel = $("#stations ul li:eq(" + index + ") .activity")[0];

@@ -11,17 +11,20 @@
 
             <li id="@i">
                 <span id="@Model.ElementAt(i).Id" class="channel-id"></span>
-                <div class="image">                    
+                <div class="image">                                        
                     <span class="activity" onclick='tunein(@Html.Raw(Json.Encode(Model.ElementAt(i))), this)'></span>                                 
                     <span class="fav-btn" onclick='toggleFavourite(@Html.Raw(Json.Encode(Model.ElementAt(i))), this)'></span>
                 </div>
                 <div class="info">
-                    <h3 class="title"><a>@Model.ElementAt(i).Name</a></h3>
+                    <h3 class="title transitionable"><a>@Model.ElementAt(i).Name</a></h3>
                     <p class="now-playing">
                         <span class="label">now playing</span>
-                        <a class="track" href="insert/beatport/here">@Model.ElementAt(i).CurrentTrack</a>
+                        <a class="track transitionable" href="insert/beatport/here">@Model.ElementAt(i).CurrentTrack</a>
                     </p>
                 </div>
+                <div class="refresh-container">
+                    <span class="refresh-button" onclick="refreshInfo(this)"></span>
+                </div>                
             </li>
         }
     }

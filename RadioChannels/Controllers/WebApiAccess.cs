@@ -1,10 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 using RadioChannels.Models;
 
 namespace RadioChannels.Controllers
@@ -17,14 +15,13 @@ namespace RadioChannels.Controllers
         public WebApiAccess()
         {
             httpClient = new HttpClient();
-            base_uri = "http://localhost:55555/api/channels/"; // base_uri = "http://localhost:55555/api/channels/values?name=";
-            
+            base_uri = "http://localhost:55555/api/channels/"; // base_uri = "http://localhost:55555/api/channels/values?name=";            
         }
 
-        public async Task<Channel> GetChannelAsync(string name)
+        public async Task<Channel> GetChannelAsync(string id, string name)
         {
             Channel channel = null;            
-            string uri = base_uri + "values?name=" + Uri.EscapeDataString(name);
+            string uri = base_uri + "values?id=" + id + "&name=" + Uri.EscapeDataString(name);
             try {
                 channel = JsonConvert.DeserializeObject<Channel>(await httpClient.GetStringAsync(uri));                
             } catch(Exception e) {

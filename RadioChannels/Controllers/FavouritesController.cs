@@ -58,7 +58,7 @@ namespace RadioChannels.Controllers
             List<Channel> channels = new List<Channel>();
             foreach (var item in favourites)
             {
-                channels.Add(await access.GetChannelAsync(item.ChannelName));
+                channels.Add(await access.GetChannelAsync(item.ChannelId, item.ChannelName));
             }
 
             if (portion == "partial")

@@ -83,11 +83,11 @@ main {
     width: 99%;
 }
 
-#navigation ul li {
-    margin-top: 20px;
-    padding-left: 4px;
-    text-align: left;
-}
+    #navigation ul li {
+        margin-top: 20px;
+        padding-left: 4px;
+        text-align: left;
+    }
 
 .nav-clicked {
     margin-left: -4px;
@@ -114,27 +114,27 @@ main {
     font-size: 2.2em;
 }
 
-#categories ul {
-    margin-top: 0px;
-}
+    #categories ul {
+        margin-top: 0px;
+    }
 
-#categories ul li {
-    display: inline-block;
-    margin-right: 4px;
-    background-color: #2D4F7F;
-    padding: 4px;
-    border-radius: 5px;
-    border: 2px inset #002138;
-}
+        #categories ul li {
+            display: inline-block;
+            margin-right: 4px;
+            background-color: #2D4F7F;
+            padding: 4px;
+            border-radius: 5px;
+            border: 2px inset #002138;
+        }
 
-#categories ul .clicked {
-    background-color: #FFFFFF;
-    color: #0049B0;
-}
+        #categories ul .clicked {
+            background-color: #FFFFFF;
+            color: #0049B0;
+        }
 
-#categories ul li, #stations ul li {
-    float: left;
-}
+        #categories ul li, #stations ul li {
+            float: left;
+        }
 
 #stations-container {
     height: 400px;
@@ -142,33 +142,33 @@ main {
     overflow: hidden;
 }
 
-#stations {    
+#stations {
     height: 99%;
     width: 100%;
     overflow-y: auto;
     padding-right: 20px;
 }
 
-#stations ul {
-    clear: left;
-}
+    #stations ul {
+        clear: left;
+    }
 
-#stations ul li {
-    margin-right: 50px;
-    margin-bottom: 50px;
-    padding: 8px;
-    font-size: 2.0em;
-    border: 2px solid #2D4F7F;
-    width: 150px;
-    background-color: #132040;
-}
+        #stations ul li {
+            margin-right: 50px;
+            margin-bottom: 50px;
+            padding: 8px;
+            font-size: 2.0em;
+            border: 2px solid #2D4F7F;
+            width: 150px;
+            background-color: #132040;
+        }
 
 .channel-id {
     display: none;
 }
 
 #stations ul .is-selected {
-    border: 2px solid #A6CBFF;   
+    border: 2px solid #A6CBFF;
 }
 
 .fav-btn, .is-favourite {
@@ -185,6 +185,7 @@ main {
 
 .info {
     text-align: center;
+    overflow: hidden;
 }
 
 .hidden {
@@ -195,11 +196,11 @@ main {
     margin-bottom: -15px;
 }
 
-.title a {
-    color: #fefefe;
-    text-transform: uppercase;
-    font-weight: normal;
-}
+    .title a {
+        color: #fefefe;
+        text-transform: uppercase;
+        font-weight: normal;
+    }
 
 .label {
     text-transform: uppercase;
@@ -216,10 +217,26 @@ main {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    /* Tweak 'till your heart's content */
+    position: relative;
+    /* Starting transition */
+    left: 0%;
+    width: 100%;
+    /*
+    -webkit-transition: left 3s, width 3s;
+    -moz-transition: left 3s, width 3s;
+    transition: left 3s, width 3s;
+    */
 }
 
 .track {
     color: #fefefe;
+}
+
+.refresh-container {
+    position: relative;
+    text-align: center;
+    margin-top: -10px;
 }
 
 
@@ -286,7 +303,7 @@ main {
     position: relative;
     vertical-align: middle;
     width: 35px;
-    height: 35px;    
+    height: 35px;
     margin-right: 20px;
     border-radius: 100%;
     border: 3px solid;
@@ -317,7 +334,7 @@ main {
     -o-transition: width 200ms linear;
     transition: width 200ms linear;
     display: block;
-    height: 2px;    
+    height: 2px;
     max-width: 100%;
     border-radius: 0px;
 }
@@ -349,9 +366,9 @@ main {
     -ms-user-select: none; /* IE10+ */
 }
 
-.volumeBar:hover, .volume-up:hover, .volume-down:hover {
-    cursor: pointer;
-}
+    .volumeBar:hover, .volume-up:hover, .volume-down:hover {
+        cursor: pointer;
+    }
 
 
 /* TOOLTIP */

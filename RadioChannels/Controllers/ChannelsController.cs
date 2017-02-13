@@ -1,17 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Threading.Tasks;
 using System.Web.Http;
 using System.Xml;
 using RadioChannels.Models;
-using RadioChannels.DAL;
-using Newtonsoft.Json;
-using System.Web.Services.Description;
-using System.Text;
 
 namespace RadioChannels.Controllers
 {
@@ -122,13 +116,18 @@ namespace RadioChannels.Controllers
             return channels;
         }                  
              
-        public Channel GetChannel(string name)
+        public Channel GetChannel(string id, string name)
         {            
             urlTemplate = "http://api.shoutcast.com/legacy/stationsearch?k={0}&search={1}";
             url = string.Format(urlTemplate, api_key, name);
             XmlDocument response = MakeRequest(url);
             List<Channel> channels = ProcessResponse(response);
-            return channels.ElementAt(0); // JsonConvert.SerializeObject(channels.ElementAt(0));
-        }
+            foreach(var channel in channels)
+            {
+                if(channel.Id == id)
+                    return channel;
+            }
+            return null; // JsonConvert.SerializeObject(channels.ElementAt(0));
+        }        
     }
 }

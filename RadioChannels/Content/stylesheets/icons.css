@@ -51,15 +51,12 @@
     cursor: pointer;
 }
 
-/* when hovering, place the play icon */
-/*
-.activity.icon-headphones:hover {
-    content: "\f144";
+.refresh-button:before {
+    content: "\f021";
     font-family: FontAwesome;
-    font-size: 2.4em;
     cursor: pointer;
+    bottom: 0px;
 }
-    */
 
 .fav-btn:hover:before, .is-favourite:before {
     content: "\f005";

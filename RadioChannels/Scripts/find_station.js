@@ -9,7 +9,7 @@ var newx = 0;
 
 $(document).ready(function () {        
     initializePlayer();
-    triggerGenreSelect();
+    //triggerGenreSelect();
     triggerMouseOverIcon();
 
     // VOLUME
@@ -46,6 +46,18 @@ $(document).ready(function () {
 
 // EVENTS
 
+function getFavouritesOf(genre) {
+    $('#stations ul').detach();  // remove the current list of stations if any   
+    $('#stations').append("<ul></ul>");
+    $(favourites).find("li").each(function (index, elem) {
+        if ($(elem).find(".genre").text() === genre)
+            $("#stations ul").append($(elem).clone());
+    });
+    if (!window.location.href.includes("/" + encodeURIComponent(genre)))  // if we have moved back to this page then, dont push it
+        history.pushState(genre, null, "/favourites/" + genre + ".html");    
+}
+
+
 function triggerGenreSelect() {
     $("#genres").on("click", "a", function () { 
         $('#stations ul').empty();  // remove the current list of stations if any
@@ -54,7 +66,7 @@ function triggerGenreSelect() {
         triggerScrollEvent();
         // push the current state onto the history (URL should append the current genre as a hashbang)
         if (!window.location.href.includes(encodeURIComponent(current_genre)))  // if we have moved back to this page then, dont push it
-            history.pushState(current_genre, null, current_genre + ".html");
+            history.pushState(current_genre, null, "/index/" + current_genre + ".html");
     });
     $("#categories a").on("click", function () {
         $("#categories li").removeClass("clicked"); // Remove all highlights

@@ -14,7 +14,10 @@
     </div>
 </div>
 <script>       
-    history.replaceState("favourites", null, "/favourites.html");
+    if (window.location.href.includes("/favourites/all"))
+        history.replaceState("favourites", null, "/favourites.html");
+    else
+        history.pushState("favourites", null, "/favourites.html");
     $('#categories li:contains("All")').addClass("clicked");    
     $("#stations ul").find("li").find(".fav-btn").each(function (index, elem) {
         $(elem).addClass("is-favourite");
@@ -22,7 +25,12 @@
     });
     favourites = $("#stations ul").clone();
     $("#stations").empty();
-    $("#stations").append(favourites);
-    triggerGenreSelect();   // executes only when the user navigates back to Favourites from another page   
-    console.log(window.location.href);    
+    $("#stations").append(favourites);    
+    $("#genres").on("click", "a", function () {
+        var genre = $(this).text();
+        getFavouritesOf(genre);
+        $("#categories li").removeClass("clicked"); // Remove all highlights
+        $(this).parent('li').addClass("clicked");
+        triggerMouseOverIcon();
+    });    
 </script>

@@ -29,7 +29,7 @@ namespace RadioChannels.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> IndexFull()
+        public async Task<ActionResult> All()
         {
             return await GetChannelsAsync("full");
         }

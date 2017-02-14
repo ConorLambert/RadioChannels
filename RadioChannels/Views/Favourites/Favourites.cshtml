@@ -13,14 +13,16 @@
         </ul>
     </div>
 </div>
-<script>    
+<script>       
+    history.replaceState("favourites", null, "/favourites.html");
     $('#categories li:contains("All")').addClass("clicked");    
     $("#stations ul").find("li").find(".fav-btn").each(function (index, elem) {
         $(elem).addClass("is-favourite");
         $(elem).removeClass("fav-btn");
     });
     favourites = $("#stations ul").clone();
-    $("#stations ul").empty();
-    $("#stations ul").append(favourites);
-    triggerGenreSelect();   // executes only when the user navigates back to Favourites from another page    
+    $("#stations").empty();
+    $("#stations").append(favourites);
+    triggerGenreSelect();   // executes only when the user navigates back to Favourites from another page   
+    console.log(window.location.href);    
 </script>

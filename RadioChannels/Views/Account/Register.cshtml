@@ -42,3 +42,7 @@
         </li>      
     </ul>
 }
+<script>
+    if (!window.location.href.includes("register"))  // if we have moved back to this page then, dont push it
+        history.pushState("register", null, "register.html");
+</script>

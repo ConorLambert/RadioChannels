@@ -1,4 +1,4 @@
-﻿@{
+﻿@{  
     ViewBag.Title = "Home Page";
 }
 
@@ -11,3 +11,8 @@
         </ul>
     </div>
 </div>
+
+<script>
+    if (!window.location.href.includes("index"))
+        history.pushState("index", null, "/index.html");
+</script>

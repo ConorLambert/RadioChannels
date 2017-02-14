@@ -88,7 +88,7 @@ namespace RadioChannels.Controllers
                 if (result.Succeeded)
                 {
                     await new SignInManager<User, string>(userManager, HttpContext.GetOwinContext().Authentication).ExternalSignInAsync(loginInfo, isPersistent: false);
-                    return RedirectToAction("indexfull", "favourites");
+                    return RedirectToAction("all", "favourites");
                 } else {
                     ModelState.AddModelError("", "Invalid email or password");
                     return RedirectToAction("Register", ModelState);
@@ -97,7 +97,7 @@ namespace RadioChannels.Controllers
             else  // else its a basic external login
             {
                 await new SignInManager<User, string>(userManager, HttpContext.GetOwinContext().Authentication).ExternalSignInAsync(loginInfo, isPersistent: false);
-                return RedirectToAction("indexfull", "favourites");
+                return RedirectToAction("all", "favourites");
             }
         }    
 
@@ -133,7 +133,7 @@ namespace RadioChannels.Controllers
             if (user != null)
             {
                 await SignIn(user);
-                return Redirect(Url.Action("indexfull", "favourites")); // GetRedirectUrl(model.ReturnUrl));
+                return Redirect(Url.Action("all", "favourites")); // GetRedirectUrl(model.ReturnUrl));
             }
 
             // user authN failed

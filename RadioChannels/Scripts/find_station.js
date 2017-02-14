@@ -1,7 +1,7 @@
 ﻿var api_key = "sJXVu3hXGmKjJiIx";
 var channels = [];
 var offset = 0;
-var current_genre = "";
+var current_genre = undefined;
 var current_channel = undefined;
 var current_volume = 1.0;
 var oldx = 0;
@@ -47,17 +47,19 @@ $(document).ready(function () {
 // EVENTS
 
 function triggerGenreSelect() {
-    $("#genres").on("click", "a", function () {
+    $("#genres").on("click", "a", function () { 
         $('#stations ul').empty();  // remove the current list of stations if any
         current_genre = $(this).text().toLowerCase();
         channels_ajax_request(0);
         triggerScrollEvent();
+        // push the current state onto the history (URL should append the current genre as a hashbang)
+        if (!window.location.href.includes(encodeURIComponent(current_genre)))  // if we have moved back to this page then, dont push it
+            history.pushState(current_genre, null, current_genre + ".html");
     });
-
     $("#categories a").on("click", function () {
         $("#categories li").removeClass("clicked"); // Remove all highlights
         $(this).parent('li').addClass("clicked"); // Add the class only for actually clicked element
-    });
+    });    
 }
 
 function initializeChannelItem(elem) {

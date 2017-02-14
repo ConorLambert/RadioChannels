@@ -6,11 +6,14 @@
         </ul>
     </div>
 </div>
-<script>
+<script>    
+    if (!window.location.href.includes("favourites"))  // if we have moved back to this page then, dont push it
+        history.pushState("favourites", null, "/favourites.html");    
     $('#categories li:contains("All")').addClass("clicked");
     triggerGenreSelect();   // executes only when the user navigates back to Favourites from another page    
     if (favourites !== undefined) {
-        $("#stations ul").append(favourites);   // if the user has any favourites then add them to the stations container        
+        $("#stations").empty();
+        $("#stations").append(favourites);   // if the user has any favourites then add them to the stations container        
         $(favourites).find("li").each(function (index, elem) {
             if (!isPlaying(this)) {
                 initializeChannelItem(this);
@@ -20,5 +23,7 @@
                 current_channel = $("#stations ul li:eq(" + index + ") .activity")[0];
             }
         });
-    }
+    } else {
+
+    }    
 </script>

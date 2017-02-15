@@ -28,7 +28,8 @@
                 @if (Request.IsAuthenticated)
                 {
                     <li id="item-favourites"><span class="fav-btn"></span><a onclick="getFavourites();">Favourites</a></li>
-                    <li id="item-sign-in"><span></span><a onclick="signOut()" href="@Url.Action("Logout", "Account")">Log Out</a></li>
+                    <li id="item-account"><span></span><a onclick="ajax_request('/Account/Account')">Account</a></li>
+                    <li id="item-log-out"><span></span><a onclick="signOut()" href="@Url.Action("Logout", "Account")">Log Out</a></li>
                 }
                 else
                 {                    

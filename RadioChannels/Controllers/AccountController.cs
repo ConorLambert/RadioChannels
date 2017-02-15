@@ -99,7 +99,7 @@ namespace RadioChannels.Controllers
             }           
 
             // check if the user already exists            
-            var user = new User { UserName = loginInfo.Email, Email = loginInfo.Email };
+            var user = new User { UserName = loginInfo.Email, Email = loginInfo.Email, EmailConfirmed = true };
             var result = await userManager.CreateAsync(user);
             if (result.Succeeded) // if not
             {
@@ -313,6 +313,120 @@ namespace RadioChannels.Controllers
         public ActionResult ResetPasswordConfirmation()
         {
             return View();
+        }
+
+
+
+        // EDIT AND DELETE ACCOUNT
+        [HttpGet]
+        public ActionResult Account()
+        {
+            setContextProperties();
+            var user = userManager.FindById(User.Identity.GetUserId());
+            return PartialView(user);
+        }
+
+        [HttpPost]
+        public ActionResult Account(User client)
+        {
+            setContextProperties();
+            var user = userManager.FindById(User.Identity.GetUserId());
+
+            context.Favourite.RemoveRange(context.Favourite.Where(x => x.UserId == user.Id));
+            context.SaveChanges();
+
+            context.Users.Remove(user);
+            context.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult Edit()
+        {
+            setContextProperties();
+            var user = userManager.FindById(User.Identity.GetUserId());
+            return PartialView(user);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Edit(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                setContextProperties();
+                var current_user = userManager.FindById(User.Identity.GetUserId());
+
+                current_user.FirstName = user.FirstName;
+                current_user.LastName = user.LastName;
+                var send_email_conf = false;
+                if (current_user.Email != user.Email)
+                {
+                    current_user.Email = user.Email;
+                    current_user.UserName = user.Email;
+                    current_user.EmailConfirmed = false;
+                    send_email_conf = true;
+                }
+
+                var result = await userManager.UpdateAsync(current_user);
+                if (!result.Succeeded)
+                {
+                    AddErrors(result);
+                    return View();
+                }
+
+                if (send_email_conf)
+                {
+                    string code = await userManager.GenerateEmailConfirmationTokenAsync(current_user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = model.Id, code = code }, protocol: Request.Url.Scheme);
+                    string callbackUrl = await SendEmailConfirmationTokenAsync(current_user.Id, "Confirm your account");
+
+                    //  await userManager.SendEmailAsync(model.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
+                             + "before you can log in.";
+
+                    // sign the user out and inform them to check their email
+                    var ctx = Request.GetOwinContext();
+                    var authManager = ctx.Authentication;
+                    authManager.SignOut("ApplicationCookie");
+
+                    // ViewBag.Link = callbackUrl; local debug only
+                    return View("Info");
+                }
+
+                return RedirectToAction("Account", "Account");
+            }
+
+            ViewBag.message = "Something went wrong upating account information";
+            return PartialView();
+        }
+
+        [HttpGet]
+        public ActionResult EditPassword()
+        {
+            return PartialView();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> EditPassword(EditPassword editPassword)
+        {
+            setContextProperties();
+            User user = userManager.FindById(User.Identity.GetUserId());
+            if (user == null)
+            {
+                ViewBag.Message = "No logged in user was found";
+                return View();
+            }
+            user.PasswordHash = userManager.PasswordHasher.HashPassword(editPassword.Password);
+            var result = await userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                //throw exception......
+                AddErrors(result);
+                return View();
+            }
+            ViewBag.Message("Password changed successfully");
+            return RedirectToAction("Account", "Account");
         }
 
 

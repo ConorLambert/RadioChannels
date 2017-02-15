@@ -1,0 +1,33 @@
+﻿@model RadioChannels.Models.User
+
+<link href="~/Content/stylesheets/forms.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "Account";
+}
+
+@Html.ValidationSummary(true)
+
+@using (Html.BeginForm())
+{
+    <ul class="form-style-1">
+
+        <li><h2>Account Details</h2></li>
+        <li>
+            <label>Full Name</label><span>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</span>
+        </li>
+        <li>
+            <label>@Html.DisplayNameFor(model => model.Email)</label><span>@Html.DisplayFor(model => model.Email)</span>
+        </li>
+        <li>
+            <input id="edit" type="button" value="Edit" onclick="ajax_request('/Account/Edit')" />            
+        </li>  
+        <li>
+            <input id="delete" type="button" value="Delete Account" />
+        </li>      
+    </ul>
+}
+<script>
+    if (!window.location.href.includes("account"))  // if we have moved back to this page then, dont push it
+        history.pushState("account", null, "/account.html");
+</script>

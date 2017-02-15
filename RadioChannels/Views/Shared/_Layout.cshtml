@@ -24,14 +24,14 @@
         <header id="page_header"></header>
         <nav id="navigation">
             <ul>
-                <li id="item-radio-stations"><span></span><a onclick="ajax_request('/Home/IndexPartial', triggerGenreSelect)">Home</a></li>
-                <li id="item-favourites"><span class="fav-btn"></span><a onclick="getFavourites();">Favourites</a></li>                 
+                <li id="item-radio-stations"><span></span><a onclick="ajax_request('/Home/IndexPartial', triggerGenreSelect)">Home</a></li>                               
                 @if (Request.IsAuthenticated)
                 {
+                    <li id="item-favourites"><span class="fav-btn"></span><a onclick="getFavourites();">Favourites</a></li>
                     <li id="item-sign-in"><span></span><a onclick="signOut()" href="@Url.Action("Logout", "Account")">Log Out</a></li>
                 }
                 else
-                {
+                {                    
                     <li id="item-sign-in"><span></span><a onclick="ajax_request('/Account/Register', ActionOnReady)">Register / Sign In</a></li>
                 }
             </ul>

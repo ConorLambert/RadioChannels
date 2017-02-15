@@ -8,8 +8,11 @@ var oldx = 0;
 var newx = 0;
 
 $(document).ready(function () {        
-    initializePlayer();
-    //triggerGenreSelect();
+    initializePlayer();        
+    if (window.location.href.includes("/favourites"))
+        triggerFavouritesGenreSelect();
+    else 
+        triggerGenreSelect();
     triggerMouseOverIcon();
 
     // VOLUME
@@ -46,18 +49,6 @@ $(document).ready(function () {
 
 // EVENTS
 
-function getFavouritesOf(genre) {
-    $('#stations ul').detach();  // remove the current list of stations if any   
-    $('#stations').append("<ul></ul>");
-    $(favourites).find("li").each(function (index, elem) {
-        if ($(elem).find(".genre").text() === genre)
-            $("#stations ul").append($(elem).clone());
-    });
-    if (!window.location.href.includes("/" + encodeURIComponent(genre)))  // if we have moved back to this page then, dont push it
-        history.pushState(genre, null, "/favourites/" + genre + ".html");    
-}
-
-
 function triggerGenreSelect() {
     $("#genres").on("click", "a", function () { 
         $('#stations ul').empty();  // remove the current list of stations if any
@@ -67,11 +58,30 @@ function triggerGenreSelect() {
         // push the current state onto the history (URL should append the current genre as a hashbang)
         if (!window.location.href.includes(encodeURIComponent(current_genre)))  // if we have moved back to this page then, dont push it
             history.pushState(current_genre, null, "/index/" + current_genre + ".html");
-    });
-    $("#categories a").on("click", function () {
         $("#categories li").removeClass("clicked"); // Remove all highlights
         $(this).parent('li').addClass("clicked"); // Add the class only for actually clicked element
-    });    
+    });
+}
+
+function triggerFavouritesGenreSelect() {
+    $("#genres").on("click", "a", function () {
+        var genre = $(this).text();
+        getFavouritesOf(genre);
+        $("#categories li").removeClass("clicked"); // Remove all highlights
+        $(this).parent('li').addClass("clicked");
+        triggerMouseOverIcon();
+    });
+}
+
+function getFavouritesOf(genre) {
+    $('#stations ul').detach();  // remove the current list of stations if any   
+    $('#stations').append("<ul></ul>");
+    $(favourites).find("li").each(function (index, elem) {
+        if ($(elem).find(".genre").text() === genre)
+            $("#stations ul").append($(elem).clone());
+    });
+    if (!window.location.href.includes("/" + encodeURIComponent(genre)))  // if we have moved back to this page then, dont push it
+        history.pushState(genre, null, "/favourites/" + genre + ".html");
 }
 
 function initializeChannelItem(elem) {

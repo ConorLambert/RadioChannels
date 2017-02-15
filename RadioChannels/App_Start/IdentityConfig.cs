@@ -2,8 +2,10 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
+using RadioChannels.Controllers;
 using RadioChannels.DAL;
 using RadioChannels.Models;
+using RadioChannels.Services;
 
 namespace RadioChannels.App_Start
 {
@@ -15,6 +17,7 @@ namespace RadioChannels.App_Start
             {
             }
 
+            /*
             public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
             {
                 var manager = new ApplicationUserManager(new UserStore<User>(context.Get<RadioContext>()));
@@ -22,6 +25,38 @@ namespace RadioChannels.App_Start
                 {
                     AllowOnlyAlphanumericUserNames = false
                 };
+                return manager;
+            }
+            */
+
+            public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
+            {
+                var manager = new ApplicationUserManager(new UserStore<User>(context.Get<RadioContext>()));
+                // Configure validation logic for usernames
+                manager.UserValidator = new UserValidator<User>(manager)
+                {
+                    AllowOnlyAlphanumericUserNames = false,
+                    RequireUniqueEmail = true
+                };
+                // Configure validation logic for passwords
+                manager.PasswordValidator = new PasswordValidator
+                {
+                    RequiredLength = 6,
+                    RequireNonLetterOrDigit = true,
+                    RequireDigit = true,
+                    RequireLowercase = true,
+                    RequireUppercase = true,
+                };
+
+                
+                var dataProtectionProvider = options.DataProtectionProvider;
+                if (dataProtectionProvider != null)
+                {
+                    manager.UserTokenProvider = new DataProtectorTokenProvider<User>(dataProtectionProvider.Create("ASP.NET Identity"));
+                }
+
+                manager.EmailService = new EmailService();
+
                 return manager;
             }
         }

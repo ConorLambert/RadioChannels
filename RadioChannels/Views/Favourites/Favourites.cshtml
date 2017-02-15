@@ -4,33 +4,45 @@
     ViewBag.Title = "Favourites";
 }
 
-@RenderPage("~/Views/Shared/_Categories.cshtml")
 
-<div id="stations-container">    
-    <div id="stations">
-        <ul>
-            @RenderPage("~/Views/Shared/_Stations.cshtml")            
-        </ul>
+@if (Request.IsAuthenticated)
+{
+    @RenderPage("~/Views/Shared/_Categories.cshtml")
+
+    <div id="stations-container">
+        <div id="stations">
+            <ul>
+                @RenderPage("~/Views/Shared/_Stations.cshtml")
+            </ul>
+        </div>
     </div>
-</div>
-<script>       
-    if (window.location.href.includes("/favourites/all"))
+
+    <script>
+        if (window.location.href.includes("/favourites/all"))
         history.replaceState("favourites", null, "/favourites.html");
-    else
-        history.pushState("favourites", null, "/favourites.html");
-    $('#categories li:contains("All")').addClass("clicked");    
-    $("#stations ul").find("li").find(".fav-btn").each(function (index, elem) {
-        $(elem).addClass("is-favourite");
-        $(elem).removeClass("fav-btn");
-    });
-    favourites = $("#stations ul").clone();
-    $("#stations").empty();
-    $("#stations").append(favourites);    
-    $("#genres").on("click", "a", function () {
-        var genre = $(this).text();
-        getFavouritesOf(genre);
-        $("#categories li").removeClass("clicked"); // Remove all highlights
-        $(this).parent('li').addClass("clicked");
-        triggerMouseOverIcon();
-    });    
-</script>
+        else
+            history.pushState("favourites", null, "/favourites.html");
+            $('#categories li:contains("All")').addClass("clicked");
+            $("#stations ul").find("li").find(".fav-btn").each(function (index, elem) {
+                $(elem).addClass("is-favourite");
+                $(elem).removeClass("fav-btn");
+        });
+        favourites = $("#stations ul").clone();
+            $("#stations").empty();
+            $("#stations").append(favourites);
+        /*
+        $("#genres").on("click", "a", function () {
+            var genre = $(this).text();
+            getFavouritesOf(genre);
+            $("#categories li").removeClass("clicked"); // Remove all highlights
+            $(this).parent('li').addClass("clicked");
+            triggerMouseOverIcon();
+        });
+        */
+    </script>
+}
+else
+{
+    <p> You must be a <a onclick = "ajax_request('/Account/Register', ActionOnReady)"> registered </a> member and <a onclick = "ajax_request('/Account/LogIn', ActionOnReady)"> logged in</a> to view this page </p>
+}
+

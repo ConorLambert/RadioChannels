@@ -1,37 +1,50 @@
-﻿@RenderPage("~/Views/Shared/_Categories.cshtml")
+﻿@{
+    ViewBag.Title = "Favourites";
+}
 
-<div id="stations-container">
-    <div id="stations">
-        <ul>            
-        </ul>
+@if (Request.IsAuthenticated)
+{
+    @RenderPage("~/Views/Shared/_Categories.cshtml")
+
+    <div id="stations-container">
+        <div id="stations">
+            <ul>            
+            </ul>
+        </div>
     </div>
-</div>
-<script>    
-    if (!window.location.href.includes("favourites"))  // if we have moved back to this page then, dont push it
-        history.pushState("favourites", null, "/favourites.html");    
-    $('#categories li:contains("All")').addClass("clicked");
+    <script>    
+        if (!window.location.href.includes("favourites"))  // if we have moved back to this page then, dont push it
+            history.pushState("favourites", null, "/favourites.html");    
+        $('#categories li:contains("All")').addClass("clicked");
 
-    $("#genres").on("click", "a", function () {
-        var genre = $(this).text();
-        getFavouritesOf(genre);
-        $("#categories li").removeClass("clicked"); // Remove all highlights
-        $(this).parent('li').addClass("clicked");
-        triggerMouseOverIcon();
-    });
-    
-    if (favourites !== undefined) {
-        $("#stations").empty();
-        $("#stations").append(favourites);   // if the user has any favourites then add them to the stations container        
-        $(favourites).find("li").each(function (index, elem) {
-            if (!isPlaying(this)) {
-                initializeChannelItem(this);
-                triggerMouseOverIcon($(this).find(".activity"));
-            } else {
-                $("#stations ul li:eq(" + index + ")").replaceWith($(current_channel).closest("li").clone());
-                current_channel = $("#stations ul li:eq(" + index + ") .activity")[0];
-            }
+        /*
+        $("#genres").on("click", "a", function () {
+            var genre = $(this).text();
+            getFavouritesOf(genre);
+            $("#categories li").removeClass("clicked"); // Remove all highlights
+            $(this).parent('li').addClass("clicked");
+            triggerMouseOverIcon();
         });
-    } else {
+        */
+        triggerFavouritesGenreSelect();
+        if (favourites !== undefined) {
+            $("#stations").empty();
+            $("#stations").append(favourites);   // if the user has any favourites then add them to the stations container        
+            $(favourites).find("li").each(function (index, elem) {
+                if (!isPlaying(this)) {
+                    initializeChannelItem(this);
+                    triggerMouseOverIcon($(this).find(".activity"));
+                } else {
+                    $("#stations ul li:eq(" + index + ")").replaceWith($(current_channel).closest("li").clone());
+                    current_channel = $("#stations ul li:eq(" + index + ") .activity")[0];
+                }
+            });
+        } else {
 
-    }    
-</script>
+        }    
+    </script>
+}
+else
+{
+    <p> You must be a <a onclick="ajax_request('/Account/Register', ActionOnReady)"> registered </a> member and <a onclick="ajax_request('/Account/LogIn', ActionOnReady)"> logged in</a> to view this page </p>
+}

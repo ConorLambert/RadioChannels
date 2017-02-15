@@ -26,6 +26,12 @@
             <input id="submit" type="submit" value="Log In" />
             <span class="change-log-in">Don't have an account? <a onclick="ajax_request('/Account/Register', ActionOnReady);">Register</a></span>
         </li>  
+        @* Enable this once you have account confirmation enabled for password reset functionality *@
+        <li>
+            <p>
+                @Html.ActionLink("Forgot your password?", "ForgotPassword")
+            </p>
+        </li>
         <li class="form-line"></li>
         <li class="logos-placeholder">  
             <span>Or Log In Using </span>          
@@ -37,5 +43,5 @@
 }
 <script>
     if (!window.location.href.includes("login"))  // if we have moved back to this page then, dont push it
-        history.pushState("login", null, "login.html");
+        history.pushState("login", null, "/login.html");
 </script>

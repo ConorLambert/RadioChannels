@@ -28,7 +28,26 @@ namespace RadioChannels.Controllers
         {
             return PartialView();
         }
+
+        [AllowAnonymous]
+        public async Task<ActionResult> ConfirmEmail(string userId, string code)
+        {
+            setContextProperties();
+            if (userId == null || code == null)
+            {
+                return View("Error");
+            }
+            var result = await userManager.ConfirmEmailAsync(userId, code);
+            return View(result.Succeeded ? "ConfirmEmail" : "Error");
+        }
+
+        public ActionResult Info()
+        {
+            return View();
+        }
+
         
+
 
         // EXTERNAL LOGIN/REGISTER
 
@@ -132,8 +151,19 @@ namespace RadioChannels.Controllers
             var user = await userManager.FindAsync(model.Email, model.PasswordHash); 
             if (user != null)
             {
-                await SignIn(user);
-                return Redirect(Url.Action("all", "favourites")); // GetRedirectUrl(model.ReturnUrl));
+                if (!await userManager.IsEmailConfirmedAsync(user.Id))
+                {
+                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account-Resend");
+
+                    // Uncomment to debug locally  
+                    ViewBag.Link = callbackUrl;
+                    ViewBag.errorMessage = "You must have a confirmed email to log on. "
+                                         + "The confirmation token has been resent to your email account.";
+                    return View("Error");
+                } else {
+                    await SignIn(user);
+                    return Redirect(Url.Action("all", "favourites")); // GetRedirectUrl(model.ReturnUrl));
+                }
             }
 
             // user authN failed
@@ -162,8 +192,21 @@ namespace RadioChannels.Controllers
 
             if (result.Succeeded)
             {
-                await SignIn(model);
-                return RedirectToAction("index", "favourites");
+                string code = await userManager.GenerateEmailConfirmationTokenAsync(model.Id);
+                // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = model.Id, code = code }, protocol: Request.Url.Scheme);
+                string callbackUrl = await SendEmailConfirmationTokenAsync(model.Id, "Confirm your account");
+
+               //  await userManager.SendEmailAsync(model.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
+                         + "before you can log in.";
+
+                // ViewBag.Link = callbackUrl; local debug only
+
+                return View("Info");
+
+                // await SignIn(model);
+                // return RedirectToAction("index", "favourites");
             }
 
             foreach (var error in result.Errors)
@@ -190,13 +233,104 @@ namespace RadioChannels.Controllers
         }
 
 
+        // PASSWORD RECOVERY
+
+        [AllowAnonymous]
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult ForgotPasswordConfirmation()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            setContextProperties();
+
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.FindByNameAsync(model.Email);
+                if (user == null || !(await userManager.IsEmailConfirmedAsync(user.Id)))
+                {
+                    // Don't reveal that the user does not exist or is not confirmed
+                    return View("ForgotPasswordConfirmation");
+                }
+
+                string code = await userManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                await userManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        // GET: /Account/ResetPassword
+        [AllowAnonymous]
+        public ActionResult ResetPassword(string code)
+        {
+            return code == null ? View("Error") : View();
+        }
+
+        //
+        // POST: /Account/ResetPassword
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            setContextProperties();
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var user = await userManager.FindByNameAsync(model.Email);
+            if (user == null)
+            {
+                // Don't reveal that the user does not exist
+                return RedirectToAction("ResetPasswordConfirmation", "Account");
+            }
+            var result = await userManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("ResetPasswordConfirmation", "Account");
+            }
+            AddErrors(result);
+            return View();
+        }
+
+        //
+        // GET: /Account/ResetPasswordConfirmation
+        [AllowAnonymous]
+        public ActionResult ResetPasswordConfirmation()
+        {
+            return View();
+        }
+
+
 
         // HELPER METHODS
-         
+
         public void setContextProperties()
         {
             this.context = HttpContext.GetOwinContext().Get<RadioContext>();
             this.userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+        }
+
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
         }
 
         private IAuthenticationManager GetAuthenticationManager()
@@ -213,6 +347,17 @@ namespace RadioChannels.Controllers
             }
 
             return returnUrl;
+        }
+
+        private async Task<string> SendEmailConfirmationTokenAsync(string userID, string subject)
+        {
+            string code = await userManager.GenerateEmailConfirmationTokenAsync(userID);
+            var callbackUrl = Url.Action("ConfirmEmail", "Account",
+               new { userId = userID, code = code }, protocol: Request.Url.Scheme);
+            await userManager.SendEmailAsync(userID, subject,
+               "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+            return callbackUrl;
         }
 
         protected override void Dispose(bool disposing)

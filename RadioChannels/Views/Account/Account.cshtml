@@ -21,13 +21,18 @@
         </li>
         <li>
             <input id="edit" type="button" value="Edit" onclick="ajax_request('/Account/Edit')" />            
-        </li>  
+        </li>        
+    </ul>
+}
+@using (Html.BeginForm("Delete", "Account", FormMethod.Post))
+{
+    <ul class="form-style-1">
         <li>
-            <input id="delete" type="button" value="Delete Account" />
-        </li>      
+            <input id="delete" name="submit" type="submit" value="Delete Account" />
+        </li>
     </ul>
 }
 <script>
-    if (!window.location.href.includes("account"))  // if we have moved back to this page then, dont push it
+    /*if (!window.location.href.includes("account"))  // if we have moved back to this page then, dont push it
         history.pushState("account", null, "/account.html");
 </script>

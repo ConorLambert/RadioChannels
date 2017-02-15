@@ -327,16 +327,20 @@ namespace RadioChannels.Controllers
         }
 
         [HttpPost]
-        public ActionResult Account(User client)
+        public ActionResult Delete(User user)
         {
             setContextProperties();
-            var user = userManager.FindById(User.Identity.GetUserId());
+            var current_user = userManager.FindById(User.Identity.GetUserId());
 
-            context.Favourite.RemoveRange(context.Favourite.Where(x => x.UserId == user.Id));
+            context.Favourite.RemoveRange(context.Favourite.Where(x => x.UserId == current_user.Id));
             context.SaveChanges();
 
-            context.Users.Remove(user);
+            context.Users.Remove(current_user);
             context.SaveChanges();
+
+            var ctx = Request.GetOwinContext();
+            var authManager = ctx.Authentication;
+            authManager.SignOut("ApplicationCookie");
 
             return RedirectToAction("Index", "Home");
         }

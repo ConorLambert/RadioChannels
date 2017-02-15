@@ -4,93 +4,131 @@
     <meta charset="utf-8" />
     <title>@ViewBag.Title - My ASP.NET Application</title>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" /> 
     <link href="~/Content/stylesheets/font-awesome.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/stylesheets/main.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/stylesheets/loading.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/stylesheets/icons.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link href="~/Content/stylesheets/audio-waves.css" rel="stylesheet" />
-    <link href="~/Content/stylesheets/playback-panel.css" rel="stylesheet" />
+    <link href="~/Content/stylesheets/playback-panel.css" rel="stylesheet" />    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet" type="text/css">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <link href="https://fonts.googleapis.com/css?family=Amiri|Cantarell|Crimson+Text|Gentium+Basic|Muli|Nunito+Sans|Quattrocento+Sans|Quicksand|Raleway|Ubuntu" rel="stylesheet">
     <script> var favourites = undefined;</script>
 </head>
-<body>       
-    <div id="page_wrapper">
-        <header id="page_header"></header>
-        <nav id="navigation">
-            <ul>
-                <li id="item-radio-stations"><span></span><a onclick="ajax_request('/Home/IndexPartial', triggerGenreSelect)">Home</a></li>                               
-                @if (Request.IsAuthenticated)
-                {
-                    <li id="item-favourites"><span class="fav-btn"></span><a onclick="getFavourites();">Favourites</a></li>
-                    <li id="item-account"><span></span><a onclick="ajax_request('/Account/Account')">Account</a></li>
-                    <li id="item-log-out"><span></span><a onclick="signOut()" href="@Url.Action("Logout", "Account")">Log Out</a></li>
-                }
-                else
-                {                    
-                    <li id="item-sign-in"><span></span><a onclick="ajax_request('/Account/Register', ActionOnReady)">Register / Sign In</a></li>
-                }
-            </ul>
-        </nav>
-        <main id="page">
-            @RenderBody()
-        </main>                       
-        <div id="audio-player" class="audio-player-wrapper">
-            <div id="jplayer" class="jp-jplayer" style="width: 0px; height: 0px;">
-                <img id="jp_poster_0" style="width: 0px; height: 0px; display: none;">
-                <audio id="jp_audio_0" crossOrigin="anonymous" preload="none"></audio>
-            </div> 
-            <div class="audio-player-image"><img /></div>                
-            <div class="audio-player-song-name"></div>
-            <div id="add-favourite" class="fav-btn" onclick="addToFavourites(this)"></div>
-            <div class="audio-player-controls">
-                <a role="button" class="audio-player-button audio-player-place-pause-button icon-play" onclick="continueStream()"></a>  
-                <a role="button" class="icon-backward" onclick="previousStation()"></a>   
-                <span class="audio-player-progress">
-                     <span class="audio-player-progress-bar"></span>
-                </span>
-                <a role="button" class="icon-forward" onclick="nextStation()"></a>
-                <!--
-                    <div class="loader-container">
-                        <div class="rectangle-1"></div>
-                        <div class="rectangle-2"></div>
-                        <div class="rectangle-3"></div>
-                        <div class="rectangle-4"></div>
-                        <div class="rectangle-5"></div>
-                        <div class="rectangle-6"></div>
-                        <div class="rectangle-5"></div>
-                        <div class="rectangle-4"></div>
-                        <div class="rectangle-3"></div>
-                        <div class="rectangle-2"></div>
-                        <div class="rectangle-1"></div>
-                    </div>
-                 -->                
-            </div>
-            <div class="volumeContainer">
-                <i class="volume-down" aria-hidden="true"></i>                 
-                <div class="volumeBar">
-                    <div class="audio-player-volume-bar"></div>
+<body>
+
+    <header>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Brand</a>
                 </div>
-                <i class="volume-up" aria-hidden="true"></i>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <!--<li><a href="#">Link</a></li>-->
+                        <li id="item-radio-stations"><!--<span></span>--><a onclick="ajax_request('/Home/IndexPartial', triggerGenreSelect)">Home</a></li>
+                        @if (Request.IsAuthenticated)
+                        {
+                            <li id="item-favourites"><!--<span class="fav-btn"></span>--><a onclick="getFavourites();">Favourites</a></li>
+                            <li id="item-account"><!--<span></span>--><a onclick="ajax_request('/Account/Account')">Account</a></li>
+                            <li id="item-log-out"><!--<span></span>--><a onclick="signOut()" href="@Url.Action("Logout", "Account")">Log Out</a></li>
+                        }
+                        else
+                        {
+                            <li id="item-sign-in"><!--<span></span>--><a onclick="ajax_request('/Account/Register', ActionOnReady)">Register / Sign In</a></li>
+                        }
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+    </header>
+
+    <main id="page">
+        @RenderBody()
+    </main>  
+
+    <footer class="navbar-fixed-bottom" >
+        <div id="audio-player" class="container-fluid">
+            <div class="row">
+                <div id="jplayer" class="jp-jplayer" style="width: 0px; height: 0px;">
+                    <img id="jp_poster_0" style="width: 0px; height: 0px; display: none;">
+                    <audio id="jp_audio_0" crossOrigin="anonymous" preload="none"></audio>
+                </div>                
+                <div class="col-sm-1 hidden-xs">
+                    <div class="audio-player-image"><img /></div>
+                </div>
+                <div class="col-sm-2 hidden-xs">
+                    <div class="audio-player-song-name"></div>
+                </div>
+                <div class="col-xs-3 col-sm-1">
+                    <div id="add-favourite" class="fav-btn" onclick="addToFavourites(this)"></div>
+                </div>
+
+                <div class="col-xs-6 hidden-sm hidden-md hidden-lg">
+                    <div class="audio-player-controls">                        
+                        <a role="button" class="icon-backward" onclick="previousStation()"></a>
+                        <a role="button" class="audio-player-button audio-player-place-pause-button icon-play" onclick="continueStream()"></a>
+                        <a role="button" class="icon-forward" onclick="nextStation()"></a>
+                    </div>
+                </div>
+                <div class="col-sm-5 hidden-xs">
+                    <div class="audio-player-controls">
+                        <a role="button" class="audio-player-button audio-player-place-pause-button icon-play" onclick="continueStream()"></a>
+                        <a role="button" class="icon-backward" onclick="previousStation()"></a>
+                        <span class="audio-player-progress">
+                            <span class="audio-player-progress-bar"></span>
+                        </span>
+                        <a role="button" class="icon-forward" onclick="nextStation()"></a>
+                    </div>
+                </div>
+
+                <div class="col-sm-3 hidden-xs">
+                    <div class="volumeContainer">
+                        <i class="volume-down" aria-hidden="true"></i>
+                        <div class="volumeBar">
+                            <div class="audio-player-volume-bar"></div>
+                        </div>
+                        <i class="volume-up" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="col-xs-3 hidden-sm hidden-md hidden-lg">
+                    <div class="controls">
+                        <div class="volume-chooser">
+                            <div class="volume-button"><i class="volume-up"></i></div>
+                            <div class="volume-control">
+                                <input class="volume" type="range" value="100" max="100" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>    
-    <footer>
-        The Footer Goes Here
-    </footer>              
+    </footer>
+
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jplayer/2.9.2/jplayer/jquery.jplayer.js"></script>
     <script src="~/Scripts/playback-panel.js"></script>
     <script src="~/Scripts/password-validator.js"></script>
-    <script src="~/Scripts/find_station.js"></script> 
+    <script src="~/Scripts/find_station.js"></script>
     <script src="~/Scripts/favourites.js"></script>
     <script>
-        window.addEventListener('popstate', function (event) {    
+        window.addEventListener('popstate', function (event) {
             console.log(event.state + " " + window.location.href + " " + window.location.href.includes("/favourites/"));
             if (event.state !== undefined && event.state !== null) {
 
@@ -103,13 +141,13 @@
                                 return false;
                             }
                         });
-                    });                    
+                    });
                 } else if ((event.state === "favourites")) {
                     console.log("In favourites");
                     $("#item-favourites").find("a").trigger("click");
                 } else if (event.state === "index") {
                     $("#item-radio-stations").find("a").trigger("click");
-                } else if (event.state === "register") {                    
+                } else if (event.state === "register") {
                     ajax_request('/Account/Register', ActionOnReady);
                 } else if (event.state === "login") {
                     ajax_request('/Account/Login', ActionOnReady);
@@ -125,12 +163,12 @@
                                 return false;
                             }
                         });
-                    });                    
+                    });
                 }
             } else {
                 // return to home page
                 $("#stations ul").empty();
-                // remove selected genre                
+                // remove selected genre
                 $("#categories").find(".clicked").removeClass("clicked");
             }
         });

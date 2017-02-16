@@ -7,11 +7,11 @@ var current_volume = 1.0;
 var oldx = 0;
 var newx = 0;
 
-$(document).ready(function () {        
-    initializePlayer();        
+$(document).ready(function () {
+    initializePlayer();
     if (window.location.href.includes("/favourites"))
         triggerFavouritesGenreSelect();
-    else 
+    else
         triggerGenreSelect();
     triggerMouseOverIcon();
 
@@ -20,21 +20,26 @@ $(document).ready(function () {
         var x = e.pageX - $(this).offset().left;
         var width = parseFloat($(".volumeBar").width());
         var new_volume = ((x / width) * 100);
-        $(".audio-player-volume-bar").css({ width: new_volume + "%" });
+        // $(".audio-player-volume-bar").css({ width: new_volume + "%" });
         current_volume = new_volume / 100;
-        $("#jplayer").jPlayer("volume", current_volume);
-    });    
-
-    $(".volume-down").click(function () {        
-        current_volume = current_volume - 0.05 > 0 ? (current_volume - 0.05) : 0;
-        $("#jplayer").jPlayer("volume", current_volume);
-        $(".audio-player-volume-bar").css({ width: (current_volume * 100) + "%" });
+        //$("#jplayer").jPlayer("volume", current_volume);
+        setVolume();
     });
 
-    $(".volume-up").click(function () {        
+    $(".volume-down").click(function () {
+        current_volume = current_volume - 0.05 > 0 ? (current_volume - 0.05) : 0;
+        setVolume();
+    });
+
+    $(".volume-up").click(function () {
         current_volume = current_volume + 0.05 < 1.0 ? (current_volume + 0.05) : 1.0;
-        $("#jplayer").jPlayer("volume", current_volume);
-        $(".audio-player-volume-bar").css({ width: (current_volume * 100) + "%" });
+        setVolume();
+    });
+
+    $(".volume-chooser").on("input", ".volume", function (e) {
+        volume = $(e.currentTarget).val();
+        current_volume = volume / 100;
+        setVolume();
     });
 
     var imgWidth = $('.regular-image').width();
@@ -46,6 +51,11 @@ $(document).ready(function () {
     });
 });
 
+function setVolume() {
+    $("#jplayer").jPlayer("volume", current_volume);
+    $("#mobile-volume").val(current_volume * 100);
+    $(".audio-player-volume-bar").css({ width: (current_volume * 100) + "%" });
+}
 
 // EVENTS
 
@@ -141,15 +151,15 @@ function initializePlayer() {
 // events
 
 $("#jplayer").bind($.jPlayer.event.play, function (event) {
-    $(".audio-player-controls").find(".audio-player-button").removeClass("icon-play");
-    $(".audio-player-controls").find(".audio-player-button").addClass("icon-pause");
+    $(".audio-player-button").removeClass("icon-play");
+    $(".audio-player-button").addClass("icon-pause");
     $(".audio-player-progress").addClass("loading");  
     // connect stream to waves canvas
 });
 
 $("#jplayer").bind($.jPlayer.event.pause, function (event) { // Add a listener to report the time play began
-    $(".audio-player-controls").find(".audio-player-button").removeClass("icon-pause");
-    $(".audio-player-controls").find(".audio-player-button").addClass("icon-play");
+    $(".audio-player-button").removeClass("icon-pause");
+    $(".audio-player-button").addClass("icon-play");
     // remove hover
 });
 

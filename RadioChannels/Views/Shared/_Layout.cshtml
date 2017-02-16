@@ -69,7 +69,8 @@
                 <div id="jplayer" class="jp-jplayer" style="width: 0px; height: 0px;">
                     <img id="jp_poster_0" style="width: 0px; height: 0px; display: none;">
                     <audio id="jp_audio_0" crossOrigin="anonymous" preload="none"></audio>
-                </div>                
+                </div>  
+                              
                 <div class="col-sm-1 hidden-xs">
                     <div class="audio-player-image"><img /></div>
                 </div>
@@ -80,43 +81,43 @@
                     <div id="add-favourite" class="fav-btn" onclick="addToFavourites(this)"></div>
                 </div>
 
-                <div class="col-xs-6 hidden-sm hidden-md hidden-lg">
-                    <div class="audio-player-controls">                        
-                        <a role="button" class="icon-backward" onclick="previousStation()"></a>
+                <div class="col-xs-2 col-sm-1">
+                    <div id="backward" class="icon-backward" onclick="previousStation()"></div>
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                    <div id="play-pause-container">
                         <a role="button" class="audio-player-button audio-player-place-pause-button icon-play" onclick="continueStream()"></a>
-                        <a role="button" class="icon-forward" onclick="nextStation()"></a>
                     </div>
                 </div>
-                <div class="col-sm-5 hidden-xs">
-                    <div class="audio-player-controls">
-                        <a role="button" class="audio-player-button audio-player-place-pause-button icon-play" onclick="continueStream()"></a>
-                        <a role="button" class="icon-backward" onclick="previousStation()"></a>
-                        <span class="audio-player-progress">
-                            <span class="audio-player-progress-bar"></span>
-                        </span>
-                        <a role="button" class="icon-forward" onclick="nextStation()"></a>
-                    </div>
+                <div class="col-xs-2 col-sm-1">
+                    <div id="forward" role="button" class="icon-forward" onclick="nextStation()"></div>
+                </div>                
+                
+                <div class="hidden-xs col-sm-1 ">
+                    <div class="volume-down" aria-hidden="true"></div>
                 </div>
-
-                <div class="col-sm-3 hidden-xs">
-                    <div class="volumeContainer">
-                        <i class="volume-down" aria-hidden="true"></i>
+                <div class="hidden-xs col-sm-2">
+                    <div id="volumeContainer">
                         <div class="volumeBar">
                             <div class="audio-player-volume-bar"></div>
                         </div>
-                        <i class="volume-up" aria-hidden="true"></i>
                     </div>
                 </div>
+                <div class="hidden-xs col-sm-1">
+                    <div class="volume-up" aria-hidden="true"></div>
+                </div>
+                                
                 <div class="col-xs-3 hidden-sm hidden-md hidden-lg">
                     <div class="controls">
                         <div class="volume-chooser">
                             <div class="volume-button"><i class="volume-up"></i></div>
                             <div class="volume-control">
-                                <input class="volume" type="range" value="100" max="100" />
+                                <input id="mobile-volume" class="volume" type="range" value="100" max="100" />
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </footer>

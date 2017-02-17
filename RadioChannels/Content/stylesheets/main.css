@@ -525,9 +525,9 @@ input.volume[type=range]::-ms-thumb {
     .radmenu > a {
     }
 
-        .radmenu > a.show {
-            display: flex !important;
-        }
+    .radmenu > a.show {
+        display: flex !important;
+    }
 
     .radmenu li {
         -webkit-transform: translate3d(0, 0, 0);

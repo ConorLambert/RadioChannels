@@ -69,26 +69,50 @@ function initializeRadialMenu() {
     total_base_genres = $("#categories > ul").children("li").length;
 
     function setSelected(e) {
-        if (this.classList.contains("selected")) {  // if centre menu item selected and has already been selected go up
-            this.classList.remove("selected");
-            if (!this.parentNode.classList.contains("radmenu")) {
-                var genre_selector = this.parentNode.parentNode.parentNode.querySelector("a");
-                genre_selector.classList.add("selected");
-                placeMenuItems($(genre_selector).next("ul"));
-            } else {
-                this.classList.add("show");
-            }
+
+        if ($(e.srcElement).parent('li').hasClass("concrete-genre")) {
+            // list channels
         } else {
-            this.classList.add("selected");
-            if (!this.parentNode.classList.contains("radmenu")) {
-                this.parentNode.parentNode.parentNode.querySelector("a").classList.remove("selected")                
-            } else {
-                this.classList.remove("show");                
+
+            if ($(e.srcElement).text() !== "Genres" && !this.parentNode.classList.contains("radmenu")) {                
+                $(e.srcElement).parent("li").addClass("clicked");
             }
-            if ($(e.srcElement).next("ul").length > 0)
-                placeMenuItems($(e.srcElement).next("ul"));
+
+            if (this.classList.contains("selected")) {  // if centre menu item selected and has already been selected go up
+                this.classList.remove("selected");
+                if ($(e.srcElement).text() !== "Genres" || !this.parentNode.classList.contains("radmenu")) {
+                    // detach this element from categories and place it back to where it orignally came from
+                    // we can achieve this by finding the li element which has the clicekd class attached to it and append it there
+                    var ul_to_detach = $(e.srcElement).next("ul").detach();
+                    var a_to_detach = $(e.srcElement).detach();
+                    $("#categories .clicked").append(a_to_detach[0]);
+                    $("#categories .clicked").append(ul_to_detach[0]);
+                    $("#categories .clicked").removeClass("clicked");
+                    e.srcSelected = a_to_detach[0];
+                    var genre_selector = $("#categories > a"); // this.parentNode.parentNode.parentNode.querySelector("a");
+                    $(genre_selector).addClass("selected");
+                    placeMenuItems($(genre_selector).next("ul"));
+                } else {
+                    this.classList.add("show");
+                }
+            } else {
+                this.classList.add("selected");
+                $(e.srcElement).css({ 'transform': 'rotate(-' + 0 + 'deg)' });
+                if (!this.parentNode.classList.contains("radmenu")) {
+                    this.parentNode.parentNode.parentNode.querySelector("a").classList.remove("selected")
+                } else {
+                    this.classList.remove("show");
+                }
+                if ($(e.srcElement).text() !== "Genres" && !this.parentNode.classList.contains("radmenu")) {
+                    $("#categories").append($(e.srcElement).parent("li").children().detach());
+                    e.srcElement = $("#categories > .selected");
+                }
+                if ($(e.srcElement).next("ul").length > 0)
+                    placeMenuItems($(e.srcElement).next("ul"));
+            }
+
+            return false;
         }
-        return false;
      }
 }
 
@@ -97,10 +121,7 @@ function placeMenuItems(e) {
     var rotate_offset = 0;
     var items = $(e).children("li");
     var translateX = 100;
-
-    // find the degree rotation between each element
-    // 360 / number_of_genres
-    //var number_of_genres = items.length; // $("#categories ul li").length;
+    
     var degree = 360 / total_base_genres;
         
     if ($(e).parent(".general-genre-container").length > 0) {
@@ -111,11 +132,7 @@ function placeMenuItems(e) {
 
     // for each li element 
     $(items).each(function (index, elem) {
-        rotate(elem, degree * (index + 1), translateX);
-        // set the width and height of .radmenu a in relation to the amount of elements displayed (more elements the smaller the width and height)
-        // reset the widths and heights  the menu items
-            // .radmenu a for elements surrounding
-        // $(elem).find("a").css({ "width": (degree * 2) + "px", "height": (degree * 2) + "px" });
+        rotate(elem, degree * (index + 1), translateX);        
     });
     
 }
@@ -133,6 +150,11 @@ function rotate(elem, degree, translateX) {
     $(elem).find("a").css({ '-moz-transform': 'rotate(-' + ((starting_point + degree) % 360) + 'deg)' });
     $(elem).find("a").css({ 'transform': 'rotate(-' + ((starting_point + degree) % 360) + 'deg)' });
 }
+
+
+
+
+
 
 function setVolume() {
     $("#jplayer").jPlayer("volume", current_volume);
@@ -154,8 +176,7 @@ function triggerGenreSelect() {
         // push the current state onto the history (URL should append the current genre as a hashbang)
         if (!window.location.href.includes(encodeURIComponent(current_genre)))  // if we have moved back to this page then, dont push it
             history.pushState(current_genre, null, "/index/" + current_genre + ".html");
-        $("#categories li").removeClass("clicked"); // Remove all highlights
-        $(this).parent('li').addClass("clicked"); // Add the class only for actually clicked element
+         // Add the class only for actually clicked element
     });
 }
 

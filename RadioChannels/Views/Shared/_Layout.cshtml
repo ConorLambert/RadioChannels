@@ -158,7 +158,7 @@
                     //$("#item-radio-stations").find("a").trigger("click");
                     ajax_request('/Home/IndexPartial', function () {
                         triggerGenreSelect();
-                        $("#genres li").each(function (index, elem) {
+                        $("#categories li").each(function (index, elem) {
                             if ($(elem).text().toLowerCase() === event.state.toLowerCase()) {
                                 $(elem).find("a").trigger("click");
                                 return false;

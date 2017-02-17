@@ -4,6 +4,8 @@
     ViewBag.Title = "Favourites";
 }
 
+<h2 id="main-heading">Favourites</h2>
+
 
 @if (Request.IsAuthenticated)
 {
@@ -30,15 +32,6 @@
         favourites = $("#stations ul").clone();
             $("#stations").empty();
             $("#stations").append(favourites);
-        /*
-        $("#genres").on("click", "a", function () {
-            var genre = $(this).text();
-            getFavouritesOf(genre);
-            $("#categories li").removeClass("clicked"); // Remove all highlights
-            $(this).parent('li').addClass("clicked");
-            triggerMouseOverIcon();
-        });
-        */
     </script>
 }
 else

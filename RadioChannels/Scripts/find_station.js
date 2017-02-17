@@ -6,14 +6,18 @@ var current_channel = undefined;
 var current_volume = 1.0;
 var oldx = 0;
 var newx = 0;
+var total_base_genres = 0;
 
 $(document).ready(function () {
     initializePlayer();
+    initializeRadialMenu();
+    
     if (window.location.href.includes("/favourites"))
         triggerFavouritesGenreSelect();
     else
         triggerGenreSelect();
     triggerMouseOverIcon();
+    
 
     // VOLUME
     $(".volumeBar").click(function (e) {
@@ -51,16 +55,98 @@ $(document).ready(function () {
     });
 });
 
+
+// RADIAL MENU
+
+function initializeRadialMenu() {
+    var buttons = document.querySelectorAll(".radmenu a");
+
+    for (var i = 0, l = buttons.length; i < l; i++) {
+        var button = buttons[i];
+        button.onclick = setSelected;
+    }    
+     
+    total_base_genres = $("#categories > ul").children("li").length;
+
+    function setSelected(e) {
+        if (this.classList.contains("selected")) {  // if centre menu item selected and has already been selected go up
+            this.classList.remove("selected");
+            if (!this.parentNode.classList.contains("radmenu")) {
+                var genre_selector = this.parentNode.parentNode.parentNode.querySelector("a");
+                genre_selector.classList.add("selected");
+                placeMenuItems($(genre_selector).next("ul"));
+            } else {
+                this.classList.add("show");
+            }
+        } else {
+            this.classList.add("selected");
+            if (!this.parentNode.classList.contains("radmenu")) {
+                this.parentNode.parentNode.parentNode.querySelector("a").classList.remove("selected")                
+            } else {
+                this.classList.remove("show");                
+            }
+            if ($(e.srcElement).next("ul").length > 0)
+                placeMenuItems($(e.srcElement).next("ul"));
+        }
+        return false;
+     }
+}
+
+function placeMenuItems(e) {
+
+    var rotate_offset = 0;
+    var items = $(e).children("li");
+    var translateX = 100;
+
+    // find the degree rotation between each element
+    // 360 / number_of_genres
+    //var number_of_genres = items.length; // $("#categories ul li").length;
+    var degree = 360 / total_base_genres;
+        
+    if ($(e).parent(".general-genre-container").length > 0) {
+        var obj = $(e).closest('.general-genre-container'); 
+        $(obj).removeAttr("style");
+        $(obj).children('a').removeAttr("style");        
+    }               
+
+    // for each li element 
+    $(items).each(function (index, elem) {
+        rotate(elem, degree * (index + 1), translateX);
+        // set the width and height of .radmenu a in relation to the amount of elements displayed (more elements the smaller the width and height)
+        // reset the widths and heights  the menu items
+            // .radmenu a for elements surrounding
+        // $(elem).find("a").css({ "width": (degree * 2) + "px", "height": (degree * 2) + "px" });
+    });
+    
+}
+
+function rotate(elem, degree, translateX) {  
+    var starting_point = 270;         
+    $(elem).css({
+        WebkitTransform: 'rotate(' + ((starting_point + degree) % 360) + 'deg), translateX(' + translateX + 'px)',
+        '-moz-transform': 'rotate(' + ((starting_point + degree) % 360) + 'deg), translateX(' + translateX + 'px)',
+        'transform': 'rotate(' + ((starting_point + degree) % 360) + 'deg) translateX(' + translateX + 'px)'
+    });
+    //$(elem).find("a").removeAttr('style');
+    // a element within the menu item is rotated to the same degree as the menu item itself but negatively
+    $(elem).find("a").css({ WebkitTransform: 'rotate(-' + ((starting_point + degree) % 360) + 'deg)'});
+    $(elem).find("a").css({ '-moz-transform': 'rotate(-' + ((starting_point + degree) % 360) + 'deg)' });
+    $(elem).find("a").css({ 'transform': 'rotate(-' + ((starting_point + degree) % 360) + 'deg)' });
+}
+
 function setVolume() {
     $("#jplayer").jPlayer("volume", current_volume);
     $("#mobile-volume").val(current_volume * 100);
     $(".audio-player-volume-bar").css({ width: (current_volume * 100) + "%" });
 }
 
+
 // EVENTS
 
 function triggerGenreSelect() {
-    $("#genres").on("click", "a", function () { 
+    $("#categories").on("click", "a", function () { 
+        if ($(this).text() === "Genres")
+            return;
         $('#stations ul').empty();  // remove the current list of stations if any
         current_genre = $(this).text().toLowerCase();
         channels_ajax_request(0);
@@ -74,7 +160,7 @@ function triggerGenreSelect() {
 }
 
 function triggerFavouritesGenreSelect() {
-    $("#genres").on("click", "a", function () {
+    $("#categories").on("click", "a", function () {
         var genre = $(this).text();
         getFavouritesOf(genre);
         $("#categories li").removeClass("clicked"); // Remove all highlights

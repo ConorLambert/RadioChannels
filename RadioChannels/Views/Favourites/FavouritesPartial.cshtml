@@ -2,6 +2,8 @@
     ViewBag.Title = "Favourites";
 }
 
+<h2 id="main-heading">Favourites</h2>
+
 @if (Request.IsAuthenticated)
 {
     @RenderPage("~/Views/Shared/_Categories.cshtml")
@@ -15,17 +17,7 @@
     <script>    
         if (!window.location.href.includes("favourites"))  // if we have moved back to this page then, dont push it
             history.pushState("favourites", null, "/favourites.html");    
-        $('#categories li:contains("All")').addClass("clicked");
-
-        /*
-        $("#genres").on("click", "a", function () {
-            var genre = $(this).text();
-            getFavouritesOf(genre);
-            $("#categories li").removeClass("clicked"); // Remove all highlights
-            $(this).parent('li').addClass("clicked");
-            triggerMouseOverIcon();
-        });
-        */
+        $('#categories li:contains("All")').addClass("clicked");        
         triggerFavouritesGenreSelect();
         if (favourites !== undefined) {
             $("#stations").empty();

@@ -2,17 +2,26 @@
     ViewBag.Title = "Home Page";
 }
 
-@RenderPage("~/Views/Shared/_Categories.cshtml")
-
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-3">
+            <h2 id="main-heading">Search</h2>
+        </div>
+        <div class="col-sm-9">
+            <div id="categories-container">
+                @RenderPage("~/Views/Shared/_Categories.cshtml")
+            </div>           
+        </div>
+    </div>     
+</div>
 <div id="stations-container">
     <div id="stations">
-        <ul>
-            
-        </ul>
+        <ul></ul>
     </div>
 </div>
-
 <script>
+    /*
     if (!window.location.href.includes("index"))
         history.pushState("index", null, "/index.html");
+    */
 </script>

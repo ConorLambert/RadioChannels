@@ -72,7 +72,6 @@ main {
     z-index: 5;
     background-color: #2D4F7F;
     font-size: 2.3em;
-    /* text-align: center; */
 }
 
 
@@ -85,11 +84,11 @@ main {
     width: 99%;
 }
 
-    #navigation ul li {
-        margin-top: 20px;
-        padding-left: 4px;
-        text-align: left;
-    }
+#navigation ul li {
+    margin-top: 20px;
+    padding-left: 4px;
+    text-align: left;
+}
 
 .nav-clicked {
     margin-left: -4px;
@@ -110,32 +109,15 @@ main {
     font-size: 3.3em;
 }
 
-#categories {
-    margin-bottom: 70px;
-    margin-top: -20px;
+#categories ul .clicked {
+    background-color: #FFFFFF;
+    color: #0049B0;
 }
 
-    #categories ul {
-        margin-top: 0px;
-    }
+#stations ul li {
+    float: left;
+}
 
-        #categories ul li {
-            display: inline-block;
-            margin-right: 4px;
-            background-color: #2D4F7F;
-            padding: 4px;
-            border-radius: 5px;
-            border: 2px inset #002138;
-        }
-
-        #categories ul .clicked {
-            background-color: #FFFFFF;
-            color: #0049B0;
-        }
-
-        #categories ul li, #stations ul li {
-            float: left;
-        }
 
 #stations-container {
     height: 1000px;
@@ -150,18 +132,18 @@ main {
     padding-right: 20px;
 }
 
-    #stations ul {
-        clear: left;
-    }
+#stations ul {
+    clear: left;
+}
 
-        #stations ul li {
-            margin-right: 50px;
-            margin-bottom: 50px;
-            padding: 8px;
-            border: 2px solid #2D4F7F;
-            width: 150px;
-            background-color: #132040;
-        }
+#stations ul li {
+    margin-right: 50px;
+    margin-bottom: 50px;
+    padding: 8px;
+    border: 2px solid #2D4F7F;
+    width: 220px;
+    background-color: #132040;
+}
 
 .channel-id {
     display: none;
@@ -193,7 +175,6 @@ main {
 }
 
 .title {
-    margin-bottom: -15px;
 }
 
     .title a {
@@ -353,7 +334,6 @@ main {
     position: relative;
     vertical-align: middle;
     width: 100%;
-    /* width: 170px; */
     height: 4px;
     border: 1px solid #A6CBFF;
     border-radius: 3px;
@@ -362,7 +342,6 @@ main {
 }
 
 .audio-player-volume-bar {
-    /* display: inline-block; */
     width: 100%;
     height: 100%;
     background-color: #A6CBFF;
@@ -389,9 +368,9 @@ main {
     text-align: left;
 }
 
-.volumeBar:hover, .volume-up:hover, .volume-down:hover {
-    cursor: pointer;
-}
+    .volumeBar:hover, .volume-up:hover, .volume-down:hover {
+        cursor: pointer;
+    }
 
 
 /* TOOLTIP */
@@ -422,9 +401,9 @@ main {
     text-align: center;
 }
 
-.volume-chooser:hover .volume-control {
-    display: block;
-}
+    .volume-chooser:hover .volume-control {
+        display: block;
+    }
 
 .volume-control {
     position: absolute;
@@ -525,3 +504,71 @@ input.volume[type=range]::-ms-thumb {
     width: 20px;
     background: #f00;
 }
+
+
+
+/* RADIAL MENU */
+
+#categories-container {
+    height: 350px;
+}
+
+.radmenu {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+    .radmenu > a {
+    }
+
+        .radmenu > a.show {
+            display: flex !important;
+        }
+
+    .radmenu li {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        transition: all 1s ease;
+        /* width  (how far away from the centre and each other they are) */
+    }
+
+    .radmenu a {
+        position: absolute;
+        width: 65px;
+        height: 65px;
+        /* padding: 40px; */
+        background: rgba(255, 255, 255, 0.9);
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        border-radius: 120px;
+        display: none;
+        text-decoration: none;
+        color: #333;
+        transition: all 1s ease;
+        box-shadow: 0 0 15px #222;
+        font-family: "segoe ui";
+        font-weight: 200;
+        font-size: 0.8em;
+    }
+
+    .radmenu .selected {
+        background: rgba(51, 51, 51, 0.9);
+        display: flex;
+        /* top: 15%; */
+        /* left: 50%; */
+        color: #f1f1f1;
+        box-shadow: 0 0 10px #f1f1f1;
+        -webkit-transform: rotate(0deg) translateX(0px);
+        transform: rotate(0deg) translateX(0px);
+    }
+
+        .radmenu .selected + ul > li > a {
+            display: flex;
+            /* top: calc(90% - 60px); */
+            /* left: calc(90% - 60px); */
+        }

@@ -169,7 +169,7 @@ function triggerGenreSelect() {
     $("#categories").on("click", "a", function () { 
         if ($(this).text() === "Genres")
             return;
-        $('#stations ul').empty();  // remove the current list of stations if any
+        $('#stations > div').empty();  // remove the current list of stations if any
         current_genre = $(this).text().toLowerCase();
         channels_ajax_request(0);
         triggerScrollEvent();
@@ -191,11 +191,11 @@ function triggerFavouritesGenreSelect() {
 }
 
 function getFavouritesOf(genre) {
-    $('#stations ul').detach();  // remove the current list of stations if any   
-    $('#stations').append("<ul></ul>");
-    $(favourites).find("li").each(function (index, elem) {
+    $('#stations > div').detach();  // remove the current list of stations if any   
+    $('#stations').append("<div class='row'><div>");
+    $(favourites).find(".row").each(function (index, elem) {
         if ($(elem).find(".genre").text() === genre)
-            $("#stations ul").append($(elem).clone());
+            $("#stations > div").append($(elem).clone());
     });
     if (!window.location.href.includes("/" + encodeURIComponent(genre)))  // if we have moved back to this page then, dont push it
         history.pushState(genre, null, "/favourites/" + genre + ".html");
@@ -299,14 +299,14 @@ function tunein(channel, elem) {
         if ($("#jplayer").data().jPlayer.status.paused == false)
             togglePlayStationControl(current_channel);
         if (current_channel !== undefined) {
-            $(current_channel).closest("li").removeClass("is-selected");
+            $(current_channel).closest(".row").removeClass("is-selected");
             triggerMouseOverIcon(current_channel);
-            $(current_channel).closest("li").find(".label").removeClass("is-playing");
+            $(current_channel).closest(".row").find(".label").removeClass("is-playing");
         }
         current_channel = elem;
-        $(current_channel).closest("li").addClass("is-selected");
+        $(current_channel).closest(".row").addClass("is-selected");
         removeMouseOverIcon(current_channel);
-        $(current_channel).closest("li").find(".label").addClass("is-playing");
+        $(current_channel).closest(".row").find(".label").addClass("is-playing");
         stream(channel);
         if (channel.Logo !== null) {
             $(".audio-player-image img").attr('src', channel.Logo + '?' + Math.random());
@@ -314,12 +314,12 @@ function tunein(channel, elem) {
         } else {
             $(".audio-player-image img").hide();
         }
-        $('.audio-player-song-name').text($(elem).closest("li").find(".track").text());
+        $('.audio-player-song-name').text($(elem).closest(".row").find(".track").text());
     }      
 }
 
 function isPlaying(elem) {
-    return $(elem).closest("li").find(".channel-id").attr("id") === $(current_channel).closest("li").find(".channel-id").attr("id");
+    return $(elem).closest(".row").find(".channel-id").attr("id") === $(current_channel).closest(".row").find(".channel-id").attr("id");
 }
 
 function toggleStreaming() {
@@ -345,10 +345,10 @@ function togglePlayStationControl(item) {
 function nextStation() {
     if (current_channel === undefined) return null;
     var channel_to_trigger;
-    if ($(current_channel).closest("li").next().length === 0)
-        channel_to_trigger = $("#stations ul li:nth-child(1)").find(".activity"); // .trigger("onclick");
+    if ($(current_channel).closest(".row").next().length === 0)
+        channel_to_trigger = $("#stations > div > .row:nth-child(1)").find(".activity"); // .trigger("onclick");
     else
-        channel_to_trigger = $(current_channel).closest("li").next().find(".activity"); // .trigger("onclick");
+        channel_to_trigger = $(current_channel).closest(".row").next().find(".activity"); // .trigger("onclick");
     // setup the icons to be swapped for tunein function 
     $(channel_to_trigger).removeClass("icon-headphones");
     $(channel_to_trigger).addClass("icon-play");
@@ -358,10 +358,10 @@ function nextStation() {
 function previousStation() {
     if (current_channel === undefined) return null;
     var channel_to_trigger;
-    if ($(current_channel).closest("li").prev().length === 0)
-        channel_to_trigger = $("#stations ul li:nth-child(" + $('#stations ul li').length + ")").find(".activity");     
+    if ($(current_channel).closest(".row").prev().length === 0)
+        channel_to_trigger = $("#stations > div > .row:nth-child(" + $('#stations > div > .row').length + ")").find(".activity");
     else
-        channel_to_trigger = $(current_channel).closest("li").prev().find(".activity");
+        channel_to_trigger = $(current_channel).closest(".row").prev().find(".activity");
     // setup the icons to be swapped for tunein function 
     $(channel_to_trigger).removeClass("icon-headphones");
     $(channel_to_trigger).addClass("icon-play");
@@ -400,8 +400,8 @@ function stream(channel) {
 
 function addMoreChannels() {    
     var count = 0;
-    if ($('#stations ul').children('li') !== null)
-        count = $('#stations ul li').length;
+    if ($('#stations > div').children('.row') !== null)
+        count = $('#stations > div > .row').length;
     channels_ajax_request(count);     
 }
 
@@ -421,8 +421,8 @@ function triggerScrollEvent() {
 
 function refreshInfo(elem) {
     // get channel name and id 
-    var channel_name = encodeURIComponent($(elem).closest("li").find(".title").text());
-    var id = $(elem).closest("li").find(".channel-id").attr("id");
+    var channel_name = encodeURIComponent($(elem).closest(".row").find(".title").text());
+    var id = $(elem).closest(".row").find(".channel-id").attr("id");
 
     // get channel name
     var url = '/api/Channels/GetChannel/?id=' + id + '&name=' + channel_name;    
@@ -436,7 +436,7 @@ function refreshInfo(elem) {
             success: function (data) {
                 var result = JSON.parse(data);
                 track_name = result.currenttrack;
-                $(elem).closest("li").find(".track").text(track_name);
+                $(elem).closest(".row").find(".track").text(track_name);
             }
         });
     });
@@ -470,10 +470,10 @@ function channels_ajax_request(index) {
             cache: false,
             success: function (data) {
                 var convert = $($.parseHTML(data));
-                $('#stations ul').append(convert);
+                $('#stations > div').append(convert);
                 $(convert).find('.activity').each(function (index, elem) {
                     // add scroll info event to each element
-                    $(elem).closest("li").find(".transitionable").each(function (index, elem) {
+                    $(elem).closest(".row").find(".transitionable").each(function (index, elem) {
                         $(elem).on("mouseover", function (item) {
                             scrollInfo(elem);
                         })
@@ -482,14 +482,14 @@ function channels_ajax_request(index) {
                         })
                     })
                     if (isPlaying(this)) {
-                        $("#stations ul li:eq(" + index + ")").replaceWith($(current_channel).closest("li").clone());
-                        current_channel = $("#stations ul li:eq(" + index + ") .activity")[0];
+                        $("#stations > div > div:eq(" + index + ")").replaceWith($(current_channel).closest(".row").clone());
+                        current_channel = $("#stations > div > div:eq(" + index + ") .activity")[0];
                     } else {
                         triggerMouseOverIcon(elem);
                     }
-                    if (isFavourite($(elem).closest("li").find(".channel-id").attr("id"))) {
-                        $(elem).closest("li").find(".fav-btn").addClass("is-favourite");
-                        $(elem).closest("li").find(".fav-btn").removeClass("fav-btn");
+                    if (isFavourite($(elem).closest(".row").find(".channel-id").attr("id"))) {
+                        $(elem).closest(".row").find(".fav-btn").addClass("is-favourite");
+                        $(elem).closest(".row").find(".fav-btn").removeClass("fav-btn");
                     }
                 });
             }

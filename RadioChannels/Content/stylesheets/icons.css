@@ -10,7 +10,7 @@
 
 #item-radio-stations span:before {
     content: "\f001";
-    font-family: FontAwesome;        
+    font-family: FontAwesome;
 }
 
 .fav-btn:before {
@@ -22,7 +22,7 @@
 #item-sign-in span:before {
     content: "\f007";
     font-family: FontAwesome;
-    padding-left: 1px; 
+    padding-left: 1px;
     padding-right: 2px;
 }
 
@@ -41,14 +41,10 @@
 }
 
 /* place the headphone icon */
-.activity.icon-headphones {
+.activity.icon-headphones, #stations .icon-pause, .activity.icon-play {
     font-family: FontAwesome;
-    font-size: 6.4em;
-}
-
-.activity.icon-play {
-    font-size: 6.4em;
-    cursor: pointer;
+    font-size: 4.0em;
+    color: #2C3E50;
 }
 
 .refresh-button:before {
@@ -56,18 +52,14 @@
     font-family: FontAwesome;
     cursor: pointer;
     bottom: 0px;
+    display: inline-block;
 }
 
 .fav-btn:hover:before, .is-favourite:before {
     content: "\f005";
     font-family: FontAwesome;
     cursor: pointer;
-}
-
-#stations .icon-pause {
-    display: block;
-    font-size: 6.4em;
-    font-family: FontAwesome;
+    color: #2C3E50;
 }
 
 .icon-pause:hover {
@@ -80,7 +72,7 @@
 /* AUDIO PLAYER */
 
 .audio-player-button:hover {
-    opacity: 1; 
+    opacity: 1;
 }
 
 .audio-player-button::before {
@@ -93,21 +85,21 @@
     height: 0px;
     margin: auto;
     line-height: 1px;
-    font-size: 20px; 
+    font-size: 20px;
 }
 
 .audio-player-button.icon-pause::before {
     font-size: 18px;
     top: 1px;
-    left: -15px; 
+    left: -15px;
 }
 
 .audio-player-button.icon-backward::before {
-    left: -17px; 
+    left: -17px;
 }
 
 .audio-player-button.small::before {
-  font-size: 15px; 
+    font-size: 15px;
 }
 
 .volume-down:before, .volume-up:before {
@@ -117,7 +109,7 @@
 .volume-down:before {
     content: "\f027";
     font-family: FontAwesome;
-    font-size: 1.8em;
+    font-size: 1.6em;
     font-style: normal;
 }
 

@@ -5,10 +5,10 @@ html, body {
     margin: 0;
     width: 100%;
     height: 99%;
-    color: #A6CBFF;
+    color: #000000;
     font-family: 'Nunito Sans', sans-serif;
     font-size: 62.5%;
-    background-color: #002138;
+    background-color: #FFFFFF;
     overflow: hidden;
 }
 
@@ -16,6 +16,11 @@ html, body {
     margin-bottom: 0px;
     font-size: 2.3em;
 }
+
+    .navbar > div {
+        background: #16a085;
+        color: #2C3E50;
+    }
 
 a {
     text-decoration: none;
@@ -35,9 +40,38 @@ ul {
 
 #categories-container.cbp-af-header-shrink {
     height: 0px;
-    bottom: 30px;
+    bottom: 120px;
 }
 
+#item-radio-stations a, #item-sign-in a {
+    color: #2C3E50;
+}
+
+
+/* SCROLLBARS */
+/* Let's get this party started */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #2C3E50;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+
+    ::-webkit-scrollbar-thumb:window-inactive {
+        background: #2C3E50;
+    }
 
 /* LAYOUT */
 #page_wrapper {
@@ -74,10 +108,11 @@ main {
 }
 
 #audio-player {
-    line-height: 3.9em;
+    line-height: 3.2em;
     width: 100%;
-    z-index: 5;
-    background-color: #2D4F7F;
+    /* z-index: 5; */
+    background-color: #2C3E50;
+    color: #EBEBEB;
     font-size: 2.3em;
 }
 
@@ -111,11 +146,13 @@ main {
     display: inline-block;
     width: 100%;
     margin-bottom: 0;
-    border-bottom: 1px solid #2D4F7F;
+    border-bottom: 1px solid #2C3E50;
     text-transform: uppercase;
-    font-weight: 100;
-    font-size: 3.3em;
+    /* font-weight: 100; */
+    font-size: 2.1em;
     text-align: center;
+    margin-top: 6px;
+    color: #2C3E50;
 }
 
 .heading-container {
@@ -127,16 +164,16 @@ main {
     color: #0049B0;
 }
 
-#stations ul li {
-    float: left;
-}
 
+
+
+/* STATIONS */
 
 #stations-container {
     height: 1000px;
     width: 100%;
     overflow: hidden;
-    border-top: 1px solid #2D4F7F;
+    border-top: 1px solid #2C3E50;
     padding-top: 20px;
 }
 
@@ -147,37 +184,41 @@ main {
     padding-right: 20px;
 }
 
-    #stations ul {
-        clear: left;
+    #stations .row {
+        margin-bottom: 50px;
+        padding: 5px;
+        border: 1px thin #2D4F7F;
+        background-color: #EBEBEB;
+        width: 50%;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
     }
-
-        #stations ul li {
-            margin-right: 50px;
-            margin-bottom: 50px;
-            padding: 8px;
-            border: 2px solid #2D4F7F;
-            width: 220px;
-            background-color: #132040;
-        }
 
 .channel-id {
     display: none;
 }
 
-#stations ul .is-selected {
-    border: 2px solid #A6CBFF;
+#stations .is-selected {
+    border: 2px solid #16a085;
 }
 
 .fav-btn, .is-favourite {
-    font-size: 1.7em;
+    font-size: 1.4em;
 }
 
 .image {
     text-align: center;
+    padding-top: 5px;
 }
 
 .activity {
     display: block;
+}
+
+.info-container {
+    text-align: left;
+    width: 100%;
 }
 
 .info {
@@ -185,48 +226,46 @@ main {
     overflow: hidden;
 }
 
+.now-playing {
+    /* text-align: center; */
+}
+
 .hidden {
     display: none;
 }
 
-.title {
+.title a {
+    /* color: #fefefe; */
+    text-transform: uppercase;
+    font-weight: normal;
 }
 
-    .title a {
-        color: #fefefe;
-        text-transform: uppercase;
-        font-weight: normal;
-    }
-
 .label {
+    display: inline-block;
     text-transform: uppercase;
     font-size: 10px;
-    color: #2D4F7F;
+    color: #34495E;
 }
 
 .is-playing {
-    color: darkred;
+    color: #16a085;
+}
+
+.track {
+    /* display: inline-block; */
+    /* width: 250px; */
 }
 
 .track, .artist, .title {
-    display: block;
+    /* display: block; */
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     /* Tweak 'till your heart's content */
     position: relative;
     /* Starting transition */
-    left: 0%;
-    width: 100%;
-    /*
-    -webkit-transition: left 3s, width 3s;
-    -moz-transition: left 3s, width 3s;
-    transition: left 3s, width 3s;
-    */
-}
-
-.track {
-    color: #fefefe;
+    /* left: 0%; */
+    /* width: 100%; */
 }
 
 .refresh-container {
@@ -241,14 +280,16 @@ main {
 
 .audio-player-image {
     line-height: inherit;
-    width: 100px;
+    width: 50px;
+    max-height: 100%;
     position: absolute;
 }
 
     .audio-player-image img {
         position: relative;
-        height: 100%;
-        width: 60px;
+        max-height: 100%;
+        max-width: 100%;
+        /* width: 60px; */
         vertical-align: middle;
         margin-right: 10px;
         -webkit-backface-visibility: hidden;
@@ -256,7 +297,6 @@ main {
 
 .audio-player-song-name {
     vertical-align: middle;
-    color: white;
     text-transform: uppercase;
     margin-right: 10px;
     overflow: hidden;
@@ -268,7 +308,6 @@ main {
     vertical-align: middle;
     padding: 0px 5px;
     border-left: 1px solid #002138;
-    font-size: 1.9em;
     text-align: center;
     border-right: 1px solid #002138;
 }
@@ -276,7 +315,7 @@ main {
 #backward, #forward {
     display: inline-block;
     line-height: inherit;
-    font-size: 1.3em;
+    font-size: 1.1em;
     text-align: center;
     width: 100%;
 }
@@ -350,7 +389,7 @@ main {
     vertical-align: middle;
     width: 100%;
     height: 4px;
-    border: 1px solid #A6CBFF;
+    border: 1px solid #EBEBEB;
     border-radius: 3px;
     overflow: hidden;
     text-align: center;
@@ -359,7 +398,7 @@ main {
 .audio-player-volume-bar {
     width: 100%;
     height: 100%;
-    background-color: #A6CBFF;
+    background-color: #EBEBEB;
     position: absolute;
     text-align: center;
 }
@@ -381,6 +420,7 @@ main {
 
 .volume-up, #forward {
     text-align: left;
+    /* font-size: 1.4em; */
 }
 
     .volumeBar:hover, .volume-up:hover, .volume-down:hover {
@@ -559,6 +599,10 @@ input.volume[type=range]::-ms-thumb {
         /* width  (how far away from the centre and each other they are) */
     }
 
+    .radmenu a:hover {
+        background-color: #2C3E50;
+    }
+
     .radmenu a {
         position: absolute;
         width: 50px;
@@ -577,6 +621,7 @@ input.volume[type=range]::-ms-thumb {
         font-family: "segoe ui";
         font-weight: 200;
         font-size: 0.6em;
+        color: #16A085;
     }
 
     .radmenu .selected {

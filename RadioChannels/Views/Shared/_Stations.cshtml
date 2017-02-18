@@ -8,25 +8,30 @@
             {
                 Model.ElementAt(i).CurrentTrack = "UNKNOWN";
             }
-
-            <li id="@i">
+            
+            <div id="@i" class="row">
                 <span id="@Model.ElementAt(i).Id" class="channel-id"></span>
                 <span class="genre hidden">@Model.ElementAt(i).Genre</span>
-                <div class="image">                                        
-                    <span class="activity" onclick='tunein(@Html.Raw(Json.Encode(Model.ElementAt(i))), this)'></span>                                 
-                    <span class="fav-btn" onclick='toggleFavourite(@Html.Raw(Json.Encode(Model.ElementAt(i))), this)'></span>
+                <div class="col-xs-2">
+                    <div class="image">
+                        <span class="activity" onclick='tunein(@Html.Raw(Json.Encode(Model.ElementAt(i))), this)'></span>
+                        <span class="fav-btn" onclick='toggleFavourite(@Html.Raw(Json.Encode(Model.ElementAt(i))), this)'></span>
+                    </div>                  
                 </div>
-                <div class="info">
-                    <h3 class="title transitionable"><a>@Model.ElementAt(i).Name</a></h3>
-                    <p class="now-playing">
-                        <span class="label">now playing</span>
-                        <a class="track transitionable" href="insert/beatport/here">@Model.ElementAt(i).CurrentTrack</a>
-                    </p>
-                </div>
-                <div class="refresh-container">
-                    <span class="refresh-button" onclick="refreshInfo(this)"></span>
+                <div class="col-xs-10">
+                    <div class="info-container">
+                        <div class="info">
+                            <h3 class="title transitionable"><a>@Model.ElementAt(i).Name</a></h3>
+                            <p class="now-playing">
+                                <span class="refresh-button" onclick="refreshInfo(this)"></span>
+                                <span class="label">now playing</span>
+                                <a class="track transitionable" href="insert/beatport/here">@Model.ElementAt(i).CurrentTrack</a>
+                            </p>
+                        </div>
+                    </div>
                 </div>                
-            </li>
+            </div>
+            
         }
     }
 }

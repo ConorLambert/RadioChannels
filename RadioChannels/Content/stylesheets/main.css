@@ -278,6 +278,14 @@ main {
 
 /* AUDIO PLAYER */
 
+.navbar-fixed-bottom-hide {
+    height: 0;
+}
+
+footer {
+    display:none;
+}
+
 .audio-player-image {
     line-height: inherit;
     width: 50px;

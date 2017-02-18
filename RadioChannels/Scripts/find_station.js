@@ -7,17 +7,18 @@ var current_volume = 1.0;
 var oldx = 0;
 var newx = 0;
 var total_base_genres = 0;
+var player_displayed = false;
 
 $(document).ready(function () {
     initializePlayer();
     initializeRadialMenu();
-    
+
     if (window.location.href.includes("/favourites"))
         triggerFavouritesGenreSelect();
     else
         triggerGenreSelect();
     triggerMouseOverIcon();
-    
+
 
     // VOLUME
     $(".volumeBar").click(function (e) {
@@ -64,8 +65,8 @@ function initializeRadialMenu() {
     for (var i = 0, l = buttons.length; i < l; i++) {
         var button = buttons[i];
         button.onclick = setSelected;
-    }    
-     
+    }
+
     total_base_genres = $("#categories > ul").children("li").length;
 
     function setSelected(e) {
@@ -74,7 +75,7 @@ function initializeRadialMenu() {
             // list channels
         } else {
 
-            if ($(e.srcElement).text() !== "Genres" && !this.parentNode.classList.contains("radmenu")) {                
+            if ($(e.srcElement).text() !== "Genres" && !this.parentNode.classList.contains("radmenu")) {
                 $(e.srcElement).parent("li").addClass("clicked");
             }
 
@@ -113,7 +114,7 @@ function initializeRadialMenu() {
 
             return false;
         }
-     }
+    }
 }
 
 function placeMenuItems(e) {
@@ -121,24 +122,24 @@ function placeMenuItems(e) {
     var rotate_offset = 0;
     var items = $(e).children("li");
     var translateX = 50;
-    
+
     var degree = 360 / total_base_genres;
-        
+
     if ($(e).parent(".general-genre-container").length > 0) {
-        var obj = $(e).closest('.general-genre-container'); 
+        var obj = $(e).closest('.general-genre-container');
         $(obj).removeAttr("style");
-        $(obj).children('a').removeAttr("style");        
-    }               
+        $(obj).children('a').removeAttr("style");
+    }
 
     // for each li element 
     $(items).each(function (index, elem) {
-        rotate(elem, degree * (index + 1), translateX);        
+        rotate(elem, degree * (index + 1), translateX);
     });
-    
+
 }
 
-function rotate(elem, degree, translateX) {  
-    var starting_point = 270;         
+function rotate(elem, degree, translateX) {
+    var starting_point = 270;
     $(elem).css({
         WebkitTransform: 'rotate(' + ((starting_point + degree) % 360) + 'deg), translateX(' + translateX + 'px)',
         '-moz-transform': 'rotate(' + ((starting_point + degree) % 360) + 'deg), translateX(' + translateX + 'px)',
@@ -146,7 +147,7 @@ function rotate(elem, degree, translateX) {
     });
     //$(elem).find("a").removeAttr('style');
     // a element within the menu item is rotated to the same degree as the menu item itself but negatively
-    $(elem).find("a").css({ WebkitTransform: 'rotate(-' + ((starting_point + degree) % 360) + 'deg)'});
+    $(elem).find("a").css({ WebkitTransform: 'rotate(-' + ((starting_point + degree) % 360) + 'deg)' });
     $(elem).find("a").css({ '-moz-transform': 'rotate(-' + ((starting_point + degree) % 360) + 'deg)' });
     $(elem).find("a").css({ 'transform': 'rotate(-' + ((starting_point + degree) % 360) + 'deg)' });
 }
@@ -166,7 +167,7 @@ function setVolume() {
 // EVENTS
 
 function triggerGenreSelect() {
-    $("#categories").on("click", "a", function () { 
+    $("#categories").on("click", "a", function () {
         if ($(this).text() === "Genres")
             return;
         $('#stations > div').empty();  // remove the current list of stations if any
@@ -176,7 +177,7 @@ function triggerGenreSelect() {
         // push the current state onto the history (URL should append the current genre as a hashbang)
         if (!window.location.href.includes(encodeURIComponent(current_genre)))  // if we have moved back to this page then, dont push it
             history.pushState(current_genre, null, "/index/" + current_genre + ".html");
-         // Add the class only for actually clicked element
+        // Add the class only for actually clicked element
     });
 }
 
@@ -222,8 +223,8 @@ function triggerMouseOverIcon(elem) {
 }
 
 function removeMouseOverIcon(elem) {
-    $(elem).off('mouseover');    
-    $(elem).off('mouseout');    
+    $(elem).off('mouseover');
+    $(elem).off('mouseout');
 }
 
 
@@ -247,9 +248,9 @@ function initializePlayer() {
         volume: current_volume,
         ready: function () {
 
-        },        
-        flashreset: function () {},
-        error: function (e) {            
+        },
+        flashreset: function () { },
+        error: function (e) {
             console.log(e);
         }
     });
@@ -260,7 +261,7 @@ function initializePlayer() {
 $("#jplayer").bind($.jPlayer.event.play, function (event) {
     $(".audio-player-button").removeClass("icon-play");
     $(".audio-player-button").addClass("icon-pause");
-    $(".audio-player-progress").addClass("loading");  
+    $(".audio-player-progress").addClass("loading");
     // connect stream to waves canvas
 });
 
@@ -282,20 +283,27 @@ $("#jplayer").bind($.jPlayer.event.loadstart, function (event) {
 $("#jplayer").bind($.jPlayer.event.playing, function (event) {
     // progress bar    
     $(".audio-player-progress").removeClass("loading");
-    $("audio-player-progress-bar").css({width: "25%"});
+    $("audio-player-progress-bar").css({ width: "25%" });
 });
 
 
 function tunein(channel, elem) {
+
+    // if the player is not shown, then show the player
+    if (!player_displayed) {
+        $("footer").toggle(800);
+        player_displayed = true;
+    }
+
     // adjust scroll viewport            
     $('#stations').animate({
         scrollTop: $("#stations").scrollTop() + ($(elem).position().top - $("#stations").position().top) - ($("#stations").height() / 2) + ($(elem).height() / 2)
     }, 1000);
-    
+
     togglePlayStationControl(elem);
     if (current_channel == elem) { // we have selected the channel that is currently selected              
-        toggleStreaming();    
-    } else {          
+        toggleStreaming();
+    } else {
         if ($("#jplayer").data().jPlayer.status.paused == false)
             togglePlayStationControl(current_channel);
         if (current_channel !== undefined) {
@@ -315,7 +323,7 @@ function tunein(channel, elem) {
             $(".audio-player-image img").hide();
         }
         $('.audio-player-song-name').text($(elem).closest(".row").find(".track").text());
-    }      
+    }
 }
 
 function isPlaying(elem) {
@@ -398,11 +406,11 @@ function stream(channel) {
 
 // SEARCH
 
-function addMoreChannels() {    
+function addMoreChannels() {
     var count = 0;
     if ($('#stations > div').children('.row') !== null)
         count = $('#stations > div > .row').length;
-    channels_ajax_request(count);     
+    channels_ajax_request(count);
 }
 
 
@@ -425,7 +433,7 @@ function refreshInfo(elem) {
     var id = $(elem).closest(".row").find(".channel-id").attr("id");
 
     // get channel name
-    var url = '/api/Channels/GetChannel/?id=' + id + '&name=' + channel_name;    
+    var url = '/api/Channels/GetChannel/?id=' + id + '&name=' + channel_name;
     jQuery(function ($) {
         $.ajax({
             type: "GET",
@@ -447,10 +455,10 @@ function scrollInfo(elem) {
 
     // the larger the text, the longer the transition time must be and the wider between left and width must be
     if ($(elem)[0].scrollWidth > $(elem).innerWidth()) {
-        var percent = ($(elem).innerWidth() / $(elem)[0].scrollWidth) * 100;       
-        var transition_time = percent / 10; 
+        var percent = ($(elem).innerWidth() / $(elem)[0].scrollWidth) * 100;
+        var transition_time = percent / 10;
         $(elem).css({ "left": "-300%", "width": "400%" });
-        $(elem).css({ "-webkit-transition": "left 3s, width 3s", "-moz - transition": "left 3s, width 3s", "transition": "left 8s, width 8s"});
+        $(elem).css({ "-webkit-transition": "left 3s, width 3s", "-moz - transition": "left 3s, width 3s", "transition": "left 8s, width 8s" });
     }
 }
 
@@ -478,7 +486,7 @@ function channels_ajax_request(index) {
                             scrollInfo(elem);
                         })
                         $(elem).on("mouseleave", function (item) {
-                            $(elem).css({ "left": "0%", "width" : "100%" });
+                            $(elem).css({ "left": "0%", "width": "100%" });
                         })
                     })
                     if (isPlaying(this)) {
@@ -497,7 +505,7 @@ function channels_ajax_request(index) {
     });
 }
 
-function ajax_request(dest_url, callback) {    
+function ajax_request(dest_url, callback) {
     jQuery(function ($) {
         $.ajax({
             type: "GET",

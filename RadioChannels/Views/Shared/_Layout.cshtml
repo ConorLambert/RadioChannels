@@ -14,7 +14,6 @@
     <link href="~/Content/stylesheets/audio-waves.css" rel="stylesheet" />
     <link href="~/Content/stylesheets/playback-panel.css" rel="stylesheet" />    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet" type="text/css">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
@@ -24,7 +23,7 @@
 <body>
 
     <header>
-        <nav class="navbar navbar-inverse">
+        <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
@@ -122,12 +121,15 @@
         </div>
     </footer>
 
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jplayer/2.9.2/jplayer/jquery.jplayer.js"></script>
     <script src="~/Scripts/playback-panel.js"></script>
     <script src="~/Scripts/password-validator.js"></script>
     <script src="~/Scripts/find_station.js"></script>
     <script src="~/Scripts/favourites.js"></script>
+    <script src="~/Scripts/classie.js"></script>
+    <script src="~/Scripts/cbpAnimatedHeader.js"></script>
     <script>
         window.addEventListener('popstate', function (event) {
             console.log(event.state + " " + window.location.href + " " + window.location.href.includes("/favourites/"));

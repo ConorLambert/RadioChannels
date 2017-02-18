@@ -2,13 +2,13 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="container-fluid">
+<div class="container-fluid header-container">
     <div class="row">
         <div class="col-xs-3">
             <h2 id="main-heading">Search</h2>
         </div>
         <div class="col-sm-9">
-            <div id="categories-container">
+            <div id="categories-container" class="cbp-af-header">
                 @RenderPage("~/Views/Shared/_Categories.cshtml")
             </div>           
         </div>

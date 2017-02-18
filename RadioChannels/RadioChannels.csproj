@@ -334,6 +334,8 @@
     <Content Include="fonts\font\fontawesome-webfont.woff" />
     <Content Include="fonts\font\FontAwesome.otf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\cbpAnimatedHeader.js" />
+    <Content Include="Scripts\classie.js" />
     <Content Include="Scripts\favourites.js" />
     <Content Include="Scripts\find_station.js" />
     <Content Include="Scripts\form-validator.js" />

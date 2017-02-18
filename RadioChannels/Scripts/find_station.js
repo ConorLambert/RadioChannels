@@ -120,7 +120,7 @@ function placeMenuItems(e) {
 
     var rotate_offset = 0;
     var items = $(e).children("li");
-    var translateX = 100;
+    var translateX = 50;
     
     var degree = 360 / total_base_genres;
         

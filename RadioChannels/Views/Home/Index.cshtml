@@ -21,6 +21,8 @@
     </div>
 </div>
 <script>    
+    if(favourites === undefined)
+        favourites = $("#stations > div").clone();
     if (!window.location.href.includes("index"))
         history.pushState("index", null, "/#index.html");    
 </script>

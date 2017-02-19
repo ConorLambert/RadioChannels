@@ -42,7 +42,7 @@ function toggleFavourite(channel, elem) {
             return;
         }
     }    
-    var channel_name = encodeURIComponent($(elem).closest(".image").next(".info").find(".title").text());    
+    var channel_name = encodeURIComponent($(elem).closest(".row").find(".title").text());    
     if ($(elem).hasClass("is-favourite")) {
         removeFromFavourites(channel, channel_name, $(elem).closest(".row"));
     } else {             

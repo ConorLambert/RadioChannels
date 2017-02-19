@@ -39,13 +39,17 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
+
                     <ul class="nav navbar-nav navbar-right">
                         <!--<li><a href="#">Link</a></li>-->                       
                         <li id="item-radio-stations" onclick="ajax_request('/Home/IndexPartial', triggerGenreSelect)"><span></span></li> <!-- Home -->
                         @if (Request.IsAuthenticated)
-                        {
+                        {                            
                             <li id="item-favourites" onclick="getFavourites();"><span></span></li>
-                            <li id="item-account" onclick="ajax_request('/Account/Account')"><span></span></li>
+                            <li id="item-account" onclick="ajax_request('/Account/Account')">
+                                <span class="span-horizontal hidden-md hidden-lg"></span>
+                                <span class="span-vertical hidden-xs hidden-sm"></span>
+                            </li>
                             <li id="item-log-out" onclick="$(this).find('a').trigger('click')"><span></span><a class="hidden" href="@Url.Action("Logout", "Account")"></a></li>
                         }
                         else

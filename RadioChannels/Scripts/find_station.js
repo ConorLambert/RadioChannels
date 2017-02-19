@@ -66,7 +66,7 @@ function initializeRadialMenu() {
         button.onclick = setSelected;
     }
 
-    total_base_genres = $("#categories > ul").children("li").length;
+    total_base_genres = $("#categories").find(".general-genre-container").length;
 
     function setSelected(e) {
 

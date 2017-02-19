@@ -10,8 +10,7 @@ var total_base_genres = 0;
 var player_displayed = false;
 
 $(document).ready(function () {
-    initializePlayer();
-    initializeRadialMenu();
+    initializePlayer();   
 
     if (window.location.href.includes("/favourites"))
         triggerFavouritesGenreSelect();
@@ -167,6 +166,9 @@ function setVolume() {
 // EVENTS
 
 function triggerGenreSelect() {
+    findHeader();
+    init();
+    initializeRadialMenu();
     $("#categories").on("click", "a", function () {
         if ($(this).text() === "Genres")
             return;
@@ -182,6 +184,9 @@ function triggerGenreSelect() {
 }
 
 function triggerFavouritesGenreSelect() {
+    findHeader();
+    init();
+    initializeRadialMenu();
     $("#categories").on("click", "a", function () {
         var genre = $(this).text();
         getFavouritesOf(genre);
@@ -431,6 +436,8 @@ function refreshInfo(elem) {
     // get channel name and id 
     var channel_name = encodeURIComponent($(elem).closest(".row").find(".title").text());
     var id = $(elem).closest(".row").find(".channel-id").attr("id");
+
+    $(elem).addClass("fa-rotate-90");
 
     // get channel name
     var url = '/api/Channels/GetChannel/?id=' + id + '&name=' + channel_name;

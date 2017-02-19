@@ -8,25 +8,36 @@
     left: 0;
 }
 
+#item-account span:before, #item-log-out span:before, #item-radio-stations span:before, #item-favourites span:before, #item-sign-in span:before, #item-logout span:before {
+    font-size: 2.0em;
+    cursor: pointer;
+}
+
 #item-radio-stations span:before {
     content: "\f001";
     font-family: FontAwesome;
 }
 
-.fav-btn:before {
+#item-favourites span:before, .fav-btn:before {
     content: "\f006";
     font-family: FontAwesome;
     cursor: pointer;
 }
 
-#item-sign-in span:before {
+#item-sign-in span:before, #item-account span:before {
     content: "\f007";
+    font-family: FontAwesome;
+    padding-left: 20px;
+    padding-right: 2px;
+    border-left: 1px solid #2C3E50;
+}
+
+#item-log-out span:before {
+    content: "\f08b";
     font-family: FontAwesome;
     padding-left: 1px;
     padding-right: 2px;
 }
-
-
 
 /* LOGOS */
 .external-logos {
@@ -65,6 +76,8 @@
 .icon-pause:hover {
     cursor: pointer;
 }
+
+
 
 
 

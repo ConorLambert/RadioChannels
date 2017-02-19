@@ -8,7 +8,7 @@
             <h2 id="main-heading">Search</h2>
         </div>
         <div class="col-sm-9">
-            <div id="categories-container" class="cbp-af-header">
+            <div id="categories-container" class="cbp-af-header cbp-af-header-shrink">
                 @RenderPage("~/Views/Shared/_Categories.cshtml")
             </div>           
         </div>
@@ -20,9 +20,7 @@
         </div>
     </div>
 </div>
-<script>
-    /*
+<script>    
     if (!window.location.href.includes("index"))
-        history.pushState("index", null, "/index.html");
-    */
+        history.pushState("index", null, "/#index.html");    
 </script>

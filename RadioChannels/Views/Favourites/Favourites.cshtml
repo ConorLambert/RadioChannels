@@ -4,38 +4,43 @@
     ViewBag.Title = "Favourites";
 }
 
-<h2 id="main-heading">Favourites</h2>
-
-
 @if (Request.IsAuthenticated)
 {
-    @RenderPage("~/Views/Shared/_Categories.cshtml")
-
-    <div id="stations-container">
-        <div id="stations">
-            <ul>
-                @RenderPage("~/Views/Shared/_Stations.cshtml")
-            </ul>
+<div class="container-fluid header-container">
+    <div class="row">
+        <div class="col-xs-3">
+            <h2 id="main-heading">Favourites</h2>
+        </div>
+        <div class="col-sm-9">
+            <div id="categories-container" class="cbp-af-header cbp-af-header-shrink">
+                @RenderPage("~/Views/Shared/_Categories.cshtml")
+            </div>
         </div>
     </div>
+</div>
 
-    <script>
+<div id="stations-container">
+    <div id="stations">
+        <div class="container-fluid">
+            @RenderPage("~/Views/Shared/_Stations.cshtml")
+        </div>
+    </div>
+</div>
+<script>
         if (window.location.href.includes("/favourites/all"))
         history.replaceState("favourites", null, "/favourites.html");
         else
             history.pushState("favourites", null, "/favourites.html");
-            $('#categories li:contains("All")').addClass("clicked");
-            $("#stations ul").find("li").find(".fav-btn").each(function (index, elem) {
+            $("#stations > div").find(".fav-btn").each(function (index, elem) {
                 $(elem).addClass("is-favourite");
                 $(elem).removeClass("fav-btn");
         });
-        favourites = $("#stations ul").clone();
+        favourites = $("#stations > div").clone();
             $("#stations").empty();
             $("#stations").append(favourites);
-    </script>
+</script>
 }
 else
 {
-    <p> You must be a <a onclick = "ajax_request('/Account/Register', ActionOnReady)"> registered </a> member and <a onclick = "ajax_request('/Account/LogIn', ActionOnReady)"> logged in</a> to view this page </p>
+    <p> You must be a <a onclick="ajax_request('/Account/Register', ActionOnReady)"> registered </a> member and <a onclick="ajax_request('/Account/LogIn', ActionOnReady)"> logged in</a> to view this page </p>
 }
-

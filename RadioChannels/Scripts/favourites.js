@@ -44,9 +44,9 @@ function toggleFavourite(channel, elem) {
     }    
     var channel_name = encodeURIComponent($(elem).closest(".image").next(".info").find(".title").text());    
     if ($(elem).hasClass("is-favourite")) {
-        removeFromFavourites(channel, channel_name, $(elem).closest("li"));
+        removeFromFavourites(channel, channel_name, $(elem).closest(".row"));
     } else {             
-        addToFavourites(channel, channel_name, $(elem).closest("li"));
+        addToFavourites(channel, channel_name, $(elem).closest(".row"));
     }
 }
 
@@ -92,7 +92,7 @@ function removeFromFavourites(channel, channel_name, elem) {
                     $(elem).find(".is-favourite").addClass("fav-btn");
                     $(elem).find(".is-favourite").removeClass("is-favourite");
                     elem = findFavourite(channel.Id); // remove from favourites only not on a results list
-                    $($(elem).closest("li")).remove();                                     
+                    $($(elem).closest(".row")).remove();                                     
                 } else {
                     alert("success error");
                 }

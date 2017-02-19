@@ -40,17 +40,17 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
                     <ul class="nav navbar-nav navbar-right">
-                        <!--<li><a href="#">Link</a></li>-->
-                        <li id="item-radio-stations"><!--<span></span>--><a onclick="ajax_request('/Home/IndexPartial', triggerGenreSelect)">Home</a></li>
+                        <!--<li><a href="#">Link</a></li>-->                       
+                        <li id="item-radio-stations" onclick="ajax_request('/Home/IndexPartial', triggerGenreSelect)"><span></span></li> <!-- Home -->
                         @if (Request.IsAuthenticated)
                         {
-                            <li id="item-favourites"><!--<span class="fav-btn"></span>--><a onclick="getFavourites();">Favourites</a></li>
-                            <li id="item-account"><!--<span></span>--><a onclick="ajax_request('/Account/Account')">Account</a></li>
-                            <li id="item-log-out"><!--<span></span>--><a onclick="signOut()" href="@Url.Action("Logout", "Account")">Log Out</a></li>
+                            <li id="item-favourites" onclick="getFavourites();"><span></span></li>
+                            <li id="item-account" onclick="ajax_request('/Account/Account')"><span></span></li>
+                            <li id="item-log-out" onclick="signOut()"><span></span><a class="hidden" href="@Url.Action("Logout", "Account")"></a></li>
                         }
                         else
                         {
-                            <li id="item-sign-in"><!--<span></span>--><a onclick="ajax_request('/Account/Register', ActionOnReady)">Register / Sign In</a></li>
+                            <li id="item-sign-in" onclick="ajax_request('/Account/Register', ActionOnReady)"><span></span></li> <!-- Register / Sign In -->
                         }
                     </ul>
                 </div><!-- /.navbar-collapse -->
@@ -124,12 +124,12 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jplayer/2.9.2/jplayer/jquery.jplayer.js"></script>
+    <script src="~/Scripts/classie.js"></script>
+    <script src="~/Scripts/cbpAnimatedHeader.js"></script>
     <script src="~/Scripts/playback-panel.js"></script>
     <script src="~/Scripts/password-validator.js"></script>
     <script src="~/Scripts/find_station.js"></script>
-    <script src="~/Scripts/favourites.js"></script>
-    <script src="~/Scripts/classie.js"></script>
-    <script src="~/Scripts/cbpAnimatedHeader.js"></script>
+    <script src="~/Scripts/favourites.js"></script>    
     <script>
         window.addEventListener('popstate', function (event) {
             console.log(event.state + " " + window.location.href + " " + window.location.href.includes("/favourites/"));

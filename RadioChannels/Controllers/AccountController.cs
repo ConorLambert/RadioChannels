@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.Owin.Security;
 using RadioChannels.DAL;
 using RadioChannels.Models;
@@ -96,10 +97,14 @@ namespace RadioChannels.Controllers
             if (loginInfo == null)
             {
                 return RedirectToAction("Login");
-            }           
+            }
+            // check if the user already exists                
+            var lastNameClaim = loginInfo.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Surname);
+            var givenNameClaim = loginInfo.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.GivenName);            
+            var firstName = givenNameClaim.Value;
+            var lastname = lastNameClaim.Value;
 
-            // check if the user already exists            
-            var user = new User { UserName = loginInfo.Email, Email = loginInfo.Email, EmailConfirmed = true };
+            var user = new User { UserName = loginInfo.Email, Email = loginInfo.Email, FirstName = firstName, LastName = lastname, EmailConfirmed = true};
             var result = await userManager.CreateAsync(user);
             if (result.Succeeded) // if not
             {

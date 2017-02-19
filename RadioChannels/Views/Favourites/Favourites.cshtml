@@ -27,14 +27,15 @@
     </div>
 </div>
 <script>
-        if (window.location.href.includes("/favourites/all"))
-        history.replaceState("favourites", null, "/favourites.html");
-        else
-            history.pushState("favourites", null, "/favourites.html");
+    if (window.location.href.includes("/favourites/all")) {
+        history.replaceState("favourites", null, "/#favourites");
+    } else {
+        history.pushState("favourites", null, "/#favourites");
+    }
             $("#stations > div").find(".fav-btn").each(function (index, elem) {
                 $(elem).addClass("is-favourite");
                 $(elem).removeClass("fav-btn");
-        });
+            });
         favourites = $("#stations > div").clone();
             $("#stations").empty();
             $("#stations").append(favourites);

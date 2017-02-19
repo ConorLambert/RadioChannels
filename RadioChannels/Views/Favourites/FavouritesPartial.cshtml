@@ -25,7 +25,7 @@
     </div>
     <script>    
         if (!window.location.href.includes("favourites"))  // if we have moved back to this page then, dont push it
-            history.pushState("favourites", null, "/favourites.html");           
+            history.pushState("favourites", null, "/#favourites");           
         triggerFavouritesGenreSelect();
         if (favourites !== undefined) {
             $("#stations").empty();

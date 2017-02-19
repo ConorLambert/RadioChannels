@@ -12,7 +12,7 @@ var player_displayed = false;
 $(document).ready(function () {
     initializePlayer();   
 
-    if (window.location.href.includes("/favourites"))
+    if (window.location.href.includes("favourites"))
         triggerFavouritesGenreSelect();
     else
         triggerGenreSelect();
@@ -70,25 +70,51 @@ function initializeRadialMenu() {
 
     function setSelected(e) {
 
-        if ($(e.srcElement).parent('li').hasClass("concrete-genre")) {
+        var target = e.target || e.srcElement;
+
+        if (!this.classList.contains("selected") && $(target).text() !== "Genres" && current_genre !== $(target).text().toLowerCase()) {
+              // remove the current list of stations if any
+            current_genre = $(target).text().toLowerCase();
+            if (window.location.href.includes("favourites")) {
+                getFavouritesOf(current_genre);
+                $("#categories li").removeClass("clicked"); // Remove all highlights
+                $(target).parent('li').addClass("clicked");
+                triggerMouseOverIcon();
+            } else {
+                $('#stations > div').empty();
+                channels_ajax_request(0);
+                triggerScrollEvent();
+                if (!window.location.href.includes(encodeURIComponent(current_genre)))  // if we have moved back to this page then, dont push it
+                    history.pushState(current_genre, null, "/#index/" + current_genre);
+            }
+        }
+        
+        // push the current state onto the history (URL should append the current genre as a hashbang)
+        /*
+        if (!window.location.href.includes(encodeURIComponent(current_genre)))  // if we have moved back to this page then, dont push it
+            history.pushState(current_genre, null, "/#index/" + current_genre);
+        */
+        // Add the class only for actually clicked element
+        
+        if ($(target).parent('li').hasClass("concrete-genre")) {
             // list channels
         } else {
 
-            if ($(e.srcElement).text() !== "Genres" && !this.parentNode.classList.contains("radmenu")) {
-                $(e.srcElement).parent("li").addClass("clicked");
+            if ($(target).text() !== "Genres" && !this.parentNode.classList.contains("radmenu")) {
+                $(target).parent("li").addClass("clicked");
             }
 
             if (this.classList.contains("selected")) {  // if centre menu item selected and has already been selected go up
                 this.classList.remove("selected");
-                if ($(e.srcElement).text() !== "Genres" || !this.parentNode.classList.contains("radmenu")) {
+                if ($(target).text() !== "Genres" || !this.parentNode.classList.contains("radmenu")) {
                     // detach this element from categories and place it back to where it orignally came from
                     // we can achieve this by finding the li element which has the clicekd class attached to it and append it there
-                    var ul_to_detach = $(e.srcElement).next("ul").detach();
-                    var a_to_detach = $(e.srcElement).detach();
+                    var ul_to_detach = $(target).next("ul").detach();
+                    var a_to_detach = $(target).detach();
                     $("#categories .clicked").append(a_to_detach[0]);
                     $("#categories .clicked").append(ul_to_detach[0]);
                     $("#categories .clicked").removeClass("clicked");
-                    e.srcSelected = a_to_detach[0];
+                    target = a_to_detach[0];
                     var genre_selector = $("#categories > a"); // this.parentNode.parentNode.parentNode.querySelector("a");
                     $(genre_selector).addClass("selected");
                     placeMenuItems($(genre_selector).next("ul"));
@@ -97,18 +123,18 @@ function initializeRadialMenu() {
                 }
             } else {
                 this.classList.add("selected");
-                $(e.srcElement).css({ 'transform': 'rotate(-' + 0 + 'deg)' });
+                $(target).css({ 'transform': 'rotate(-' + 0 + 'deg)' });
                 if (!this.parentNode.classList.contains("radmenu")) {
                     this.parentNode.parentNode.parentNode.querySelector("a").classList.remove("selected")
                 } else {
                     this.classList.remove("show");
                 }
-                if ($(e.srcElement).text() !== "Genres" && !this.parentNode.classList.contains("radmenu")) {
-                    $("#categories").append($(e.srcElement).parent("li").children().detach());
-                    e.srcElement = $("#categories > .selected");
+                if ($(target).text() !== "Genres" && !this.parentNode.classList.contains("radmenu")) {
+                    $("#categories").append($(target).parent("li").children().detach());
+                    target = $("#categories > .selected");
                 }
-                if ($(e.srcElement).next("ul").length > 0)
-                    placeMenuItems($(e.srcElement).next("ul"));
+                if ($(target).next("ul").length > 0)
+                    placeMenuItems($(target).next("ul"));
             }
 
             return false;
@@ -170,6 +196,7 @@ function triggerGenreSelect() {
     init();
     initializeRadialMenu();
     $("#categories").on("click", "a", function () {
+        /*
         if ($(this).text() === "Genres")
             return;
         $('#stations > div').empty();  // remove the current list of stations if any
@@ -178,8 +205,9 @@ function triggerGenreSelect() {
         triggerScrollEvent();
         // push the current state onto the history (URL should append the current genre as a hashbang)
         if (!window.location.href.includes(encodeURIComponent(current_genre)))  // if we have moved back to this page then, dont push it
-            history.pushState(current_genre, null, "/index/" + current_genre + ".html");
+            history.pushState(current_genre, null, "/#index/" + current_genre);
         // Add the class only for actually clicked element
+        */
     });
 }
 
@@ -188,23 +216,25 @@ function triggerFavouritesGenreSelect() {
     init();
     initializeRadialMenu();
     $("#categories").on("click", "a", function () {
+        /*
         var genre = $(this).text();
         getFavouritesOf(genre);
         $("#categories li").removeClass("clicked"); // Remove all highlights
         $(this).parent('li').addClass("clicked");
         triggerMouseOverIcon();
+        */
     });
 }
 
 function getFavouritesOf(genre) {
     $('#stations > div').detach();  // remove the current list of stations if any   
-    $('#stations').append("<div class='row'><div>");
+    $('#stations').append("<div class='container-fluid header-container'></div>");
     $(favourites).find(".row").each(function (index, elem) {
-        if ($(elem).find(".genre").text() === genre)
+        if ($(elem).find(".genre").text().toLowerCase() === genre)
             $("#stations > div").append($(elem).clone());
     });
     if (!window.location.href.includes("/" + encodeURIComponent(genre)))  // if we have moved back to this page then, dont push it
-        history.pushState(genre, null, "/favourites/" + genre + ".html");
+        history.pushState(genre, null, "/#favourites/" + genre);
 }
 
 function initializeChannelItem(elem) {

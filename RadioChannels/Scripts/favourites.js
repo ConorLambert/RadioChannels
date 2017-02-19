@@ -1,14 +1,10 @@
 ﻿function getFavourites() {
     // if the user is already logged in, then the client already has the favourites in memory
-    if (favourites !== undefined) 
+    if (favourites !== undefined) {
         ajax_request('/Favourites/IndexPartial');
-   // else user is not logged in, so display an alert message
-
-    
-    
-
-    // if the user is logged out then we inform them that they need to log in to use this feature
-    // NOTE: the user could be logged out because of inactivity for some time
+    } else {
+        window.location.pathname = '/favourites/all';
+    }    
 }
 
 function isFavourite(channel) {

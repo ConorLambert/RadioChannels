@@ -28,11 +28,11 @@
             <input type="button" value="Change Password" onclick="ajax_request('/Account/EditPassword', ActionOnReady);">          
         </li>
         <li>
-            <input id="submit" type="submit" value="Change" />            
+            <input id="change" type="submit" value="Change" />            
         </li>
     </ul>
 }
 <script>
     if (!window.location.href.includes("edit"))  // if we have moved back to this page then, dont push it
-        history.pushState("edit", null, "/account/edit.html");
+        history.pushState("edit", null, "/#account/edit");
 </script>

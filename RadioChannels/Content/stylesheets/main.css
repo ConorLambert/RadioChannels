@@ -273,7 +273,7 @@ main {
     position: relative;
     /* Starting transition */
     /* left: 0%; */
-    /* width: 100%; */
+    width: 100%;
 }
 
 .refresh-container {
@@ -651,4 +651,14 @@ input.volume[type=range]::-ms-thumb {
 
         .radmenu .selected + ul > li > a {
             display: flex;
+        }
+
+
+        .text-overflow {
+            display: inline-block;
+            position: relative;
+        }
+
+        .text-wrapper {
+
         }

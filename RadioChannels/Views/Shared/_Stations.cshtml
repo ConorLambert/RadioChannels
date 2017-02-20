@@ -19,11 +19,11 @@
                     </div>
                     <div class="info-container">
                         <div class="info">
-                            <h3 class="title transitionable"><a>@Model.ElementAt(i).Name</a></h3>
-                            <p class="now-playing">
+                            <h3 class="title transitionable text-wrapper" onhover="scrollInfo(this)"><a class="text-overflow">@Model.ElementAt(i).Name</a></h3>
+                            <p class="now-playing text-wrapper onhover="scrollInfo(this)"">
                                 <span class="refresh-button" onclick="refreshInfo(this)"></span>
                                 <span class="label">now playing</span>
-                                <a class="track transitionable" href="insert/beatport/here">@Model.ElementAt(i).CurrentTrack</a>
+                                <a class="track transitionable text-overflow" href="insert/beatport/here">@Model.ElementAt(i).CurrentTrack</a>
                             </p>
                         </div>
                     </div>
@@ -37,11 +37,11 @@
                 <div class="col-sm-10 hidden-xs">
                     <div class="info-container">
                         <div class="info">
-                            <h3 class="title transitionable"><a>@Model.ElementAt(i).Name</a></h3>
-                            <p class="now-playing">
+                            <h3 class="title transitionable text-wrapper" onhover="scrollInfo(this)"><a class="text-overflow">@Model.ElementAt(i).Name</a></h3>
+                            <p class="now-playing text-wrapper" onhover="scrollInfo(this)">
                                 <span class="refresh-button" onclick="refreshInfo(this)"></span>
                                 <span class="label">now playing</span>
-                                <a class="track transitionable" href="insert/beatport/here">@Model.ElementAt(i).CurrentTrack</a>
+                                <a class="track transitionable text-overflow" href="insert/beatport/here">@Model.ElementAt(i).CurrentTrack</a>
                             </p>
                         </div>
                     </div>

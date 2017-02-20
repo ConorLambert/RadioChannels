@@ -332,7 +332,7 @@ function tunein(channel, elem) {
 
     // adjust scroll viewport            
     $('#stations').animate({
-        scrollTop: $("#stations").scrollTop() + ($(elem).position().top - $("#stations").position().top) - ($("#stations").height() / 2) + ($(elem).height() / 2)
+        scrollTop: $("#stations").scrollTop() + ($(elem).closest(".row").position().top + $("#stations").position().top) - ($("#stations").height() / 2) + ($(elem).closest(".row").height())
     }, 1000);
 
     togglePlayStationControl(elem);
@@ -488,14 +488,92 @@ function refreshInfo(elem) {
 }
 
 
-function scrollInfo(elem) {
+function startScrolling(scroller_obj, velocity, start_from) {
+    //bind animation  inside the scroller element
+    scroller_obj.bind('marquee', function (event, c) {
+        //text to scroll
+        var ob = $(this);
+        //scroller width
+        var sw = parseInt(ob.closest('.text-wrapper').width());
+        //text width
+        var tw = parseInt(ob.width());
+        //text left position relative to the offset parent
+        var tl = parseInt(ob.position().left);
+        //velocity converted to calculate duration
+        var v = velocity > 0 && velocity < 100 ? (100 - velocity) * 1000 : 5000;
+        //same velocity for different text's length in relation with duration
+        var dr = (v * tw / sw) + v;
+        //is it scrolling from right or left?
+        switch (start_from) {
+            case 'right':
+                console.log('here')
+                //is it the first time?
+                if (typeof c == 'undefined') {
+                    //if yes, start from the absolute right
+                    ob.css({
+                        left: sw
+                    });
+                    sw = -tw;
+                } else {
+                    //else calculate destination position
+                    sw = tl - (tw + sw);
+                };
+                break;
+            default:
+                if (typeof c == 'undefined') {
+                    //start from the absolute left
+                    ob.css({
+                        left: -tw
+                    });
+                } else {
+                    //else calculate destination position
+                    sw += tl + tw;
+                };
+        }
+        //attach animation to scroller element and start it by a trigger
+        ob.animate({
+            left: sw
+        }, {
+                duration: dr,
+                easing: 'linear',
+                complete: function () {
+                    ob.trigger('marquee');
+                },
+                step: function () {
+                    //check if scroller limits are reached
+                    if (start_from == 'right') {
+                        if (parseInt(ob.position().left) < -parseInt(ob.width())) {
+                            //we need to stop and restart animation
+                            ob.stop();
+                            ob.trigger('marquee');
+                        };
+                    } else {
+                        if (parseInt(ob.position().left) > parseInt(ob.parent().width())) {
+                            ob.stop();
+                            ob.trigger('marquee');
+                        };
+                    };
+                }
+            });
+    }).trigger('marquee');
+    //pause scrolling animation on mouse over
+    scroller_obj.mouseover(function () {
+        $(this).stop();
+    });
+    //resume scrolling animation on mouse out
+    scroller_obj.mouseout(function () {
+        $(this).trigger('marquee', ['resume']);
+    });
+};
 
-    // the larger the text, the longer the transition time must be and the wider between left and width must be
-    if ($(elem)[0].scrollWidth > $(elem).innerWidth()) {
-        var percent = ($(elem).innerWidth() / $(elem)[0].scrollWidth) * 100;
-        var transition_time = percent / 10;
-        $(elem).css({ "left": "-300%", "width": "400%" });
-        $(elem).css({ "-webkit-transition": "left 3s, width 3s", "-moz - transition": "left 3s, width 3s", "transition": "left 8s, width 8s" });
+function scrollInfo(elem) {
+    if ($(elem).find(".text-overflow").width() > $(elem).width()) {
+        //settings to pass to function
+        var scroller = $(elem).find('.text-overflow'); // element(s) to scroll
+        var scrolling_velocity = 95; // 1-99
+        var scrolling_from = 'right'; // 'right' or 'left'
+        //call the function and start to scroll..
+        startScrolling(scroller, scrolling_velocity, scrolling_from);
     }
 }
 
@@ -523,9 +601,6 @@ function channels_ajax_request(index) {
                     $(elem).closest(".row").find(".transitionable").each(function (index, elem) {
                         $(elem).on("mouseover", function (item) {
                             scrollInfo(elem);
-                        })
-                        $(elem).on("mouseleave", function (item) {
-                            $(elem).css({ "left": "0%", "width": "100%" });
                         })
                     })
                     if (isPlaying(this)) {

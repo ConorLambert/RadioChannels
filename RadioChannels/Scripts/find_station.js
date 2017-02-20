@@ -73,11 +73,11 @@ function initializeRadialMenu() {
         var target = e.target || e.srcElement;
 
         if (!this.classList.contains("selected") && $(target).text() !== "Genres" && current_genre !== $(target).text().toLowerCase()) {
-              // remove the current list of stations if any
+            // remove the current list of stations if any
             current_genre = $(target).text().toLowerCase();
             if (window.location.href.includes("favourites")) {
                 getFavouritesOf(current_genre);
-                $("#categories li").removeClass("clicked"); // Remove all highlights
+                $(".radmenu li").removeClass("clicked"); // Remove all highlights
                 $(target).parent('li').addClass("clicked");
                 triggerMouseOverIcon();
             } else {
@@ -88,14 +88,14 @@ function initializeRadialMenu() {
                     history.pushState(current_genre, null, "/#index/" + current_genre);
             }
         }
-        
+
         // push the current state onto the history (URL should append the current genre as a hashbang)
         /*
         if (!window.location.href.includes(encodeURIComponent(current_genre)))  // if we have moved back to this page then, dont push it
             history.pushState(current_genre, null, "/#index/" + current_genre);
         */
         // Add the class only for actually clicked element
-        
+
         if ($(target).parent('li').hasClass("concrete-genre")) {
             // list channels
         } else {
@@ -111,11 +111,11 @@ function initializeRadialMenu() {
                     // we can achieve this by finding the li element which has the clicekd class attached to it and append it there
                     var ul_to_detach = $(target).next("ul").detach();
                     var a_to_detach = $(target).detach();
-                    $("#categories .clicked").append(a_to_detach[0]);
-                    $("#categories .clicked").append(ul_to_detach[0]);
-                    $("#categories .clicked").removeClass("clicked");
+                    $(".radmenu .clicked").append(a_to_detach[0]);
+                    $(".radmenu .clicked").append(ul_to_detach[0]);
+                    $(".radmenu .clicked").removeClass("clicked");
                     target = a_to_detach[0];
-                    var genre_selector = $("#categories > a"); // this.parentNode.parentNode.parentNode.querySelector("a");
+                    var genre_selector = $(".radmenu > a"); // this.parentNode.parentNode.parentNode.querySelector("a");
                     $(genre_selector).addClass("selected");
                     placeMenuItems($(genre_selector).next("ul"));
                 } else {
@@ -130,8 +130,8 @@ function initializeRadialMenu() {
                     this.classList.remove("show");
                 }
                 if ($(target).text() !== "Genres" && !this.parentNode.classList.contains("radmenu")) {
-                    $("#categories").append($(target).parent("li").children().detach());
-                    target = $("#categories > .selected");
+                    $(".radmenu").append($(target).parent("li").children().detach());
+                    target = $(".radmenu > .selected");
                 }
                 if ($(target).next("ul").length > 0)
                     placeMenuItems($(target).next("ul"));
@@ -195,7 +195,7 @@ function triggerGenreSelect() {
     findHeader();
     init();
     initializeRadialMenu();
-    $("#categories").on("click", "a", function () {
+    $(".radmenu").on("click", "a", function () {
         /*
         if ($(this).text() === "Genres")
             return;
@@ -215,11 +215,11 @@ function triggerFavouritesGenreSelect() {
     findHeader();
     init();
     initializeRadialMenu();
-    $("#categories").on("click", "a", function () {
+    $(".radmenu").on("click", "a", function () {
         /*
         var genre = $(this).text();
         getFavouritesOf(genre);
-        $("#categories li").removeClass("clicked"); // Remove all highlights
+        $(".radmenu li").removeClass("clicked"); // Remove all highlights
         $(this).parent('li').addClass("clicked");
         triggerMouseOverIcon();
         */
@@ -506,6 +506,7 @@ function scrollInfo(elem) {
 // AJAX REQUESTS
 
 function channels_ajax_request(index) {
+    $("#stations > div").append("<div class='loading'> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div></div>");
     jQuery(function ($) {
         $.ajax({
             type: "GET",
@@ -515,6 +516,7 @@ function channels_ajax_request(index) {
             cache: false,
             success: function (data) {
                 var convert = $($.parseHTML(data));
+                $(".loading").remove();
                 $('#stations > div').append(convert);
                 $(convert).find('.activity').each(function (index, elem) {
                     // add scroll info event to each element
@@ -543,6 +545,8 @@ function channels_ajax_request(index) {
 }
 
 function ajax_request(dest_url, callback) {
+    $('#page').empty();
+    $("#page").append("<div class='loading'> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div></div>");    
     jQuery(function ($) {
         $.ajax({
             type: "GET",
@@ -551,8 +555,9 @@ function ajax_request(dest_url, callback) {
             url: dest_url,
             cache: false,
             success: function (data) {
+                $("#page").remove(".loading");
                 $('#page').html(data);
-                if (typeof callback === 'function' && callback()) { }
+                if (typeof callback === 'function' && callback()) { }                
             }
         });
     });

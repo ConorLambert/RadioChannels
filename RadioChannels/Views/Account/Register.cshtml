@@ -12,9 +12,7 @@
 
 @using (Html.BeginForm())
 { 
-    <ul class="form-style-1">
-
-        <h2>Register</h2>        
+    <ul class="form-style-1">      
         <li>                                                                        
             <label>Full Name <span class="required">*</span></label>@Html.TextBoxFor(model => model.FirstName, new { @class = "field-long validate", placeholder = "First", name = "field1", type = "text" })&nbsp;@Html.TextBoxFor(model => model.LastName, new { @class = "field-long validate", placeholder = "Last", name = "field2", type = "text" })
         </li>

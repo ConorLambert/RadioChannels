@@ -5,6 +5,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+    <link href="https://fonts.googleapis.com/css?family=Amiri|Cantarell|Crimson+Text|Gentium+Basic|Muli|Nunito+Sans|Quattrocento+Sans|Quicksand|Raleway|Ubuntu" rel="stylesheet">
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" /> 
     <link href="~/Content/stylesheets/font-awesome.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/stylesheets/main.css" rel="stylesheet" type="text/css" />
@@ -15,9 +16,9 @@
     <link href="~/Content/stylesheets/playback-panel.css" rel="stylesheet" />    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/account.js"></script>
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet" type="text/css">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <link href="https://fonts.googleapis.com/css?family=Amiri|Cantarell|Crimson+Text|Gentium+Basic|Muli|Nunito+Sans|Quattrocento+Sans|Quicksand|Raleway|Ubuntu" rel="stylesheet">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>    
     <script> var favourites = undefined;</script>
 </head>
 <body>
@@ -50,19 +51,22 @@
                                 <span class="span-horizontal hidden-md hidden-lg"></span>
                                 <span class="span-vertical hidden-xs hidden-sm"></span>
                             </li>
-                            <li id="item-log-out" onclick="$(this).find('a').trigger('click')"><span></span><a class="hidden" href="@Url.Action("Logout", "Account")"></a></li>
+                            <li id="item-log-out" onclick="signOut();"><span></span></li>
                         }
                         else
                         {
-                            <li id="item-sign-in" onclick="ajax_request('/Account/Register', ActionOnReady)"><span></span></li> <!-- Register / Sign In -->
+                            <li id="item-sign-in" onclick="ajax_request('/Account/Register', ActionOnReady)">
+                                <span class="span-horizontal hidden-md hidden-lg"></span>
+                                <span class="span-vertical hidden-xs hidden-sm"></span>
+                            </li> <!-- Register / Sign In -->
                         }
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
     </header>
-
-    <main id="page">
+    
+    <main id="page">         
         @RenderBody()
     </main>  
 
@@ -142,8 +146,8 @@
                 if (window.location.href.includes("/#favourites/")) {
                     ajax_request('/Favourites/IndexPartial', function () {
                         triggerFavouritesGenreSelect();
-                        $("#categories > a").trigger("click");
-                        $("#categories a").each(function (index, elem) {
+                        $("#.radmenu > a").trigger("click");
+                        $("#.radmenu a").each(function (index, elem) {
                             if ($(elem).text().toLowerCase() === event.state.toLowerCase()) {
                                 $(elem).trigger("click");
                                 return false;
@@ -172,8 +176,8 @@
                     //$("#item-radio-stations").find("a").trigger("click");
                     ajax_request('/Home/IndexPartial', function () {
                         triggerGenreSelect();
-                        $("#categories > a").trigger("click");
-                        $("#categories a").each(function (index, elem) {
+                        $("#.radmenu > a").trigger("click");
+                        $("#.radmenu a").each(function (index, elem) {
                             if ($(elem).text().toLowerCase() === event.state.toLowerCase()) {
                                 $(elem).trigger("click");
                                 return false;
@@ -185,7 +189,7 @@
                 // return to home page
                 $("#stations > div").empty();
                 // remove selected genre
-                $("#categories").find(".clicked").removeClass("clicked");
+                $("#.radmenu").find(".clicked").removeClass("clicked");
             }
         });
     </script>

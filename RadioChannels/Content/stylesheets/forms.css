@@ -1,4 +1,8 @@
-﻿.change-log-in {
+﻿.form-style-1 {
+    overflow-y: scroll;
+}
+
+.change-log-in {
     font-size: smaller;
 }
 

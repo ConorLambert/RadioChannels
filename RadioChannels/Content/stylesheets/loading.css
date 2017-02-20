@@ -1,69 +1,240 @@
-/* line 56, /Users/Rose/Sites/audio_player/source/stylesheets/style.sass */
-.audio-player-image > img.fading {
-    -webkit-transition: opacity 200ms linear;
-    -moz-transition: opacity 200ms linear;
-    -o-transition: opacity 200ms linear;
-    transition: opacity 200ms linear;
-    z-index: 1;
-    opacity: 0; 
+
+.loading {
+    width: 120px;
+    height: 120px;
+    position: relative;
+    margin: 0 auto;
+    top: 50vh;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
 
+.loading__circle {
+    border-radius: 50%;
+    background-color: #979196;
+    width: 17px;
+    height: 17px;
+    display: block;
+    position: absolute;
+    z-index: 1;
+}
 
-@-moz-keyframes loadingStripes {
-  /* line 77, /Users/Rose/Sites/audio_player/source/stylesheets/style.sass */
-  0% {
-    background-position: -20px; }
+    .loading__circle:nth-child(1) {
+        top: 108px;
+        left: 86px;
+        -webkit-animation-duration: 750ms;
+        animation-duration: 750ms;
+        -webkit-animation-name: upup;
+        animation-name: upup;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        -webkit-animation-timing-function: ease-in-out;
+        animation-timing-function: ease-in-out;
+        -webkit-animation-delay: -62.5ms;
+        animation-delay: -62.5ms;
+    }
 
-  /* line 79, /Users/Rose/Sites/audio_player/source/stylesheets/style.sass */
-  100% {
-    background-position: 0px; } }
+    .loading__circle:nth-child(2) {
+        top: 86px;
+        left: 108px;
+        -webkit-animation-duration: 750ms;
+        animation-duration: 750ms;
+        -webkit-animation-name: upup;
+        animation-name: upup;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        -webkit-animation-timing-function: ease-in-out;
+        animation-timing-function: ease-in-out;
+        -webkit-animation-delay: -125ms;
+        animation-delay: -125ms;
+    }
 
-@-webkit-keyframes loadingStripes {
-  /* line 77, /Users/Rose/Sites/audio_player/source/stylesheets/style.sass */
-  0% {
-    background-position: -20px; }
+    .loading__circle:nth-child(3) {
+        top: 56px;
+        left: 116px;
+        -webkit-animation-duration: 750ms;
+        animation-duration: 750ms;
+        -webkit-animation-name: upup;
+        animation-name: upup;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        -webkit-animation-timing-function: ease-in-out;
+        animation-timing-function: ease-in-out;
+        -webkit-animation-delay: -187.5ms;
+        animation-delay: -187.5ms;
+    }
 
-  /* line 79, /Users/Rose/Sites/audio_player/source/stylesheets/style.sass */
-  100% {
-    background-position: 0px; } }
+    .loading__circle:nth-child(4) {
+        top: 26px;
+        left: 108px;
+        -webkit-animation-duration: 750ms;
+        animation-duration: 750ms;
+        -webkit-animation-name: upup;
+        animation-name: upup;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        -webkit-animation-timing-function: ease-in-out;
+        animation-timing-function: ease-in-out;
+        -webkit-animation-delay: -250ms;
+        animation-delay: -250ms;
+    }
 
-@-o-keyframes loadingStripes {
-  /* line 77, /Users/Rose/Sites/audio_player/source/stylesheets/style.sass */
-  0% {
-    background-position: -20px; }
+    .loading__circle:nth-child(5) {
+        top: 4px;
+        left: 86px;
+        -webkit-animation-duration: 750ms;
+        animation-duration: 750ms;
+        -webkit-animation-name: upup;
+        animation-name: upup;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        -webkit-animation-timing-function: ease-in-out;
+        animation-timing-function: ease-in-out;
+        -webkit-animation-delay: -312.5ms;
+        animation-delay: -312.5ms;
+    }
 
-  /* line 79, /Users/Rose/Sites/audio_player/source/stylesheets/style.sass */
-  100% {
-    background-position: 0px; } }
+    .loading__circle:nth-child(6) {
+        top: -4px;
+        left: 56px;
+        -webkit-animation-duration: 750ms;
+        animation-duration: 750ms;
+        -webkit-animation-name: upup;
+        animation-name: upup;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        -webkit-animation-timing-function: ease-in-out;
+        animation-timing-function: ease-in-out;
+        -webkit-animation-delay: -375ms;
+        animation-delay: -375ms;
+    }
 
-@-ms-keyframes loadingStripes {
-  /* line 77, /Users/Rose/Sites/audio_player/source/stylesheets/style.sass */
-  0% {
-    background-position: -20px; }
+    .loading__circle:nth-child(7) {
+        top: 4px;
+        left: 26px;
+        -webkit-animation-duration: 750ms;
+        animation-duration: 750ms;
+        -webkit-animation-name: upup;
+        animation-name: upup;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        -webkit-animation-timing-function: ease-in-out;
+        animation-timing-function: ease-in-out;
+        -webkit-animation-delay: -437.5ms;
+        animation-delay: -437.5ms;
+    }
 
-  /* line 79, /Users/Rose/Sites/audio_player/source/stylesheets/style.sass */
-  100% {
-    background-position: 0px; } }
+    .loading__circle:nth-child(8) {
+        top: 26px;
+        left: 4px;
+        -webkit-animation-duration: 750ms;
+        animation-duration: 750ms;
+        -webkit-animation-name: upup;
+        animation-name: upup;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        -webkit-animation-timing-function: ease-in-out;
+        animation-timing-function: ease-in-out;
+        -webkit-animation-delay: -500ms;
+        animation-delay: -500ms;
+    }
 
-@keyframes loadingStripes {
-  /* line 77, /Users/Rose/Sites/audio_player/source/stylesheets/style.sass */
-  0% {
-    background-position: -20px; }
+    .loading__circle:nth-child(9) {
+        top: 56px;
+        left: -4px;
+        -webkit-animation-duration: 750ms;
+        animation-duration: 750ms;
+        -webkit-animation-name: upup;
+        animation-name: upup;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        -webkit-animation-timing-function: ease-in-out;
+        animation-timing-function: ease-in-out;
+        -webkit-animation-delay: -562.5ms;
+        animation-delay: -562.5ms;
+    }
 
-  /* line 79, /Users/Rose/Sites/audio_player/source/stylesheets/style.sass */
-  100% {
-    background-position: 0px; } }
+    .loading__circle:nth-child(10) {
+        top: 86px;
+        left: 4px;
+        -webkit-animation-duration: 750ms;
+        animation-duration: 750ms;
+        -webkit-animation-name: upup;
+        animation-name: upup;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        -webkit-animation-timing-function: ease-in-out;
+        animation-timing-function: ease-in-out;
+        -webkit-animation-delay: -625ms;
+        animation-delay: -625ms;
+    }
 
-/* line 82, /Users/Rose/Sites/audio_player/source/stylesheets/style.sass */
-  /* line 89, /Users/Rose/Sites/audio_player/source/stylesheets/style.sass */
-  .audio-player-progress.loading {
-    background-image: -webkit-linear-gradient(-45deg, #808e97 25%, transparent 25%, transparent 50%, #808e97 50%, #808e97 75%, transparent 75%, transparent);
-    background-image: -moz-linear-gradient(-45deg, #808e97 25%, transparent 25%, transparent 50%, #808e97 50%, #808e97 75%, transparent 75%, transparent);
-    background-image: -o-linear-gradient(-45deg, #808e97 25%, transparent 25%, transparent 50%, #808e97 50%, #808e97 75%, transparent 75%, transparent);
-    background-image: linear-gradient(-45deg, #808e97 25%, transparent 25%, transparent 50%, #808e97 50%, #808e97 75%, transparent 75%, transparent);
-    background-size: 20px 20px;
-    -webkit-animation: loadingStripes 700ms linear infinite;
-    -moz-animation: loadingStripes 700ms linear infinite;
-    -ms-animation: loadingStripes 700ms linear infinite;
-    -o-animation: loadingStripes 700ms linear infinite;
-    animation: loadingStripes 700ms linear infinite; }
+    .loading__circle:nth-child(11) {
+        top: 108px;
+        left: 26px;
+        -webkit-animation-duration: 750ms;
+        animation-duration: 750ms;
+        -webkit-animation-name: upup;
+        animation-name: upup;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        -webkit-animation-timing-function: ease-in-out;
+        animation-timing-function: ease-in-out;
+        -webkit-animation-delay: -687.5ms;
+        animation-delay: -687.5ms;
+    }
+
+    .loading__circle:nth-child(12) {
+        top: 116px;
+        left: 56px;
+        -webkit-animation-duration: 750ms;
+        animation-duration: 750ms;
+        -webkit-animation-name: upup;
+        animation-name: upup;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        -webkit-animation-timing-function: ease-in-out;
+        animation-timing-function: ease-in-out;
+        -webkit-animation-delay: -750ms;
+        animation-delay: -750ms;
+    }
+
+@-webkit-keyframes upup {
+    0% {
+        -webkit-transform: scale(0.2, 0.2);
+        transform: scale(0.2, 0.2);
+        opacity: 1;
+    }
+
+    50% {
+        -webkit-transform: scale(1, 1);
+        transform: scale(1, 1);
+        opacity: 1;
+    }
+
+    100% {
+        -webkit-transform: scale(0.2, 0.2);
+        transform: scale(0.2, 0.2);
+        opacity: 1;
+    }
+}
+
+@keyframes upup {
+    0% {
+        -webkit-transform: scale(0.2, 0.2);
+        transform: scale(0.2, 0.2);
+        opacity: 1;
+    }
+
+    50% {
+        -webkit-transform: scale(1, 1);
+        transform: scale(1, 1);
+        opacity: 1;
+    }
+
+    100% {
+        -webkit-transform: scale(0.2, 0.2);
+        transform: scale(0.2, 0.2);
+        opacity: 1;
+    }
+}

@@ -167,7 +167,7 @@ main {
     border-right: 1px solid #2D4F7F;
 }
 
-#categories ul .clicked {
+.radmenu ul .clicked {
     background-color: #FFFFFF;
     color: #0049B0;
 }

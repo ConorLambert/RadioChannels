@@ -254,7 +254,7 @@ function triggerMouseOverIcon(elem) {
         $(this).toggleClass('icon-headphones icon-play');
     });
     if (!$(elem).hasClass('icon-headphones')) $(elem).addClass('icon-headphones');
-    $(elem).removeClass('icon-play');
+    $(elem).removeClass('icon-play');    
 }
 
 function removeMouseOverIcon(elem) {
@@ -577,6 +577,11 @@ function scrollInfo(elem) {
     }
 }
 
+function stopScrolling(elem) {
+    $(elem).find(".text-wrapper").stop();
+    //$(elem).find(".text-overflow").css("left", "");
+}
+
 
 
 
@@ -600,7 +605,10 @@ function channels_ajax_request(index) {
                     // add scroll info event to each element
                     $(elem).closest(".row").find(".transitionable").each(function (index, elem) {
                         $(elem).on("mouseover", function (item) {
-                            scrollInfo(elem);
+                            //scrollInfo(elem);
+                        }), 
+                        $(elem).on("mouseleave", function (item) {
+                            //stopScrolling(elem);
                         })
                     })
                     if (isPlaying(this)) {

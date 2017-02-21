@@ -17,9 +17,9 @@ html, body {
     font-size: 2.3em;
 }
 
-.navbar li {
-    text-align:center;
-}
+    .navbar li {
+        text-align: center;
+    }
 
 header .nav li {
     padding-right: 40px;
@@ -231,11 +231,8 @@ main {
 
 .info {
     text-align: center;
-    overflow: hidden;
-}
-
-.now-playing {
-    /* text-align: center; */
+    /* overflow: hidden; */
+    white-space: nowrap;
 }
 
 .hidden {
@@ -264,13 +261,16 @@ main {
     /* width: 250px; */
 }
 
-.track, .artist, .title {
-    /* display: block; */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+.now-playing {
+}
+
+.now-playing, .artist, .title {
+    display: block;
+    /* overflow: hidden; 
+    text-overflow: ellipsis; */
+    /* white-space: nowrap; */
     /* Tweak 'till your heart's content */
-    position: relative;
+    /* position: relative; */
     /* Starting transition */
     /* left: 0%; */
     width: 100%;
@@ -654,11 +654,11 @@ input.volume[type=range]::-ms-thumb {
         }
 
 
-        .text-overflow {
-            display: inline-block;
-            position: relative;
-        }
+.text-overflow {
+    /* display: inline-block; */
+    /* position: relative; */
+    white-space: normal;
+}
 
-        .text-wrapper {
-
-        }
+.text-wrapper {
+}

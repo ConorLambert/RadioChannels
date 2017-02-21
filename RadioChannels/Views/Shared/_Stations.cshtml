@@ -14,8 +14,8 @@
                 <span class="genre hidden">@Model.ElementAt(i).Genre</span>
                 <div class="col col-xs-12 hidden-sm hidden-md hidden-lg">
                     <div class="image">
-                        <span class="activity" onclick='tunein(@Html.Raw(Json.Encode(Model.ElementAt(i))), this)'></span>
-                        <span class="fav-btn" onclick='toggleFavourite(@Html.Raw(Json.Encode(Model.ElementAt(i))), this)'></span>
+                        <span class="activity fa-icons" onclick='tunein(@Html.Raw(Json.Encode(Model.ElementAt(i))), this)'></span>
+                        <span class="fav-btn fa-icons" onclick='toggleFavourite(@Html.Raw(Json.Encode(Model.ElementAt(i))), this)'></span>
                     </div>
                     <div class="info-container">
                         <div class="info">
@@ -23,7 +23,7 @@
                                 <a class="text-overflow">@Model.ElementAt(i).Name</a>
                             </h3>
                             <div class="referesh-container">
-                                <span class="refresh-button" onclick="refreshInfo(this)"></span>
+                                <span class="refresh-button fa-icons" onclick="refreshInfo(this)"></span>
                                 <span class="label">now playing</span>
                             </div>
                             <h3 class="now-playing transitionable text-wrapper" onhover="scrollInfo(this)">
@@ -34,8 +34,8 @@
                 </div>
                 <div class="col col-sm-2 hidden-xs">
                     <div class="image">
-                        <span class="activity" onclick='tunein(@Html.Raw(Json.Encode(Model.ElementAt(i))), this)'></span>
-                        <span class="fav-btn" onclick='toggleFavourite(@Html.Raw(Json.Encode(Model.ElementAt(i))), this)'></span>
+                        <span class="activity fa-icons" onclick='tunein(@Html.Raw(Json.Encode(Model.ElementAt(i))), this)'></span>
+                        <span class="fav-btn fa-icons" onclick='toggleFavourite(@Html.Raw(Json.Encode(Model.ElementAt(i))), this)'></span>
                     </div>                  
                 </div>
                 <div class="col col-sm-10 hidden-xs">
@@ -45,7 +45,7 @@
                                 <a class="text-overflow">@Model.ElementAt(i).Name</a>
                             </h3>
                             <div class="referesh-container">
-                                <span class="refresh-button" onclick="refreshInfo(this)"></span>
+                                <span class="refresh-button fa-icons" onclick="refreshInfo(this)"></span>
                                 <span class="label">now playing</span>
                             </div>
                             <h3 class="now-playing transitionable text-wrapper" onhover="scrollInfo(this)">                                

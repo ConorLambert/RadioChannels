@@ -334,6 +334,7 @@ footer {
     font-size: 1.1em;
     text-align: center;
     width: 100%;
+    cursor: pointer;
 }
 
 #forward {
@@ -428,6 +429,7 @@ footer {
 .volume-down, .volume-up {
     /* text-align: right; */
     text-align: center;
+    color: #EBEBEB;
 }
 
 .volume-down, #backward {
@@ -437,6 +439,7 @@ footer {
 .volume-up, #forward {
     text-align: left;
     /* font-size: 1.4em; */
+    color: #EBEBEB;
 }
 
     .volumeBar:hover, .volume-up:hover, .volume-down:hover {

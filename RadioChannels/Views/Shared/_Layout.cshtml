@@ -43,19 +43,19 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <!--<li><a href="#">Link</a></li>-->                       
-                        <li id="item-radio-stations" onclick="ajax_request('/Home/IndexPartial', triggerGenreSelect)"><span></span></li> <!-- Home -->
+                        <li id="item-radio-stations" class="fa-icons" onclick="ajax_request('/Home/IndexPartial', triggerGenreSelect)"><span></span></li> <!-- Home -->
                         @if (Request.IsAuthenticated)
                         {                            
-                            <li id="item-favourites" onclick="getFavourites();"><span></span></li>
-                            <li id="item-account" onclick="ajax_request('/Account/Account')">
+                            <li id="item-favourites" class="fa-icons" onclick="getFavourites();"><span></span></li>
+                            <li id="item-account" class="fa-icons" onclick="ajax_request('/Account/Account')">
                                 <span class="span-horizontal hidden-md hidden-lg"></span>
                                 <span class="span-vertical hidden-xs hidden-sm"></span>
                             </li>
-                            <li id="item-log-out" onclick="signOut();"><span></span></li>
+                            <li id="item-log-out" class="fa-icons" onclick="signOut();"><span></span></li>
                         }
                         else
                         {
-                            <li id="item-sign-in" onclick="ajax_request('/Account/Register', ActionOnReady)">
+                            <li id="item-sign-in" class="fa-icons" onclick="ajax_request('/Account/Register', ActionOnReady)">
                                 <span class="span-horizontal hidden-md hidden-lg"></span>
                                 <span class="span-vertical hidden-xs hidden-sm"></span>
                             </li> <!-- Register / Sign In -->
@@ -85,23 +85,23 @@
                     <div class="audio-player-song-name"></div>
                 </div>
                 <div class="col-xs-3 col-sm-1">
-                    <div id="add-favourite" class="fav-btn" onclick="addToFavourites(this)"></div>
+                    <div id="add-favourite" class="fa-icons fav-btn" onclick="addToFavourites(this)"></div>
                 </div>
 
                 <div class="col-xs-2 col-sm-1">
-                    <div id="backward" class="icon-backward" onclick="previousStation()"></div>
+                    <div id="backward" class="icon-backward fa-icons" onclick="previousStation()"></div>
                 </div>
                 <div class="col-xs-2 col-sm-2">
                     <div id="play-pause-container">
-                        <a role="button" class="audio-player-button audio-player-place-pause-button icon-play" onclick="continueStream()"></a>
+                        <a role="button" class="fa-icons audio-player-button audio-player-place-pause-button icon-play" onclick="continueStream()"></a>
                     </div>
                 </div>
                 <div class="col-xs-2 col-sm-1">
-                    <div id="forward" role="button" class="icon-forward" onclick="nextStation()"></div>
+                    <div id="forward" role="button" class="fa-icons icon-forward" onclick="nextStation()"></div>
                 </div>                
                 
                 <div class="hidden-xs col-sm-1 ">
-                    <div class="volume-down" aria-hidden="true"></div>
+                    <div class="fa-icons volume-down" aria-hidden="true"></div>
                 </div>
                 <div class="hidden-xs col-sm-2">
                     <div id="volumeContainer">
@@ -111,13 +111,13 @@
                     </div>
                 </div>
                 <div class="hidden-xs col-sm-1">
-                    <div class="volume-up" aria-hidden="true"></div>
+                    <div class="fa-icons volume-up" aria-hidden="true"></div>
                 </div>
                                 
                 <div class="col-xs-3 hidden-sm hidden-md hidden-lg">
                     <div class="controls">
                         <div class="volume-chooser">
-                            <div class="volume-button"><i class="volume-up"></i></div>
+                            <div class="volume-button"><i class="volume-up fa-icons"></i></div>
                             <div class="volume-control">
                                 <input id="mobile-volume" class="volume" type="range" value="100" max="100" />
                             </div>

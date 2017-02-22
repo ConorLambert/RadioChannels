@@ -14,20 +14,36 @@ html, body {
 
 .navbar {
     margin-bottom: 0px;
-    font-size: 2.3em;
+    font-size: 2.8em;
+    background: #16a085;
+    color: #2C3E50;
 }
+
+    .navbar img {
+        padding-left: 40px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
 
     .navbar li {
         text-align: center;
     }
 
-header .nav li {
-    padding-right: 40px;
+.page-message {
+    font-size: 1.5em;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    margin-top: 100px;
 }
 
-.navbar > div {
-    background: #16a085;
-    color: #2C3E50;
+    .page-message a {
+        text-decoration: underline;
+    }
+
+header .nav li {
+    padding-right: 40px;
 }
 
 a {
@@ -43,10 +59,10 @@ ul {
 }
 
 #page {
-    padding-top: 50px;
+    padding-top: 70px;
 }
 
-#categories-container.cbp-af-header-shrink {
+.categories-container.cbp-af-header-shrink {
     height: 0px;
     bottom: 120px;
 }
@@ -583,7 +599,7 @@ input.volume[type=range]::-ms-thumb {
 
 /* RADIAL MENU */
 
-#categories-container {
+.categories-container {
     height: 220px;
     /* width: 100%; */
     /* height: 100%; */

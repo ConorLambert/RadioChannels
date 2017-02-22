@@ -37,11 +37,12 @@ function toggleFavourite(channel, elem) {
             $(".tooltiptext").delay(3000).fadeOut();
             return;
         }
-    }    
-    var channel_name = encodeURIComponent($(elem).closest(".row").find(".title").text());    
+    }  
+      
+    var channel_name = encodeURIComponent($(elem).closest(".row").find(".channel-title").text());
     if ($(elem).hasClass("is-favourite")) {
         removeFromFavourites(channel, channel_name, $(elem).closest(".row"));
-    } else {             
+    } else {
         addToFavourites(channel, channel_name, $(elem).closest(".row"));
     }
 }

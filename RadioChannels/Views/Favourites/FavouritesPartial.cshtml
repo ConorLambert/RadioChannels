@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-xs-12 hidden-sm hidden-md hidden-lg">
                 <h2 id="main-heading">Favourites</h2>
-                <div id="categories-container" class="cbp-af-header cbp-af-header-shrink">
+                <div class="categories-container cbp-af-header cbp-af-header-shrink">
                     @RenderPage("~/Views/Shared/_Categories.cshtml")
                 </div>
             </div>
@@ -16,15 +16,16 @@
                 <h2 id="main-heading">Favourites</h2>
             </div>
             <div class="col-sm-9 hidden-xs">
-                <div id="categories-container" class="cbp-af-header-2 cbp-af-header-shrink">
+                <div class="categories-container cbp-af-header-2 cbp-af-header-shrink">
                     @RenderPage("~/Views/Shared/_Categories.cshtml")
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="stations-container">
+    <div id="stations-container">        
         <div id="stations">
+            <p class="page-message">You currently have no favourites in your selection. Navigate to the <a onclick="ajax_request('/Home/IndexPartial', triggerGenreSelect)">Search</a> page to begin searching for music channels</p>
             <div class="container-fluid">
             </div>
         </div>

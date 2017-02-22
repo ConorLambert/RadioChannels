@@ -66,11 +66,13 @@ function initializeRadialMenu() {
         button.onclick = setSelected;
     }
 
-    total_base_genres = $("#categories").find(".general-genre-container").length;
+    total_base_genres = $(".categories-container").first().find(".general-genre-container").length;
 
     function setSelected(e) {
 
         var target = e.target || e.srcElement;
+
+        // is the current genre a sub-genre      
 
         if (!this.classList.contains("selected") && $(target).text() !== "Genres" && current_genre !== $(target).text().toLowerCase()) {
             // remove the current list of stations if any
@@ -98,7 +100,8 @@ function initializeRadialMenu() {
 
         if ($(target).parent('li').hasClass("concrete-genre")) {
             // list channels
-        } else {
+            // current_genre.classList.add("selected");
+        } else {           
 
             if ($(target).text() !== "Genres" && !this.parentNode.classList.contains("radmenu")) {
                 $(target).parent("li").addClass("clicked");
@@ -589,6 +592,8 @@ function stopScrolling(elem) {
 // AJAX REQUESTS
 
 function channels_ajax_request(index) {
+    if (!$(".page-message").hasClass("hidden"))
+        $(".page-message").addClass("hidden");
     $("#stations > div").append("<div class='loading'> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div></div>");
     jQuery(function ($) {
         $.ajax({

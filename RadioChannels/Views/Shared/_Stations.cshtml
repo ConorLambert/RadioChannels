@@ -4,14 +4,20 @@
     {
         for (int i = 0; i < Model.Count(); ++i)
         {
+            if (Model.ElementAt(i) == null)
+            {
+                continue;
+            }
+
             if (Model.ElementAt(i).CurrentTrack == null)
             {
                 Model.ElementAt(i).CurrentTrack = "UNKNOWN";
             }
-            
+
             <div id="@i" class="row">
                 <span id="@Model.ElementAt(i).Id" class="channel-id"></span>
                 <span class="genre hidden">@Model.ElementAt(i).Genre</span>
+                <span class="channel-title hidden">@Model.ElementAt(i).Name</span>
                 <div class="col col-xs-12 hidden-sm hidden-md hidden-lg">
                     <div class="image">
                         <span class="activity fa-icons" onclick='tunein(@Html.Raw(Json.Encode(Model.ElementAt(i))), this)'></span>
@@ -55,7 +61,11 @@
                     </div>
                 </div>                
             </div>
-            
+
         }
+    }
+    else
+    {
+        <p class="page-message">You currently have no favourites in your selection. Navigate to the <a onclick="ajax_request('/Home/IndexPartial', triggerGenreSelect)">Search</a> page to begin searching for music channels</p>
     }
 }

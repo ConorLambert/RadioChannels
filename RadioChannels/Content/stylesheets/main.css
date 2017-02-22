@@ -126,8 +126,9 @@ ul {
 }
 
 main {
-    min-height: 100%;
-    height: 100%;
+    height: 500px;
+    /* min-height: 100%; */
+    /* height: 100%; */
     font-size: 2.6em;
 }
 
@@ -194,9 +195,9 @@ main {
 /* STATIONS */
 
 #stations-container {
-    height: 1000px;
+    height: 100%;
     width: 100%;
-    overflow: hidden;
+    /* overflow: hidden; */
     border-top: 1px solid #2C3E50;
     padding-top: 20px;
 }
@@ -204,7 +205,7 @@ main {
 #stations {
     height: 99%;
     width: 100%;
-    overflow-y: auto;
+    overflow-y: scroll;
     padding-right: 20px;
 }
 

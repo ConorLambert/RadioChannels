@@ -16,8 +16,9 @@ $(document).ready(function () {
         triggerFavouritesGenreSelect();
     else
         triggerGenreSelect();
-    triggerMouseOverIcon();
-
+    triggerMouseOverIcon();    
+    var deduct = $("footer").outerHeight() + $(".navbar-fixed-top").outerHeight() + $(".header-container").outerHeight() + parseInt($("#page").css("padding-top").replace("px", ""));    
+    $("#page").css("height", screen.height - deduct + "px");    
 
     // VOLUME
     $(".volumeBar").click(function (e) {
@@ -236,6 +237,8 @@ function getFavouritesOf(genre) {
         if ($(elem).find(".genre").text().toLowerCase() === genre)
             $("#stations > div").append($(elem).clone());
     });
+    if ($("#stations").find(".row").length === 0)
+        $("#stations").append('<p class="page- message">You currently have no ' + genre + ' favourites in your selection. Navigate to the <a onclick="ajax_request(\' / Home / IndexPartial\', triggerGenreSelect)">Search</a> page to begin searching for ' + genre + ' music channels</p>');
     if (!window.location.href.includes("/" + encodeURIComponent(genre)))  // if we have moved back to this page then, dont push it
         history.pushState(genre, null, "/#favourites/" + genre);
 }

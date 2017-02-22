@@ -20,6 +20,8 @@ namespace RadioChannels.Controllers
         {
             api_key = "sJXVu3hXGmKjJiIx";
             httpClient = new HttpClient();
+            System.Net.ServicePointManager.Expect100Continue = false;
+            System.Net.ServicePointManager.UseNagleAlgorithm = false;
         }
 
         public static XmlDocument MakeRequest(string requestUrl)
@@ -27,10 +29,13 @@ namespace RadioChannels.Controllers
             try
             {
                 HttpWebRequest request = WebRequest.Create(requestUrl) as HttpWebRequest;
+                request.Method = "GET";
+                WebRequest.DefaultWebProxy = null;   // request.Proxy = new WebProxy(); ; // null;
                 HttpWebResponse response = request.GetResponse() as HttpWebResponse;
 
                 XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.Load(response.GetResponseStream());
+                response.Dispose();
                 return (xmlDoc);
             }
             catch (Exception e)
@@ -84,7 +89,7 @@ namespace RadioChannels.Controllers
 
                 channels.Add(channel);
             }
-
+            
             return channels;
         }        
 
@@ -112,7 +117,7 @@ namespace RadioChannels.Controllers
             urlTemplate = "http://api.shoutcast.com/legacy/genresearch?k={0}&genre={1}&limit={2},{3}";
             url = string.Format(urlTemplate, api_key, some_var, index, limit);
             XmlDocument response = MakeRequest(url);
-            List<Channel> channels = ProcessResponse(response);
+            List<Channel> channels = ProcessResponse(response);          
             return channels;
         }                  
              

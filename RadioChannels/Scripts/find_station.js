@@ -338,7 +338,7 @@ function tunein(channel, elem) {
 
     // adjust scroll viewport            
     $('#stations').animate({
-        scrollTop: $("#stations").scrollTop() + ($(elem).closest(".row").position().top + $("#stations").position().top) - ($("#stations").height() / 2) + ($(elem).closest(".row").height())
+        scrollTop: ($("#stations").scrollTop() + (($(elem).closest(".row").position().top + $("#stations").position().top)) - ($("#stations").height() / 2) - ($(elem).closest(".row").height()))
     }, 1000);
 
     togglePlayStationControl(elem);
@@ -458,7 +458,7 @@ function addMoreChannels() {
 function triggerScrollEvent() {
     jQuery(function ($) {
         $("#stations").on('scroll', function () {
-            if ($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {   // user has scrolled down the end of the current set of stations so append more stations
+            if ($(this).scrollTop() + $(this).innerHeight() + 2 >= $(this)[0].scrollHeight) {   // user has scrolled down the end of the current set of stations so append more stations
                 addMoreChannels();
             }
         })

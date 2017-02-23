@@ -23,6 +23,7 @@ html, body {
         padding-left: 40px;
         padding-top: 5px;
         padding-bottom: 5px;
+        width: 140px;
     }
 
 
@@ -59,7 +60,7 @@ ul {
 }
 
 #page {
-    padding-top: 70px;
+    padding-top: 50px;
 }
 
 .categories-container.cbp-af-header-shrink {
@@ -199,7 +200,7 @@ main {
     width: 100%;
     /* overflow: hidden; */
     border-top: 1px solid #2C3E50;
-    padding-top: 20px;
+    /* padding-top: 20px; */
 }
 
 #stations {
@@ -467,13 +468,13 @@ footer {
 /* TOOLTIP */
 .tooltiptext {
     width: 320px;
-    color: #002138;
-    background-color: #A6CBFF;
-    font-size: 2.4em;
+    color: #EBEBEB;
+    background-color: #002138;
+    font-size: 0.9em;
     text-align: center;
     padding: 5px 0;
     border-radius: 6px;
-    border: 1px solid #A6CBFF;
+    border: 1px solid #EBEBEB;
     /* Position the tooltip text */
     position: absolute;
     z-index: 3;

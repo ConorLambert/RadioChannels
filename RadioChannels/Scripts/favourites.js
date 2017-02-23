@@ -4,7 +4,7 @@
         ajax_request('/Favourites/IndexPartial');
     } else {
         window.location.pathname = '/favourites/all';
-    }    
+    }
 }
 
 function isFavourite(channel) {
@@ -37,8 +37,8 @@ function toggleFavourite(channel, elem) {
             $(".tooltiptext").delay(3000).fadeOut();
             return;
         }
-    }  
-      
+    }
+
     var channel_name = encodeURIComponent($(elem).closest(".row").find(".channel-title").text());
     if ($(elem).hasClass("is-favourite")) {
         removeFromFavourites(channel, channel_name, $(elem).closest(".row"));
@@ -48,6 +48,7 @@ function toggleFavourite(channel, elem) {
 }
 
 function addToFavourites(channel, channel_name, elem) {
+    $(".tooltiptext").remove();
     jQuery(function ($) {
         $.ajax({
             type: "POST",
@@ -56,12 +57,12 @@ function addToFavourites(channel, channel_name, elem) {
             cache: false,
             success: function (response) {
                 if (response != null && response.success) {
-                    $("#page").prepend('<span class="tooltiptext">' + response.responseText + '</span>');
+                    $("#page").prepend('<span class="tooltiptext" style="margin-left:' + ((screen.width / 2) - 200) + 'px;">' + response.responseText + '</span>');
                     $(".tooltiptext").delay(3000).fadeOut();
                     // add to favourites collection
                     $(elem).find(".fav-btn").addClass("is-favourite");
                     $(elem).find(".fav-btn").removeClass("fav-btn");
-                    $(favourites).append($(elem).clone());                                                     
+                    $(favourites).append($(elem).clone());
                 } else {
                     alert("success error");
                 }
@@ -73,7 +74,8 @@ function addToFavourites(channel, channel_name, elem) {
     });
 }
 
-function removeFromFavourites(channel, channel_name, elem) {    
+function removeFromFavourites(channel, channel_name, elem) {
+    $(".tooltiptext").remove();
     // remove from favourites
     jQuery(function ($) {
         $.ajax({
@@ -83,13 +85,13 @@ function removeFromFavourites(channel, channel_name, elem) {
             cache: false,
             success: function (response) {
                 if (response != null && response.success) {
-                    $("#page").prepend('<span class="tooltiptext">' + response.responseText + '</span>');
+                    $("#page").prepend('<span class="tooltiptext" style="margin-left:' + ((screen.width / 2) - 200) + 'px;">' + response.responseText + '</span>');
                     $(".tooltiptext").delay(3000).fadeOut();
                     // remove from favourites
                     $(elem).find(".is-favourite").addClass("fav-btn");
                     $(elem).find(".is-favourite").removeClass("is-favourite");
                     elem = findFavourite(channel.Id); // remove from favourites only not on a results list
-                    $($(elem).closest(".row")).remove();                                     
+                    $($(elem).closest(".row")).remove();
                 } else {
                     alert("success error");
                 }

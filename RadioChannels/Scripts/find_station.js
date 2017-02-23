@@ -73,35 +73,35 @@ function initializeRadialMenu() {
 
         var target = e.target || e.srcElement;
 
-        // is the current genre a sub-genre      
-
-        if (!this.classList.contains("selected") && $(target).text() !== "Genres" && current_genre !== $(target).text().toLowerCase()) {
-            // remove the current list of stations if any
-            current_genre = $(target).text().toLowerCase();
-            if (window.location.href.includes("favourites")) {
+        // is the current genre a sub-genre  
+        if (window.location.href.includes("favourites") && $(target).text() !== "Genres") {
+            if ($("#stations").find(".page-message").length > 0)
+                $("#stations").find(".page-message").remove();
+            if (current_genre === $(target).text().toLowerCase()) {
+                $("#stations > div").detach();
+                $("#stations").append(favourites);                
+            } else {
+                current_genre = $(target).text().toLowerCase();
                 getFavouritesOf(current_genre);
                 $(".radmenu li").removeClass("clicked"); // Remove all highlights
                 $(target).parent('li').addClass("clicked");
                 triggerMouseOverIcon();
-            } else {
-                $('#stations > div').empty();
-                channels_ajax_request(0);
-                triggerScrollEvent();
-                if (!window.location.href.includes(encodeURIComponent(current_genre)))  // if we have moved back to this page then, dont push it
-                    history.pushState(current_genre, null, "/#index/" + current_genre);
             }
+        } else if (!this.classList.contains("selected") && $(target).text() !== "Genres" && current_genre !== $(target).text().toLowerCase()) {
+            // remove the current list of stations if any
+            current_genre = $(target).text().toLowerCase();            
+            $('#stations > div').empty();
+            channels_ajax_request(0);
+            triggerScrollEvent();
+            if (!window.location.href.includes(encodeURIComponent(current_genre)))  // if we have moved back to this page then, dont push it
+                history.pushState(current_genre, null, "/#index/" + current_genre);            
         }
 
-        // push the current state onto the history (URL should append the current genre as a hashbang)
-        /*
-        if (!window.location.href.includes(encodeURIComponent(current_genre)))  // if we have moved back to this page then, dont push it
-            history.pushState(current_genre, null, "/#index/" + current_genre);
-        */
+        
         // Add the class only for actually clicked element
 
         if ($(target).parent('li').hasClass("concrete-genre")) {
-            // list channels
-            // current_genre.classList.add("selected");
+            
         } else {           
 
             if ($(target).text() !== "Genres" && !this.parentNode.classList.contains("radmenu")) {
@@ -144,6 +144,19 @@ function initializeRadialMenu() {
             return false;
         }
     }
+}
+
+function getFavouritesOf(genre) {    
+    $('#stations > div').detach();  // remove the current list of stations if any   
+    $('#stations').append("<div class='container-fluid header-container'></div>");
+    $(favourites).find(".row").each(function (index, elem) {
+        if ($(elem).find(".genre").text().toLowerCase() === genre)
+            $("#stations > div").append($(elem).clone());
+    });
+    if ($("#stations").find(".row").length === 0)
+        $("#stations").append('<p class="page-message">You currently have no ' + genre + ' favourites in your selection. Navigate to the <a onclick="ajax_request(\' / Home / IndexPartial\', triggerGenreSelect)">Search</a> page to begin searching for ' + genre + ' music channels</p>');
+    if (!window.location.href.includes("/" + encodeURIComponent(genre)))  // if we have moved back to this page then, dont push it
+        history.pushState(genre, null, "/#favourites/" + genre);
 }
 
 function placeMenuItems(e) {
@@ -230,18 +243,7 @@ function triggerFavouritesGenreSelect() {
     });
 }
 
-function getFavouritesOf(genre) {
-    $('#stations > div').detach();  // remove the current list of stations if any   
-    $('#stations').append("<div class='container-fluid header-container'></div>");
-    $(favourites).find(".row").each(function (index, elem) {
-        if ($(elem).find(".genre").text().toLowerCase() === genre)
-            $("#stations > div").append($(elem).clone());
-    });
-    if ($("#stations").find(".row").length === 0)
-        $("#stations").append('<p class="page- message">You currently have no ' + genre + ' favourites in your selection. Navigate to the <a onclick="ajax_request(\' / Home / IndexPartial\', triggerGenreSelect)">Search</a> page to begin searching for ' + genre + ' music channels</p>');
-    if (!window.location.href.includes("/" + encodeURIComponent(genre)))  // if we have moved back to this page then, dont push it
-        history.pushState(genre, null, "/#favourites/" + genre);
-}
+
 
 function initializeChannelItem(elem) {
     $(elem).removeClass("is-selected");

@@ -39,11 +39,11 @@
             $("#stations").empty();
             $("#stations").append(favourites);   // if the user has any favourites then add them to the stations container        
             $(favourites).find(".row").each(function (index, elem) {
-                if (!isPlaying(this)) {
+                //if (!isPlaying(this)) {
                     initializeChannelItem(this);
-                    triggerMouseOverIcon($(this).find(".activity"));
-                    
-                } /* else {
+                    //triggerMouseOverIcon(elem);
+                    /*
+                } else {
                     $("#stations .row:eq(" + index + ")").replaceWith($(current_channel).closest(".row").clone());
                     current_channel = $("#stations .row:eq(" + index + ") .activity")[0];
                 }

@@ -10,15 +10,15 @@ var total_base_genres = 0;
 var player_displayed = false;
 
 $(document).ready(function () {
-    initializePlayer();   
+    initializePlayer();
 
     if (window.location.href.includes("favourites"))
         triggerFavouritesGenreSelect();
     else
         triggerGenreSelect();
-    triggerMouseOverIcon();    
+    triggerMouseOverIcon();
     var deduct = $("footer").outerHeight() + $(".navbar-fixed-top").outerHeight(); // $(".header-container").outerHeight() + parseInt($("#page").css("padding-top").replace("px", ""));    
-    $("#page").css("height", (window.innerHeight - deduct) + "px");    
+    $("#page").css({ "height": (window.innerHeight - deduct) + "px", "width": window.innerWidth });    
 
     // VOLUME
     $(".volumeBar").click(function (e) {
@@ -79,13 +79,14 @@ function initializeRadialMenu() {
                 $("#stations").find(".page-message").remove();
             if (current_genre === $(target).text().toLowerCase()) {
                 $("#stations > div").detach();
-                $("#stations").append(favourites);                
+                $("#stations").append(favourites);
+                current_genre = "Genres";             
             } else {
                 current_genre = $(target).text().toLowerCase();
                 getFavouritesOf(current_genre);
                 $(".radmenu li").removeClass("clicked"); // Remove all highlights
                 $(target).parent('li').addClass("clicked");
-                triggerMouseOverIcon();
+                //triggerMouseOverIcon();
             }
         } else if (!this.classList.contains("selected") && $(target).text() !== "Genres" && current_genre !== $(target).text().toLowerCase()) {
             // remove the current list of stations if any
@@ -150,8 +151,11 @@ function getFavouritesOf(genre) {
     $('#stations > div').detach();  // remove the current list of stations if any   
     $('#stations').append("<div class='container-fluid header-container'></div>");
     $(favourites).find(".row").each(function (index, elem) {
-        if ($(elem).find(".genre").text().toLowerCase() === genre)
-            $("#stations > div").append($(elem).clone());
+        if ($(elem).find(".genre").text().toLowerCase() === genre) {
+            var matched_elem = $(elem).clone();
+            $("#stations > div").append(matched_elem);
+            initializeChannelItem(matched_elem);
+        }
     });
     if ($("#stations").find(".row").length === 0)
         $("#stations").append('<p class="page-message">You currently have no ' + genre + ' favourites in your selection. Navigate to the <a onclick="ajax_request(\' / Home / IndexPartial\', triggerGenreSelect)">Search</a> page to begin searching for ' + genre + ' music channels</p>');
@@ -247,11 +251,16 @@ function triggerFavouritesGenreSelect() {
 
 function initializeChannelItem(elem) {
     $(elem).removeClass("is-selected");
-    $(elem).find(".label").removeClass("is-playing");
-    if (!$(elem).find(".activity").hasClass('icon-headphones'))
-        $(elem).find(".activity").addClass('icon-headphones');
-    $(elem).find(".activity").removeClass('icon-play');
-    $(elem).find(".activity").removeClass('icon-pause');
+    $(elem).find(".label").each(function (index, item) {
+        $(item).removeClass("is-playing");
+    });
+    $(elem).find(".activity").each(function (index, item) {
+        if (!$(item).hasClass('icon-headphones'))
+            $(item).addClass('icon-headphones');
+        $(item).removeClass('icon-play');
+        $(item).removeClass('icon-pause');
+        triggerMouseOverIcon(item);
+    });       
 }
 
 function triggerMouseOverIcon(elem) {

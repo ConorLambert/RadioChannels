@@ -251,6 +251,7 @@ main {
     text-align: center;
     /* overflow: hidden; */
     white-space: nowrap;
+    word-wrap: break-word;
 }
 
 .hidden {

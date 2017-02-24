@@ -6,15 +6,13 @@
     ViewBag.Title = "Account";
 }
 
-<h2 id="main-heading">Account</h2>
+<h2 id="main-heading">Account Details</h2>
 
 @Html.ValidationSummary(true)
 
 @using (Html.BeginForm())
 {
-    <ul class="form-style-1">
-
-        <li><h2>Account Details</h2></li>
+    <ul class="form-style-1">        
         <li>
             <label>Full Name</label><span>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</span>
         </li>

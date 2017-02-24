@@ -87,11 +87,13 @@ function removeFromFavourites(channel, channel_name, elem) {
                 if (response != null && response.success) {
                     $("#page").prepend('<span class="tooltiptext" style="margin-left:' + ((screen.width / 2) - 200) + 'px;">' + response.responseText + '</span>');
                     $(".tooltiptext").delay(3000).fadeOut();
-                    // remove from favourites
+                    // remove from favourites in search
                     $(elem).find(".is-favourite").addClass("fav-btn");
                     $(elem).find(".is-favourite").removeClass("is-favourite");
-                    elem = findFavourite(channel.Id); // remove from favourites only not on a results list
-                    $($(elem).closest(".row")).remove();
+                    // remove from favourites
+                    $(findFavourite(channel.Id)).closest(".row").remove();
+                    if (window.location.href.includes("favourites") && current_genre !== "Genres")
+                        $(elem).closest(".row").remove();                    
                 } else {
                     alert("success error");
                 }

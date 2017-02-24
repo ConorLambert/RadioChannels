@@ -200,7 +200,7 @@ main {
     width: 100%;
     /* overflow: hidden; */
     border-top: 1px solid #2C3E50;
-    /* padding-top: 20px; */
+    padding-top: 20px;
 }
 
 #stations {

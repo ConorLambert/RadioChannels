@@ -17,8 +17,8 @@ $(document).ready(function () {
     else
         triggerGenreSelect();
     triggerMouseOverIcon();    
-    var deduct = $("footer").outerHeight() + $(".navbar-fixed-top").outerHeight() + $(".header-container").outerHeight() + parseInt($("#page").css("padding-top").replace("px", ""));    
-    $("#page").css("height", screen.height - deduct + "px");    
+    var deduct = $("footer").outerHeight() + $(".navbar-fixed-top").outerHeight(); // $(".header-container").outerHeight() + parseInt($("#page").css("padding-top").replace("px", ""));    
+    $("#page").css("height", (window.innerHeight - deduct) + "px");    
 
     // VOLUME
     $(".volumeBar").click(function (e) {
@@ -496,110 +496,13 @@ function refreshInfo(elem) {
 }
 
 
-function startScrolling(scroller_obj, velocity, start_from) {
-    //bind animation  inside the scroller element
-    scroller_obj.bind('marquee', function (event, c) {
-        //text to scroll
-        var ob = $(this);
-        //scroller width
-        var sw = parseInt(ob.closest('.text-wrapper').width());
-        //text width
-        var tw = parseInt(ob.width());
-        //text left position relative to the offset parent
-        var tl = parseInt(ob.position().left);
-        //velocity converted to calculate duration
-        var v = velocity > 0 && velocity < 100 ? (100 - velocity) * 1000 : 5000;
-        //same velocity for different text's length in relation with duration
-        var dr = (v * tw / sw) + v;
-        //is it scrolling from right or left?
-        switch (start_from) {
-            case 'right':
-                console.log('here')
-                //is it the first time?
-                if (typeof c == 'undefined') {
-                    //if yes, start from the absolute right
-                    ob.css({
-                        left: sw
-                    });
-                    sw = -tw;
-                } else {
-                    //else calculate destination position
-                    sw = tl - (tw + sw);
-                };
-                break;
-            default:
-                if (typeof c == 'undefined') {
-                    //start from the absolute left
-                    ob.css({
-                        left: -tw
-                    });
-                } else {
-                    //else calculate destination position
-                    sw += tl + tw;
-                };
-        }
-        //attach animation to scroller element and start it by a trigger
-        ob.animate({
-            left: sw
-        }, {
-                duration: dr,
-                easing: 'linear',
-                complete: function () {
-                    ob.trigger('marquee');
-                },
-                step: function () {
-                    //check if scroller limits are reached
-                    if (start_from == 'right') {
-                        if (parseInt(ob.position().left) < -parseInt(ob.width())) {
-                            //we need to stop and restart animation
-                            ob.stop();
-                            ob.trigger('marquee');
-                        };
-                    } else {
-                        if (parseInt(ob.position().left) > parseInt(ob.parent().width())) {
-                            ob.stop();
-                            ob.trigger('marquee');
-                        };
-                    };
-                }
-            });
-    }).trigger('marquee');
-    //pause scrolling animation on mouse over
-    scroller_obj.mouseover(function () {
-        $(this).stop();
-    });
-    //resume scrolling animation on mouse out
-    scroller_obj.mouseout(function () {
-        $(this).trigger('marquee', ['resume']);
-    });
-};
-
-function scrollInfo(elem) {
-    if ($(elem).find(".text-overflow").width() > $(elem).width()) {
-        //settings to pass to function
-        var scroller = $(elem).find('.text-overflow'); // element(s) to scroll
-        var scrolling_velocity = 95; // 1-99
-        var scrolling_from = 'right'; // 'right' or 'left'
-        //call the function and start to scroll..
-        startScrolling(scroller, scrolling_velocity, scrolling_from);
-    }
-}
-
-function stopScrolling(elem) {
-    $(elem).find(".text-wrapper").stop();
-    //$(elem).find(".text-overflow").css("left", "");
-}
-
-
-
-
-
 // AJAX REQUESTS
 
 function channels_ajax_request(index) {
     if (!$(".page-message").hasClass("hidden"))
         $(".page-message").addClass("hidden");
-    $("#stations > div").append("<div class='loading'> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div></div>");
+    if ($("#page").find(".loading").length == 0)
+        $("#stations > div").append("<div class='loading'> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div></div>");
     jQuery(function ($) {
         $.ajax({
             type: "GET",
@@ -621,12 +524,15 @@ function channels_ajax_request(index) {
                             //stopScrolling(elem);
                         })
                     })
+                    /*
                     if (isPlaying(this)) {
-                        $("#stations > div > div:eq(" + index + ")").replaceWith($(current_channel).closest(".row").clone());
-                        current_channel = $("#stations > div > div:eq(" + index + ") .activity")[0];
+                        $("#stations .row:eq(" + index + ")").replaceWith($(current_channel).closest(".row").clone());
+                        // $("#stations > div > div:eq(" + index + ")").replaceWith($(current_channel).closest(".row").clone());
+                        current_channel = $("#stations .row:eq(" + index + ") .activity")[0];
                     } else {
+                    */
                         triggerMouseOverIcon(elem);
-                    }
+                    // }
                     if (isFavourite($(elem).closest(".row").find(".channel-id").attr("id"))) {
                         $(elem).closest(".row").find(".fav-btn").addClass("is-favourite");
                         $(elem).closest(".row").find(".fav-btn").removeClass("fav-btn");
@@ -639,7 +545,8 @@ function channels_ajax_request(index) {
 
 function ajax_request(dest_url, callback) {
     $('#page').empty();
-    $("#page").append("<div class='loading'> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div></div>");    
+    if ($("#page").find(".loading").length == 0)
+        $("#page").append("<div class='loading'> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div> <div class='loading__circle'></div></div>");    
     jQuery(function ($) {
         $.ajax({
             type: "GET",

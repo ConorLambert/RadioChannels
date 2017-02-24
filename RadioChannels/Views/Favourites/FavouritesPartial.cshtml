@@ -42,10 +42,12 @@
                 if (!isPlaying(this)) {
                     initializeChannelItem(this);
                     triggerMouseOverIcon($(this).find(".activity"));
-                } else {
+                    
+                } /* else {
                     $("#stations .row:eq(" + index + ")").replaceWith($(current_channel).closest(".row").clone());
                     current_channel = $("#stations .row:eq(" + index + ") .activity")[0];
                 }
+                    */
             });
         } else {
 

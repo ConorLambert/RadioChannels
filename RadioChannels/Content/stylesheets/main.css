@@ -262,6 +262,7 @@ main {
     /* color: #fefefe; */
     text-transform: uppercase;
     font-weight: normal;
+    text-decoration: none;
 }
 
 .label {
@@ -278,9 +279,11 @@ main {
 .track {
     /* display: inline-block; */
     /* width: 250px; */
+    text-decoration: none;
 }
 
-.now-playing {
+.now-playing a {
+    text-decoration: none;
 }
 
 .now-playing, .artist, .title {
@@ -680,6 +683,7 @@ input.volume[type=range]::-ms-thumb {
     /* display: inline-block; */
     /* position: relative; */
     white-space: normal;
+    text-decoration: none;
 }
 
 .text-wrapper {

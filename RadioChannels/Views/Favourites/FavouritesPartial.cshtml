@@ -32,6 +32,7 @@
     </div>
     <script>    
         current_genre = undefined;
+        current_channel = undefined;
         if (!window.location.href.includes("favourites"))  // if we have moved back to this page then, dont push it
             history.pushState("favourites", null, "/#favourites");           
         triggerFavouritesGenreSelect();

@@ -89,7 +89,7 @@
                     <div class="audio-player-song-name"></div>
                 </div>
                 <div class="col-xs-3 col-sm-1">
-                    <div id="add-favourite" class="fa-icons fav-btn" onclick="addToFavourites(this)"></div>
+                    <div id="add-favourite" class="fa-icons fav-btn" onclick="audioPlayerToggleFavourite()"></div>
                 </div>
 
                 <div class="col-xs-2 col-sm-1">
@@ -171,12 +171,16 @@
                 } else if (event.state === "account") {
                     ajax_request('/Account/Account', ActionOnReady);
                 } else if (event.state === "edit") {
-                    ajax_request('/Account/Edit', ActionOnReady);
+                    //window.location.pathname = '/Account/Edit';
+                    ajax_request('/Account/Edit', ActionOnReady); 
                 } else if (event.state === "editpassword") {
+                    //window.location.pathname = '/Account/EditPassword';
                     ajax_request('/Account/EditPassword', ActionOnReady); 
                 } else if (event.state === "forgotpassword") {
+                    // window.location.pathname = '/Account/ForgotPassword';
                     ajax_request('/Account/ForgotPassword', ActionOnReady); 
                 } else if (event.state === "resetpassword") {
+                    // window.location.pathname = '/Account/ResetPassword';
                     ajax_request('/Account/ResetPassword', ActionOnReady);
                 } else { // else its index genre
                     //$("#item-radio-stations").find("a").trigger("click");

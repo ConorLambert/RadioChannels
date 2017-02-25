@@ -29,6 +29,11 @@ function findFavourite(id) {
     return result;
 }
 
+function audioPlayerToggleFavourite() {
+    // trigger the currently playing element
+    $(current_channel).next().trigger("click");
+}
+
 
 function toggleFavourite(channel, elem) {
     var channel_name = undefined;

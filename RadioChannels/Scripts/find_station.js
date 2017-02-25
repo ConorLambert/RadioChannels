@@ -368,6 +368,16 @@ function tunein(channel, elem) {
         removeMouseOverIcon(current_channel);
         $(current_channel).closest(".row").find(".label").addClass("is-playing");
         stream(channel);
+        // if this channel is a favourite channel, fill in favourite star of audio channel
+        if ($(current_channel).closest(".row").find(".fav-btn").length > 0) { // if is a favourite
+            $("#add-favourite").removeClass('is-favourite');
+            if (!$("#add-favourite").hasClass('fav-btn'))
+                $("#add-favourite").addClass('fav-btn');
+        } else {
+            $("#add-favourite").removeClass('fav-btn');
+            if (!$("#add-favourite").hasClass('is-favourite'))
+                $("#add-favourite").addClass('is-favourite');
+        }
         if (channel.Logo !== null) {
             $(".audio-player-image img").attr('src', channel.Logo + '?' + Math.random());
             $(".audio-player-image img").show();

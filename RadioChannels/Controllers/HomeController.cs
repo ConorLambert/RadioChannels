@@ -43,7 +43,10 @@ namespace RadioChannels.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            if ((System.Web.HttpContext.Current.User != null) && System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+                return Redirect(Url.Action("all", "favourites"));
+            else
+                return View();
         }
 
         public ActionResult IndexPartial()

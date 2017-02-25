@@ -22,6 +22,7 @@ namespace RadioChannels.Controllers
             httpClient = new HttpClient();
             System.Net.ServicePointManager.Expect100Continue = false;
             System.Net.ServicePointManager.UseNagleAlgorithm = false;
+            WebRequest.DefaultWebProxy = null;
         }
 
         public static XmlDocument MakeRequest(string requestUrl)
@@ -30,7 +31,7 @@ namespace RadioChannels.Controllers
             {
                 HttpWebRequest request = WebRequest.Create(requestUrl) as HttpWebRequest;
                 request.Method = "GET";
-                WebRequest.DefaultWebProxy = null;   // request.Proxy = new WebProxy(); ; // null;
+                // request.Proxy = new WebProxy(); ; // null;
                 HttpWebResponse response = request.GetResponse() as HttpWebResponse;
 
                 XmlDocument xmlDoc = new XmlDocument();

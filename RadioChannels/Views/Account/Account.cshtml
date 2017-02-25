@@ -8,6 +8,8 @@
 
 <h2 id="main-heading">Account Details</h2>
 
+<p class="validation-summary-errors" style="color: green;">@ViewBag.Message</p>
+
 @Html.ValidationSummary(true)
 
 @using (Html.BeginForm())
@@ -22,11 +24,14 @@
         <li>
             <input id="edit" type="button" value="Edit" onclick="ajax_request('/Account/Edit')" />            
         </li>        
+        <li>
+            <hr id="edit-line" />
+        </li>
     </ul>
 }
 @using (Html.BeginForm("Delete", "Account", FormMethod.Post))
 {
-    <ul class="form-style-1">
+    <ul class="form-style-1" style="margin-top: -50px;">
         <li>
             <input id="delete" name="submit" type="submit" value="Delete Account" />
         </li>

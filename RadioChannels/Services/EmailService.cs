@@ -52,7 +52,7 @@ namespace RadioChannels.Services
             var apiKey = "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"; // Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
 
             var client = new SendGridClient(apiKey);
-            var from = new EmailAddress("test@example.com", "Example User");
+            var from = new EmailAddress("noreply@tunage.com");
             var subject = message.Subject;
             var to = new EmailAddress(message.Destination);
             var plainTextContent = message.Body;

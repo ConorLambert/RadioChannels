@@ -145,6 +145,29 @@ namespace RadioChannels.Controllers
             return PartialView(model);
         }
 
+        [HttpGet]
+        public ActionResult LogInFull(string returnUrl)
+        {
+            setContextProperties();
+            var model = new User
+            {
+                ReturnUrl = returnUrl
+            };
+
+            var providers = HttpContext.GetOwinContext()
+                .Authentication.GetAuthenticationTypes(x => !string.IsNullOrEmpty(x.Caption))
+                .ToList();
+            //model.AuthProviders - providers;
+
+            return View("LogIn", model);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> LogInFull(User model)
+        {
+            return await LogIn(model);
+        }
+
         [HttpPost]
         public async Task<ActionResult> LogIn(User model)
         {
@@ -173,7 +196,7 @@ namespace RadioChannels.Controllers
 
             // user authN failed
             ModelState.AddModelError("", "Invalid email or password");
-            return PartialView();
+            return View("LogIn");
         }
 
         [HttpGet]
@@ -219,7 +242,7 @@ namespace RadioChannels.Controllers
                 ModelState.AddModelError("", error);
             }
 
-            return PartialView();
+            return View();
         }        
         
         public ActionResult LogOut()
@@ -331,6 +354,14 @@ namespace RadioChannels.Controllers
             return PartialView(user);
         }
 
+        [HttpGet]
+        public ActionResult AccountFull()
+        {
+            setContextProperties();
+            var user = userManager.FindById(User.Identity.GetUserId());
+            return View("Account", user);
+        }
+
         [HttpPost]
         public ActionResult Delete(User user)
         {
@@ -347,7 +378,8 @@ namespace RadioChannels.Controllers
             var authManager = ctx.Authentication;
             authManager.SignOut("ApplicationCookie");
 
-            return RedirectToAction("Index", "Home");
+            ViewBag.Message = "Account Successfully Deleted";
+            return RedirectToAction("Index", "Home");            
         }
 
         [HttpGet]
@@ -403,11 +435,11 @@ namespace RadioChannels.Controllers
                     return View("Info");
                 }
 
-                return RedirectToAction("Account", "Account");
+                return RedirectToAction("AccountFull", "Account");
             }
 
             ViewBag.message = "Something went wrong upating account information";
-            return PartialView();
+            return View();
         }
 
         [HttpGet]
@@ -434,8 +466,9 @@ namespace RadioChannels.Controllers
                 AddErrors(result);
                 return View();
             }
-            ViewBag.Message("Password changed successfully");
-            return RedirectToAction("Account", "Account");
+            ViewBag.message = "Password changed successfully";            
+            return View("Account", userManager.FindById(User.Identity.GetUserId()));
+            // return RedirectToAction("AccountFull", "Account");
         }
 
 

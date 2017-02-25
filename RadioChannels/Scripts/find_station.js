@@ -18,7 +18,7 @@ $(document).ready(function () {
         triggerGenreSelect();
     triggerMouseOverIcon();
     var deduct = $("footer").outerHeight() + $(".navbar-fixed-top").outerHeight(); // $(".header-container").outerHeight() + parseInt($("#page").css("padding-top").replace("px", ""));    
-    $("#page").css({ "height": (window.innerHeight - deduct) + "px", "width": window.innerWidth });    
+    $("#page").css({ "height": (window.innerHeight) + "px", "max-width": window.innerWidth + "px" });    
 
     // VOLUME
     $(".volumeBar").click(function (e) {
@@ -158,7 +158,7 @@ function getFavouritesOf(genre) {
         }
     });
     if ($("#stations").find(".row").length === 0)
-        $("#stations").append('<p class="page-message">You currently have no ' + genre + ' favourites in your selection. Navigate to the <a onclick="ajax_request(\' / Home / IndexPartial\', triggerGenreSelect)">Search</a> page to begin searching for ' + genre + ' music channels</p>');
+        $("#stations").append('<p class="page-message">You currently have no ' + genre + ' favourites in your selection. Navigate to the <a onclick="ajax_request(\'/Home/IndexPartial\', triggerGenreSelect)">Search</a> page to begin searching for ' + genre + ' music channels</p>');
     if (!window.location.href.includes("/" + encodeURIComponent(genre)))  // if we have moved back to this page then, dont push it
         history.pushState(genre, null, "/#favourites/" + genre);
 }
@@ -481,7 +481,7 @@ function triggerScrollEvent() {
 
 function refreshInfo(elem) {
     // get channel name and id 
-    var channel_name = encodeURIComponent($(elem).closest(".row").find(".title").text());
+    var channel_name = encodeURIComponent($(elem).closest(".row").find(".channel-title").text());
     var id = $(elem).closest(".row").find(".channel-id").attr("id");
 
     $(elem).addClass("fa-rotate-90");

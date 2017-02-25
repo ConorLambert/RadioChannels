@@ -12,10 +12,7 @@
 
 @using (Html.BeginForm())
 {
-    <ul class="form-style-1">
-        <li>
-            <h2>Edit</h2>
-        </li>
+    <ul class="form-style-1">       
         <li>
             <label>Full Name</label>@Html.TextBoxFor(model => model.FirstName, new { @class = "field-long validate", @Value = Model.FirstName, name = "field1", type = "text" })&nbsp;@Html.TextBoxFor(model => model.LastName, new { @class = "field-long validate", @Value = Model.LastName, name = "field2", type = "text" })
         </li>
@@ -23,12 +20,15 @@
             <label>@Html.DisplayNameFor(model => model.Email)<span class="required">*</span></label>
             <!-- <input type="email" name="field3" class="field-long" /> -->
             @Html.TextBoxFor(model => model.Email, new { @class = "field-long validate", @Value = Model.Email, name = "field1", type = "email" })
-        </li>
-        <li>
-            <input type="button" value="Change Password" onclick="ajax_request('/Account/EditPassword', ActionOnReady);">          
-        </li>
+        </li>        
         <li>
             <input id="change" type="submit" value="Change" />            
+        </li>
+        <li>
+            <hr id="edit-line" />
+        </li>
+        <li>
+            <input type="button" value="Change Password" onclick="ajax_request('/Account/EditPassword', ActionOnReady);">
         </li>
     </ul>
 }

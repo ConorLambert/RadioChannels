@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <title>Tunage</title>
+    <link href="~/logo2_1_.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">   
     <link href="https://fonts.googleapis.com/css?family=Amiri|Cantarell|Crimson+Text|Gentium+Basic|Muli|Nunito+Sans|Quattrocento+Sans|Quicksand|Raleway|Ubuntu" rel="stylesheet">
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" /> 
@@ -34,8 +34,8 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a onlclick="ajax_request('/Home/IndexPartial', triggerGenreSelect)">
-                        <div id="logo-container">
+                    <a>
+                        <div id="logo-container" onclick="ajax_request('/Home/IndexPartial', triggerGenreSelect)">
                             <img src="~/Content/images/logo2 (1).png" />
                         </div>
                     </a>
@@ -150,16 +150,18 @@
                 if (window.location.href.includes("/#favourites/")) {
                     ajax_request('/Favourites/IndexPartial', function () {
                         triggerFavouritesGenreSelect();
-                        $("#.radmenu > a").trigger("click");
-                        $("#.radmenu a").each(function (index, elem) {
+                        $(".radmenu > a").trigger("click");
+                        $(".radmenu a").each(function (index, elem) {
                             if ($(elem).text().toLowerCase() === event.state.toLowerCase()) {
                                 $(elem).trigger("click");
                                 return false;
                             }
                         });
+                        triggerMouseOverIcon();
                     });
                 } else if ((event.state === "favourites")) {
                     $("#item-favourites").trigger("click");
+                    triggerMouseOverIcon();
                 } else if (event.state === "index") {
                     $("#item-radio-stations").trigger("click");
                 } else if (event.state === "register") {
@@ -180,8 +182,8 @@
                     //$("#item-radio-stations").find("a").trigger("click");
                     ajax_request('/Home/IndexPartial', function () {
                         triggerGenreSelect();
-                        $("#.radmenu > a").trigger("click");
-                        $("#.radmenu a").each(function (index, elem) {
+                        $(".radmenu > a").trigger("click");
+                        $(".radmenu a").each(function (index, elem) {
                             if ($(elem).text().toLowerCase() === event.state.toLowerCase()) {
                                 $(elem).trigger("click");
                                 return false;
@@ -193,7 +195,7 @@
                 // return to home page
                 $("#stations > div").empty();
                 // remove selected genre
-                $("#.radmenu").find(".clicked").removeClass("clicked");
+                $(".radmenu").find(".clicked").removeClass("clicked");
             }
         });
     </script>

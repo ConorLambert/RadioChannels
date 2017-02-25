@@ -31,15 +31,18 @@ function findFavourite(id) {
 
 
 function toggleFavourite(channel, elem) {
+    var channel_name = undefined;
+
     if ($(elem).is("#add-favourite")) {   // if the favourite button was clicked from the audio control panel
         if (current_channel == undefined) {  // if there is nothing playing
             $("#page").prepend('<span class="tooltiptext">No channel is currently playing</span>');
             $(".tooltiptext").delay(3000).fadeOut();
             return;
         }
+        channel_name = encodeURIComponent($(current_channel).closest(".row").find(".channel-title").text());
     }
 
-    var channel_name = encodeURIComponent($(elem).closest(".row").find(".channel-title").text());
+    channel_name = encodeURIComponent($(elem).closest(".row").find(".channel-title").text());
     if ($(elem).hasClass("is-favourite")) {
         removeFromFavourites(channel, channel_name, $(elem).closest(".row"));
     } else {
@@ -56,15 +59,18 @@ function addToFavourites(channel, channel_name, elem) {
             url: '/Favourites/AddFavourite/?id=' + channel.Id + '&name=' + channel_name,
             cache: false,
             success: function (response) {
-                if (response != null && response.success) {
-                    $("#page").prepend('<span class="tooltiptext" style="margin-left:' + ((screen.width / 2) - 200) + 'px;">' + response.responseText + '</span>');
-                    $(".tooltiptext").delay(3000).fadeOut();
+                $("#page").prepend('<span class="tooltiptext" style="margin-left:' + ((screen.width / 2) - 200) + 'px;">' + response.responseText + '</span>');
+                $(".tooltiptext").delay(3000).fadeOut();
+                if (response != null && response.success) {                                        
                     // add to favourites collection
                     $(elem).find(".fav-btn").addClass("is-favourite");
                     $(elem).find(".fav-btn").removeClass("fav-btn");
+                    // if current channel then fill in favourites icon on current channel
+                    if (isPlaying(elem)) {
+                        $("#add-favourite").removeClass("fav-btn");
+                        $("#add-favourite").addClass("is-favourite");
+                    }
                     $(favourites).append($(elem).clone());
-                } else {
-                    alert("success error");
                 }
             },
             error: function (response) {
@@ -84,18 +90,21 @@ function removeFromFavourites(channel, channel_name, elem) {
             url: '/Favourites/RemoveFavourite/?id=' + channel.Id + '&name=' + channel_name,
             cache: false,
             success: function (response) {
-                if (response != null && response.success) {
-                    $("#page").prepend('<span class="tooltiptext" style="margin-left:' + ((screen.width / 2) - 200) + 'px;">' + response.responseText + '</span>');
-                    $(".tooltiptext").delay(3000).fadeOut();
+                $("#page").prepend('<span class="tooltiptext" style="margin-left:' + ((screen.width / 2) - 200) + 'px;">' + response.responseText + '</span>');
+                $(".tooltiptext").delay(3000).fadeOut();
+                if (response != null && response.success) {                                     
                     // remove from favourites in search
                     $(elem).find(".is-favourite").addClass("fav-btn");
                     $(elem).find(".is-favourite").removeClass("is-favourite");
+                    // if channel is currently playing, remove favourites from audio panel
+                    if (isPlaying(elem)) {
+                        $("#add-favourite").removeClass("is-favourite");
+                        $("#add-favourite").addClass("fav-btn");
+                    }
                     // remove from favourites
                     $(findFavourite(channel.Id)).closest(".row").remove();
                     if (window.location.href.includes("favourites") && current_genre !== "Genres")
                         $(elem).closest(".row").remove();                    
-                } else {
-                    alert("success error");
                 }
             },
             error: function (response) {

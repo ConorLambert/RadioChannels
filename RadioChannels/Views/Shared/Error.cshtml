@@ -2,7 +2,6 @@
     ViewBag.Title = "Error";
 }
 
-<h1 class="text-danger">Error.</h1>
 @{
     if (String.IsNullOrEmpty(ViewBag.errorMessage))
     {
@@ -10,6 +9,6 @@
     }
     else
     {
-        <h2 class="text-danger">@ViewBag.errorMessage</h2>
+        <p class="page-message">@ViewBag.errorMessage</p>
     }
 }

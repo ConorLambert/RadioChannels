@@ -688,3 +688,10 @@ input.volume[type=range]::-ms-thumb {
 
 .text-wrapper {
 }
+
+/* ACCOUNT */
+.validation-summary-errors {
+    text-align: center;
+    color: red;
+    padding-top: 20px;
+}

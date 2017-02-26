@@ -8,6 +8,7 @@ var oldx = 0;
 var newx = 0;
 var total_base_genres = 0;
 var player_displayed = false;
+var audio_player_height = 0;
 
 $(document).ready(function () {
     initializePlayer();
@@ -17,7 +18,8 @@ $(document).ready(function () {
     else
         triggerGenreSelect();
     triggerMouseOverIcon();
-    var deduct = $("footer").outerHeight() + $(".navbar-fixed-top").outerHeight(); // $(".header-container").outerHeight() + parseInt($("#page").css("padding-top").replace("px", ""));    
+    var deduct = $(".header-container").innerHeight() + parseInt($("#page").css("padding-top").replace("px", ""));    
+    audio_player_height = window.innerHeight - deduct;
     $("#page").css({ "height": (window.innerHeight) + "px", "max-width": window.innerWidth + "px" });    
 
     // NAVBAR COLLAPSE
@@ -356,6 +358,7 @@ function tunein(channel, elem) {
     if (!player_displayed) {
         $("footer").toggle(800);
         player_displayed = true;
+        $("#page").css({ "height": audio_player_height + "px" });
     }
 
     // adjust scroll viewport            

@@ -20,6 +20,14 @@ $(document).ready(function () {
     var deduct = $("footer").outerHeight() + $(".navbar-fixed-top").outerHeight(); // $(".header-container").outerHeight() + parseInt($("#page").css("padding-top").replace("px", ""));    
     $("#page").css({ "height": (window.innerHeight) + "px", "max-width": window.innerWidth + "px" });    
 
+    // NAVBAR COLLAPSE
+    $('.nav li').on('click', function () {
+
+        //$('.btn-navbar').click(); //bootstrap 2.x
+        //if($(".navbar-toggle").hasClass())
+        //$('.navbar-toggle').click() //bootstrap 3.x by Richard
+    });
+
     // VOLUME
     $(".volumeBar").click(function (e) {
         var x = e.pageX - $(this).offset().left;
@@ -138,8 +146,11 @@ function initializeRadialMenu() {
                     $(".radmenu").append($(target).parent("li").children().detach());
                     target = $(".radmenu > .selected");
                 }
-                if ($(target).next("ul").length > 0)
-                    placeMenuItems($(target).next("ul"));
+                $(target).each(function (index, elem) {                    
+                    if ($(elem).next("ul").length > 0) {
+                        placeMenuItems($(elem).next("ul"));                       
+                    }
+                });                
             }
 
             return false;

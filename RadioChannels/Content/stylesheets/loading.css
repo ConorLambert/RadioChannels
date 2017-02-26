@@ -4,7 +4,7 @@
     height: 120px;
     position: relative;
     margin: 0 auto;
-    margin-top: 0px;
+    margin-top: -200px;
     top: 50vh;
     -webkit-transform: translateY(-50%);
     transform: translateY(-50%);

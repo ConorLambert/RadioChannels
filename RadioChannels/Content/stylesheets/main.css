@@ -20,6 +20,11 @@ html, body {
     .radmenu a {
         font-size: 1.0em;
     }
+
+    .audio-player-button {
+        width: 23px;
+        height: 24px;
+    }
 }
 
 @media only screen and (min-width: 500px) {
@@ -29,6 +34,11 @@ html, body {
 
     .radmenu a {
         font-size: 1.0em;
+    }
+
+    .audio-player-button {
+        width: 27px;
+        height: 27px;
     }
 }
 
@@ -40,6 +50,11 @@ html, body {
     .radmenu a {
         font-size: 0.8em;
     }
+
+    .audio-player-button {
+        width: 32px;
+        height: 32px;
+    }
 }
 
 @media only screen and (min-width: 1100px) {
@@ -50,6 +65,15 @@ html, body {
     .radmenu a {
         font-size: 0.6em;
     }
+
+    .audio-player-button {
+        width: 33px;
+        height: 33px;
+    }
+
+        .audio-player-button::before {
+            /* font-size: 1.4em; */
+        }
 }
 
 .navbar {
@@ -247,15 +271,14 @@ main {
     height: 99%;
     width: 100%;
     overflow-y: scroll;
-    padding-right: 20px;
 }
 
     #stations .row {
         margin-bottom: 50px;
         padding: 5px;
-        border: 1px thin #2D4F7F;
+        border: 1px solid #2D4F7F;
         background-color: #EBEBEB;
-        width: 50%;
+        width: 42%;
         text-align: center;
         margin-left: auto;
         margin-right: auto;
@@ -276,6 +299,7 @@ main {
 .image {
     text-align: center;
     padding-top: 5px;
+    border-bottom: 1px solid #2D4F7F;
 }
 
 .activity {
@@ -427,8 +451,9 @@ footer {
     display: inline-block;
     position: relative;
     vertical-align: middle;
-    width: 35px;
-    height: 35px;
+    /* margin: auto; */
+    /* width: 35px; */
+    /* height: 35px; */
     border-radius: 100%;
     border: 3px solid;
     opacity: 0.8;
@@ -714,24 +739,46 @@ input.volume[type=range]::-ms-thumb {
         transform: rotate(0deg) translateX(0px);
     }
 
-        .radmenu .selected + ul > li > a {
-            display: flex;
+
+@-moz-document url-prefix() {
+    .radmenu .selected, .radmenu > a.show {
+        right: 47.5%;
+        top: 39%;
+    }
+
+    @media only screen and (min-width: 200px) {
+        .audio-player-button::before {
+            right: 3.7%;
+            top: -13%;
         }
-
-
-.text-overflow {
-    /* display: inline-block; */
-    /* position: relative; */
-    white-space: normal;
-    text-decoration: none;
+    }    
 }
+    /*
+        background: rgba(50, 50, 50, 1) none repeat scroll 0 0 !important;
+    box-shadow: 0 0 10px #f1f1f1;
+    color: #f1f1f1;
+    display: inline-block;
+    left: 25px;
+    position: relative;
+    transform: rotate(0deg) translateX(0px);
+    */
+    .radmenu .selected + ul > li > a {
+        display: flex;
+    }
 
-.text-wrapper {
-}
 
-/* ACCOUNT */
-.validation-summary-errors {
-    text-align: center;
-    color: red;
-    padding-top: 20px;
-}
+    .text-overflow {
+        /* display: inline-block; */
+        /* position: relative; */
+        white-space: normal;
+        text-decoration: none;
+    }
+
+    .text-wrapper {
+    }
+    /* ACCOUNT */
+    .validation-summary-errors {
+        text-align: center;
+        color: red;
+        padding-top: 20px;
+    }

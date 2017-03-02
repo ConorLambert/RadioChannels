@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Tunage</title>
+    <link href="~/logo2_1_.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+    <link href="https://fonts.googleapis.com/css?family=Amiri|Cantarell|Crimson+Text|Gentium+Basic|Muli|Nunito+Sans|Quattrocento+Sans|Quicksand|Raleway|Ubuntu" rel="stylesheet">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" /> 
+    <link href="~/Content/stylesheets/font-awesome.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/stylesheets/main.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/stylesheets/loading.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/stylesheets/icons.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="~/Content/stylesheets/audio-waves.css" rel="stylesheet" />
+    <link href="~/Content/stylesheets/playback-panel.css" rel="stylesheet" />    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/account.js"></script>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet" type="text/css">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>    
+    <script> var favourites = undefined;</script>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a>
+                        <div id="logo-container" onclick="ajax_request('/Home/IndexPartial', triggerGenreSelect)">
+                            <img src="~/Content/images/logo2 (1).png" />
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <!--<li><a href="#">Link</a></li>-->                       
+                        <li id="item-radio-stations" class="fa-icons" onclick="ajax_request('/Home/IndexPartial', triggerGenreSelect)"><span></span></li> <!-- Home -->
+                        @if (Request.IsAuthenticated)
+                        {                            
+                            <li id="item-favourites" class="fa-icons" onclick="getFavourites();"><span></span></li>
+                            <li id="item-account" class="fa-icons" onclick="ajax_request('/Account/Account')">
+                                <span class="span-horizontal hidden-sm hidden-md hidden-lg"></span>
+                                <span class="span-vertical hidden-xs"></span>
+                            </li>
+                            <li id="item-log-out" class="fa-icons" onclick="signOut();"><span></span></li>
+                        }
+                        else
+                        {
+                            <li id="item-sign-in" class="fa-icons" onclick="ajax_request('/Account/Register', ActionOnReady)">
+                                <span class="span-horizontal hidden-md hidden-lg"></span>
+                                <span class="span-vertical hidden-xs hidden-sm"></span>
+                            </li> <!-- Register / Sign In -->
+                        }
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+    </header>
+    
+    <main id="page">         
+        @RenderBody()
+    </main>  
+
+    <footer class="navbar-fixed-bottom" >
+        <div id="audio-player" class="container-fluid">
+            <div class="row">
+                <div id="jplayer" class="jp-jplayer" style="width: 0px; height: 0px;">
+                    <img id="jp_poster_0" style="width: 0px; height: 0px; display: none;">
+                    <audio id="jp_audio_0" crossOrigin="anonymous" preload="none"></audio>
+                </div>                                
+                <div class="col-sm-1 hidden-xs">
+                    <div class="audio-player-image"><img /></div>
+                </div>
+                <div class="col-sm-2 hidden-xs">
+                    <div class="audio-player-song-name"></div>
+                </div>
+                <div class="col-xs-3 col-sm-1">
+                    <div id="add-favourite" class="fa-icons fav-btn" onclick="audioPlayerToggleFavourite()"></div>
+                </div>
+                <div class="col-xs-2 col-sm-1">
+                    <div id="backward" class="icon-backward fa-icons" onclick="previousStation()"></div>
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                    <div id="play-pause-container">
+                        <a role="button" class="fa-icons audio-player-button audio-player-place-pause-button icon-play" onclick="continueStream()"></a>
+                    </div>
+                </div>
+                <div class="col-xs-2 col-sm-1">
+                    <div id="forward" role="button" class="fa-icons icon-forward" onclick="nextStation()"></div>
+                </div>                      
+                <div class="hidden-xs col-sm-1 ">
+                    <div class="fa-icons volume-down" aria-hidden="true"></div>
+                </div>
+                <div class="hidden-xs col-sm-2">
+                    <div id="volumeContainer">
+                        <div class="volumeBar">
+                            <div class="audio-player-volume-bar"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden-xs col-sm-1">
+                    <div class="fa-icons volume-up" aria-hidden="true"></div>
+                </div>
+                                
+                <div class="col-xs-3 hidden-sm hidden-md hidden-lg">
+                    <div class="controls">
+                        <div class="volume-chooser">
+                            <div class="volume-button"><i class="volume-up fa-icons"></i></div>
+                            <div class="volume-control">
+                                <input id="mobile-volume" class="volume" type="range" value="100" max="100" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jplayer/2.9.2/jplayer/jquery.jplayer.js"></script>
+    <script src="~/Scripts/classie.js"></script>
+    <script src="~/Scripts/cbpAnimatedHeader.js"></script>
+    <script src="~/Scripts/playback-panel.js"></script>
+    <script src="~/Scripts/password-validator.js"></script>
+    <script src="~/Scripts/find_station.js"></script>
+    <script src="~/Scripts/favourites.js"></script>    
+    <script src="~/Scripts/page_navigation.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -34,9 +34,11 @@ namespace RadioChannels
 
             app.UseFacebookAuthentication(new Microsoft.Owin.Security.Facebook.FacebookAuthenticationOptions
             {
-                AppId = "1243205902424539",
-                AppSecret = "7ccefdfe49196eeb74a05f1710b324d5",
-                Scope = { "email" },
+                //AppId = "1243205902424539",
+                //AppSecret = "7ccefdfe49196eeb74a05f1710b324d5",
+                AppId = "220620751745670",
+                AppSecret = "c87d57d8ff8d9dc10284245b1ef6562e",
+                Scope = { "email", "public_profile" },
                 BackchannelHttpHandler = new FacebookBackChannelHandler(),
                 UserInformationEndpoint = "https://graph.facebook.com/v2.4/me?fields=id,name,email,first_name,last_name"
             });

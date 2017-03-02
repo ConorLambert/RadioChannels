@@ -68,7 +68,7 @@ namespace RadioChannels.Controllers
                 RedirectUri = "/Account/ExternalLinkLoginCallback"
             }, "Facebook");
             return new HttpUnauthorizedResult();
-        }
+        }        
 
         public ActionResult LoginTwitter()
         {
@@ -98,13 +98,26 @@ namespace RadioChannels.Controllers
             {
                 return RedirectToAction("Login");
             }
-            // check if the user already exists                
-            var lastNameClaim = loginInfo.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Surname);
-            var givenNameClaim = loginInfo.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.GivenName);            
-            var firstName = givenNameClaim.Value;
-            var lastname = lastNameClaim.Value;
 
-            var user = new User { UserName = loginInfo.Email, Email = loginInfo.Email, FirstName = firstName, LastName = lastname, EmailConfirmed = true};
+            var firstName = "";
+            var lastName = "";
+
+            // check if the user already exists                
+            if (loginInfo.Login.LoginProvider == "Facebook")
+            {
+                var fullName = loginInfo.ExternalIdentity.Name.Split(' ');
+                firstName = fullName[0];
+                lastName = fullName[1];
+            } else
+            {
+                var lastNameClaim = loginInfo.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Surname);
+                var givenNameClaim = loginInfo.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.GivenName);
+                firstName = givenNameClaim.Value;
+                lastName = lastNameClaim.Value;
+            }          
+            
+
+            var user = new User { UserName = loginInfo.Email, Email = loginInfo.Email, FirstName = firstName, LastName = lastName, EmailConfirmed = true};
             var result = await userManager.CreateAsync(user);
             if (result.Succeeded) // if not
             {

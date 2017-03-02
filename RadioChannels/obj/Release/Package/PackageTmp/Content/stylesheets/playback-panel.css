@@ -1,0 +1,307 @@
+﻿@import url(http://weloveiconfonts.com/api/?family=fontawesome);
+
+.player {
+    position: relative;
+    font-size: 1.0rem;
+    width: 10em;
+    height: 8em;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    /* Screen Centering: */
+    top: 50%;
+    left: 50%;
+    margin: -4em 0 0 -5em;
+}
+
+[class*="fontawesome-"]::before {
+    font-family: 'FontAwesome', sans-serif;
+    position: relative;
+    display: block;
+    text-align: center;
+    color: #c9cfcd;
+    line-height: 3em;
+    text-shadow: 0 -0.03em rgba(0, 0, 0, 0.2), 0 0.03em 0.03em rgba(255, 255, 255, 0.55);
+    transition: all 80ms;
+}
+
+.big:hover > [class*="fontawesome-"]::before,
+.small:hover > [class*="fontawesome-"]::before,
+.dl-tab:hover > [class*="fontawesome-"]::before {
+    color: #d4d9d7;
+}
+
+.big {
+    position: relative;
+    z-index: 9;
+    cursor: pointer;
+    height: 2em;
+    width: 2em;
+    margin: 0 auto;
+    border-radius: 100%;
+    background: radial-gradient(circle at 50% 5%, #f0f2f5, #d8dde4);
+    box-shadow: 0 0.22em 0.3em -0.22em rgba(0, 0, 0, 0.7), inset 0 0.2em 0.4em -0.22em rgba(255, 255, 255, 0.9);
+    transition: all 80ms;
+}
+
+    .big > span {
+        font-size: 2em;
+    }
+
+    .big:hover {
+        background: radial-gradient(circle at 50% 5%, #f3f4f7, #dbdfe6);
+    }
+
+        .big:hover::before {
+            background: radial-gradient(circle at 50% 92%, #f3f4f7, #dbdfe6);
+        }
+
+    .big:active {
+        box-shadow: 0 0.22em 0.3em -0.24em rgba(0, 0, 0, 0.6), inset 0 0.2em 0.4em -0.22em rgba(255, 255, 255, 0.8);
+        background: radial-gradient(circle at 50% 5%, #f0f2f5, #d8dde4);
+        top: 0.03em;
+    }
+
+        .big:active::before {
+            background: radial-gradient(circle at 50% 92%, #f0f2f5, #d8dde4);
+        }
+
+    .big::before {
+        position: absolute;
+        content: '';
+        width: 60%;
+        height: 60%;
+        margin: 20%;
+        border-radius: 100%;
+        background: radial-gradient(circle at 50% 92%, #f0f2f5, #d8dde4);
+        transition: all 80ms;
+    }
+
+.play {
+    display: none;
+}
+
+    .play.on {
+        display: block;
+    }
+
+.pause {
+    display: block;
+}
+
+    .pause.on {
+        display: none;
+    }
+
+.small {
+    position: relative;
+    z-index: 9;
+    cursor: pointer;
+    top: -1em;
+    width: 3em;
+    height: 3em;
+    border-radius: 100%;
+    background: radial-gradient(circle at 50% 10%, #f1f3f6, #d6dce3);
+    box-shadow: 0 0.22em 0.27em -0.18em rgba(0, 0, 0, 0.45), inset 0 0.15em 0.2em -0.15em rgba(255, 255, 255, 0.8);
+    transition: all 80ms;
+}
+
+    .small:hover {
+        background: radial-gradient(circle at 50% 5%, #f6f7f9, #dce1e7);
+    }
+
+    .small:active {
+        top: -0.97em;
+        background: radial-gradient(circle at 50% 5%, #f0f2f5, #d8dde4);
+        box-shadow: 0 0.18em 0.22em -0.16em rgba(0, 0, 0, 0.43), inset 0 0.15em 0.25em -0.2em rgba(255, 255, 255, 0.75);
+    }
+
+.plaque {
+    position: absolute;
+    z-index: 8;
+    top: -0.6em;
+    left: -3.6em;
+    width: 7.2em;
+    height: 7.2em;
+    margin-left: 50%;
+    border-radius: 100%;
+    background: #d6dbda;
+    box-shadow: inset 0 0.1em 0.07em -0.03em rgba(255, 255, 255, 0.75), 0 0.25em 0.25em -0.175em rgba(0, 0, 0, 0.4);
+}
+
+    .plaque::before,
+    .plaque::after {
+        position: absolute;
+        content: '';
+        bottom: -1.7em;
+        width: 3.6em;
+        height: 3.6em;
+        border-radius: 100%;
+        background: #d6dbda;
+    }
+
+    .plaque::before {
+        left: -1.7em;
+        box-shadow: inset 0.1em 0.18em 0.02em -0.17em rgba(255, 255, 255, 0.7), 0 0.25em 0.25em -0.15em rgba(0, 0, 0, 0.5);
+    }
+
+    .plaque::after {
+        right: -1.7em;
+        box-shadow: inset -0.1em 0.18em 0.02em -0.17em rgba(255, 255, 255, 0.7), 0 0.25em 0.25em -0.15em rgba(0, 0, 0, 0.5);
+    }
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.star-tab {
+    position: absolute;
+    z-index: 6;
+    top: -2.4em;
+    left: -5.4em;
+    width: 10.8em;
+    height: 10.8em;
+    cursor: pointer;
+    margin-left: 50%;
+    border-radius: 100%;
+    clip: rect(8.1em, 8.1em, 11.07em, 2.7em);
+    background: radial-gradient(rgba(44, 62, 80, 0.8), rgba(49, 70, 90, 0.8));
+    box-shadow: 0 0.2em 0.2em -0.15em rgba(0, 0, 0, 0.5);
+    transition: all 0.2s ease-in-out 0.05s;
+}
+
+    .star-tab > [class*="fontawesome-"]::before {
+        top: 8.4em;
+        color: #f0f2f5;
+        text-shadow: 0 0.03em 0.06em rgba(0, 0, 0, 0.35), 0 -0.03em rgba(255, 255, 255, 0.15);
+    }
+
+    .star-tab:hover {
+        top: -2.2em;
+        background: radial-gradient(rgba(44, 62, 80, 0.8), rgba(53, 75, 96, 0.8));
+    }
+
+.scrub-bg {
+    position: absolute;
+    z-index: 5;
+    top: -1.2em;
+    left: -4.2em;
+    width: 8.4em;
+    height: 8.4em;
+    margin-left: 50%;
+    border-radius: 100%;
+    clip: rect(-0.168em, 8.568em, 6.3em, -0.168em);
+    background: #ccd1d0;
+    box-shadow: inset 0 0.18em 0.25em -0.15em rgba(0, 0, 0, 0.5), 0 0.1em 0.03em 0 rgba(255, 255, 255, 0.3);
+}
+
+.scrubber {
+    position: absolute;
+    z-index: 6;
+    margin-left: 50%;
+    left: -4.2em;
+    border-radius: 100%;
+    border: 4.2em solid;
+    /*
+    animation: scrub 6s linear infinite alternate;
+    -webkit-animation: scrub 6s linear infinite alternate;
+    */
+}
+
+    .scrubber::before {
+        position: absolute;
+        content: '';
+        cursor: pointer;
+        top: 2.44em;
+        left: -3.04em;
+        width: 0.6em;
+        height: 0.6em;
+        border-radius: 100%;
+        background: radial-gradient(circle at 50% 5%, #f0f2f5, #d8dde4);
+        box-shadow: 0 0.1em 0.15em -0.08em rgba(0, 0, 0, 0.45), inset 0 0.08em 0.02em 0 rgba(255, 255, 255, 0.75);
+        /*
+        animation: scrubber 6s linear infinite alternate;
+        -webkit-animation: scrubber 6s linear infinite alternate;
+            */
+    }
+
+/*
+@keyframes scrubber {
+    from {
+        transform: rotate(-24deg);
+    }
+
+    to {
+        transform: rotate(-246deg);
+    }
+}
+
+@-webkit-keyframes scrubber {
+    from {
+        -webkit-transform: rotate(-24deg);
+    }
+
+    to {
+        -webkit-transform: rotate(-246deg);
+    }
+}
+
+@keyframes scrub {
+    0% {
+        border-color: rgba(255, 255, 255, 0) rgba(255, 255, 255, 0) rgba(26, 188, 156, 0.5);
+        transform: rotate(24deg);
+    }
+
+    32.9% {
+        border-color: rgba(255, 255, 255, 0) rgba(255, 255, 255, 0) rgba(26, 188, 156, 0.5);
+    }
+
+    33% {
+        border-color: rgba(255, 255, 255, 0) rgba(26, 188, 156, 0.5) rgba(26, 188, 156, 0.5) rgba(255, 255, 255, 0);
+    }
+
+    65.9% {
+        border-color: rgba(255, 255, 255, 0) rgba(26, 188, 156, 0.5) rgba(26, 188, 156, 0.5) rgba(255, 255, 255, 0);
+    }
+
+    66% {
+        border-color: rgba(26, 188, 156, 0.5) rgba(26, 188, 156, 0.5) rgba(26, 188, 156, 0.5) rgba(255, 255, 255, 0);
+    }
+
+    100% {
+        border-color: rgba(26, 188, 156, 0.5) rgba(26, 188, 156, 0.5) rgba(26, 188, 156, 0.5) rgba(255, 255, 255, 0);
+        transform: rotate(246deg);
+    }
+}
+
+@-webkit-keyframes scrub {
+    0% {
+        border-color: rgba(255, 255, 255, 0) rgba(255, 255, 255, 0) rgba(26, 188, 156, 0.5);
+        -webkit-transform: rotate(24deg);
+    }
+
+    32.9% {
+        border-color: rgba(255, 255, 255, 0) rgba(255, 255, 255, 0) rgba(26, 188, 156, 0.5);
+    }
+
+    33% {
+        border-color: rgba(255, 255, 255, 0) rgba(26, 188, 156, 0.5) rgba(26, 188, 156, 0.5) rgba(255, 255, 255, 0);
+    }
+
+    65.9% {
+        border-color: rgba(255, 255, 255, 0) rgba(26, 188, 156, 0.5) rgba(26, 188, 156, 0.5) rgba(255, 255, 255, 0);
+    }
+
+    66% {
+        border-color: rgba(26, 188, 156, 0.5) rgba(26, 188, 156, 0.5) rgba(26, 188, 156, 0.5) rgba(255, 255, 255, 0);
+    }
+
+    100% {
+        border-color: rgba(26, 188, 156, 0.5) rgba(26, 188, 156, 0.5) rgba(26, 188, 156, 0.5) rgba(255, 255, 255, 0);
+        -webkit-transform: rotate(246deg);
+    }
+}
+        */

@@ -18,7 +18,9 @@
                 <span id="@Model.ElementAt(i).Id" class="channel-id"></span>
                 <span class="genre hidden">@Model.ElementAt(i).Genre</span>
                 <span class="channel-title hidden">@Model.ElementAt(i).Name</span>
-                <div class="col col-xs-12 hidden-sm hidden-md hidden-lg">
+
+
+                <div class="col col-xs-12">
                     <div class="image">
                         <span class="activity fa-icons" onclick='tunein(@Html.Raw(Json.Encode(Model.ElementAt(i))), this)'></span>
                         <span class="fav-btn fa-icons" onclick='toggleFavourite(@Html.Raw(Json.Encode(Model.ElementAt(i))), this)'></span>
@@ -38,28 +40,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col col-sm-2 hidden-xs">
-                    <div class="image">
-                        <span class="activity fa-icons" onclick='tunein(@Html.Raw(Json.Encode(Model.ElementAt(i))), this)'></span>
-                        <span class="fav-btn fa-icons" onclick='toggleFavourite(@Html.Raw(Json.Encode(Model.ElementAt(i))), this)'></span>
-                    </div>                  
-                </div>
-                <div class="col col-sm-10 hidden-xs">
-                    <div class="info-container">
-                        <div class="info">
-                            <h3 class="title transitionable text-wrapper" onhover="scrollInfo(this)">
-                                <a class="text-overflow">@Model.ElementAt(i).Name</a>
-                            </h3>
-                            <div class="referesh-container">
-                                <span class="refresh-button fa-icons" onclick="refreshInfo(this)"></span>
-                                <span class="label">now playing</span>
-                            </div>
-                            <h3 class="now-playing transitionable text-wrapper" onhover="scrollInfo(this)">                                
-                                <a class="track text-overflow">@Model.ElementAt(i).CurrentTrack</a>
-                            </h3>
-                        </div>
-                    </div>
-                </div>                
             </div>
 
         }

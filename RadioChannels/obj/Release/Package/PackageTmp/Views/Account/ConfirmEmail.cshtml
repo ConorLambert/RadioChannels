@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.Title = "Confirm Email";
+}
+
+<div>
+    <p class="page-message">
+        Your email has been confirmed. @Html.ActionLink("Click here to Log in", "LogInFull", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+        <!-- Thank you for confirming your email. Please <a onclick="ajax_request('/Account/LogIn', ActionOnReady);">Log In</a> -->
+    </p>
+</div>

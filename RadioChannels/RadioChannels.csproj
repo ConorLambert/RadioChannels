@@ -335,6 +335,8 @@
     <Content Include="fonts\font\fontawesome-webfont.ttf" />
     <Content Include="fonts\font\fontawesome-webfont.woff" />
     <Content Include="fonts\font\FontAwesome.otf" />
+    <None Include="Properties\PublishProfiles\Tunage - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\Tunage - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\cbpAnimatedHeader.js" />
     <Content Include="Scripts\classie.js" />
@@ -349,6 +351,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\page_navigation.js" />
     <Content Include="Scripts\password-validator.js" />
     <Content Include="Scripts\playback-panel.js" />
     <Content Include="Scripts\respond.js" />
@@ -372,7 +375,6 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Favourites\Favourites.cshtml" />
     <Content Include="Views\Account\LogIn.cshtml" />
-    <Content Include="Views\Home\Channels.cshtml" />
     <Content Include="Views\Shared\_Categories.cshtml" />
     <Content Include="Views\Shared\_Stations.cshtml" />
     <Content Include="Views\Favourites\FavouritesPartial.cshtml" />

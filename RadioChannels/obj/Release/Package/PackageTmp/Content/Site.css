@@ -1,0 +1,76 @@
+﻿html, body {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    background-color: yellow;
+}
+
+#page_wrapper {
+    height: 100%;
+    width: 100%;
+}
+
+#page_header {
+    background-color: brown;
+}
+
+nav {
+    left: 0;
+    position: fixed;
+    padding-top: 40px;
+    height: 100%;
+    background-color: aqua;
+    padding-right: 60px;
+}
+
+nav ul {
+    padding-left: 20px;
+}
+
+main {
+    margin-left: 170px;
+    padding-left: 50px;
+}
+
+#main_heading {
+    display: inline-block;
+}
+
+ul {
+    margin-top: 0;
+    list-style: none;
+    padding: 0;
+}
+
+#categories ul li, #stations ul li {
+    float: left;
+}
+
+#stations ul {
+    clear: left;
+}
+
+#stations ul li {
+    margin-right: 20px;
+}
+
+.image {
+}
+
+.track, .artist {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+footer {
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+    z-index: 5;
+    background-color: black;
+}

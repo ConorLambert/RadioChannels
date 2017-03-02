@@ -18,9 +18,9 @@ $(document).ready(function () {
     else
         triggerGenreSelect();
     triggerMouseOverIcon();
-    var deduct = $(".header-container").innerHeight() + parseInt($("#page").css("padding-top").replace("px", ""));    
-    audio_player_height = window.innerHeight - deduct;
-    $("#page").css({ "height": (window.innerHeight) + "px", "max-width": window.innerWidth + "px" });    
+    resizeScreen();
+
+    $(window).resize(resizeScreen);
 
     // NAVBAR COLLAPSE
     $('.nav li').on('click', function () {
@@ -65,6 +65,12 @@ $(document).ready(function () {
         $(this).parent('li').addClass("nav-clicked"); // Add the class only for actually clicked element
     });
 });
+
+function resizeScreen() {
+    var deduct = $(".header-container").innerHeight() + parseInt($("#page").css("padding-top").replace("px", ""));
+    audio_player_height = window.innerHeight - deduct;
+    $("#page").css({ "height": (window.innerHeight) + "px", "max-width": window.innerWidth + "px" }); 
+}
 
 
 // RADIAL MENU
@@ -363,7 +369,7 @@ function tunein(channel, elem) {
 
     // adjust scroll viewport            
     $('#stations').animate({
-        scrollTop: ($("#stations").scrollTop() + (($(elem).closest(".row").position().top + $("#stations").position().top)) - ($("#stations").height() / 2) - ($(elem).closest(".row").height()))
+        scrollTop: ($("#stations").scrollTop() + (($(elem).closest(".row").position().top + $("#stations").position().top) + $("footer").outerHeight()) - ($("#stations").height() / 2) - ($(elem).closest(".row").height()))
     }, 1000);
 
     togglePlayStationControl(elem);

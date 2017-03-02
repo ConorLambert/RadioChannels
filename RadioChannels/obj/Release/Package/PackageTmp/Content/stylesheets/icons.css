@@ -1,0 +1,156 @@
+/* NAVIGATION */
+
+#navigation span {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+    font-size: 1.4em;
+    left: 0;
+}
+
+.fa-icons {
+    opacity: 0.8;
+}
+
+    .fa-icons:hover, #add-favourite:hover:before {
+        -webkit-transition: all 0.5s;
+        transition: all 0.5s;
+        color: #ffffff;
+        opacity: 1.0;
+    }
+
+#item-account span:before, #item-log-out span:before, #item-radio-stations span:before, #item-favourites span:before, #item-sign-in span:before, #item-logout span:before {
+    font-size: 1.7em;
+    cursor: pointer;
+}
+
+#item-radio-stations span:before {
+    content: "\f001";
+    font-family: FontAwesome;
+}
+
+#item-favourites span:before, .fav-btn:before {
+    content: "\f006";
+    font-family: FontAwesome;
+    cursor: pointer;
+}
+
+#item-sign-in span.span-vertical:before, #item-account span.span-vertical:before, #item-sign-in span.span-horizontal:before, #item-account span.span-horizontal:before {
+    content: "\f007";
+    font-family: FontAwesome;
+}
+
+#item-sign-in span.span-vertical:before, #item-account span.span-vertical:before {
+    padding-left: 20px;
+    border-left: 1px solid #2C3E50;
+}
+
+#item-sign-in span.span-horizontal:before, #item-account span.span-horizontal:before {
+    padding-top: 05px;
+    display: inline-block;
+    width: 50%;
+    border-top: 1px solid #2C3E50;
+}
+
+#item-log-out span:before {
+    content: "\f08b";
+    font-family: FontAwesome;
+}
+
+/* LOGOS */
+.external-logos {
+    font-size: 1.8em;
+}
+
+
+/* CATEGORIES */
+
+#stations ul li:hover {
+    border: 2px inset aqua;
+}
+
+/* place the headphone icon */
+.activity.icon-headphones, #stations .icon-pause, .activity.icon-play {
+    font-family: FontAwesome;
+    font-size: 4.0em;
+    color: #2C3E50;
+}
+
+.refresh-button:before {
+    content: "\f021";
+    font-family: FontAwesome;
+    cursor: pointer;
+    bottom: 0px;
+    display: inline-block;
+}
+
+.fav-btn:hover:before, .is-favourite:before {
+    content: "\f005";
+    font-family: FontAwesome;
+    cursor: pointer;
+}
+
+.fav-btn:hover:before {
+    color: #2C3E50;
+}
+
+.icon-pause:hover {
+    cursor: pointer;
+}
+
+
+
+
+
+
+/* AUDIO PLAYER */
+
+.audio-player-button:hover {
+    opacity: 1;
+}
+
+.audio-player-button::before {
+    position: absolute;
+    /* width: 100%; */
+    /* top: 6px; */
+    /* left: 50%; */
+    /* margin-left: -5px; */
+    /* top: 0; */
+    transform: translate(-50%, 50%);
+    text-decoration: none;
+}
+
+/*
+.audio-player-button.icon-pause::before {
+    
+    top: 1px;
+    left: -15px;
+    text-decoration: none;
+}
+*/
+
+.audio-player-button.icon-backward::before {
+    left: -17px;
+}
+
+.audio-player-button.small::before {
+    font-size: 15px;
+}
+
+.volume-down:before, .volume-up:before {
+    vertical-align: middle;
+}
+
+.volume-down:before {
+    content: "\f027";
+    font-family: FontAwesome;
+    font-size: 1.6em;
+    font-style: normal;
+}
+
+.volume-up:before {
+    content: "\f028";
+    font-family: FontAwesome;
+    font-size: 1.8em;
+    font-style: normal;
+}

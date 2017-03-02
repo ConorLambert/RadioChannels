@@ -15,7 +15,10 @@ namespace RadioChannels.Controllers
         public WebApiAccess()
         {
             httpClient = new HttpClient();
-            base_uri = "http://localhost:55555/api/channels/"; // base_uri = "http://localhost:55555/api/channels/values?name=";            
+            if(!String.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME")))
+                base_uri = "http://tunage.azurewebsites.net/api/channels/"; // base_uri = "http://localhost:55555/api/channels/values?name="; 
+            else
+                base_uri = "http://localhost:55555/api/channels/";           
         }
 
         public async Task<Channel> GetChannelAsync(string id, string name)

@@ -111,24 +111,23 @@
 
 .audio-player-button::before {
     position: absolute;
-    top: -1px;
-    bottom: 0;
-    left: -12px;
-    right: 0;
-    width: 0px;
-    height: 0px;
-    margin: auto;
-    line-height: 1px;
-    font-size: 20px;
+    /* width: 100%; */
+    /* top: 6px; */
+    /* left: 50%; */
+    /* margin-left: -5px; */
+    /* top: 0; */
+    transform: translate(-50%, 50%);
     text-decoration: none;
 }
 
+/*
 .audio-player-button.icon-pause::before {
-    font-size: 18px;
+    
     top: 1px;
     left: -15px;
     text-decoration: none;
 }
+*/
 
 .audio-player-button.icon-backward::before {
     left: -17px;

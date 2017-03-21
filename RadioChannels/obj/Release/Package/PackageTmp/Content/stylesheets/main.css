@@ -12,9 +12,21 @@ html, body {
     overflow: hidden;
 }
 
+.set-overflow-y {
+    overflow-y: scroll;
+}
+
+#stations .row {
+    width: 70%;
+}
+
+#search-heading {
+    width: 100%;
+}
+
 @media only screen and (min-width: 200px) {
     body {
-        font-size: 40.0%;
+        font-size: 50.0%;
     }
 
     .radmenu a {
@@ -22,8 +34,12 @@ html, body {
     }
 
     .audio-player-button {
-        width: 23px;
-        height: 24px;
+        width: 28px;
+        height: 28px;
+    }
+
+    #audio-player {
+        height: 40px;
     }
 }
 
@@ -40,11 +56,19 @@ html, body {
         width: 27px;
         height: 27px;
     }
+
+    #stations .row {
+        width: 55%;
+    }
 }
 
 @media only screen and (min-width: 850px) {
     body {
         font-size: 55.0%;
+    }
+
+    #search-heading {
+        width: 20%;
     }
 
     .radmenu a {
@@ -55,11 +79,19 @@ html, body {
         width: 32px;
         height: 32px;
     }
+
+    #stations .row {
+        width: 42%;
+    }
 }
 
 @media only screen and (min-width: 1100px) {
     body {
         font-size: 62.5%;
+    }
+
+    #search-heading {
+        width: 20%;
     }
 
     .radmenu a {
@@ -71,9 +103,13 @@ html, body {
         height: 33px;
     }
 
-        .audio-player-button::before {
-            /* font-size: 1.4em; */
-        }
+    .audio-player-button::before {
+        /* font-size: 1.4em; */
+    }
+
+    #stations .row {
+        width: 42%;
+    }
 }
 
 .navbar {
@@ -134,6 +170,10 @@ ul {
 
 #item-radio-stations a, #item-sign-in a {
     color: #2C3E50;
+}
+
+footer {
+    background-color: #2C3E50;
 }
 
 
@@ -231,10 +271,12 @@ main {
 
 
 /* RADIO STATIONS */
-
 #main-heading {
-    display: inline-block;
     width: 100%;
+}
+
+#main-heading, #search-heading {
+    display: inline-block;
     margin-bottom: 0;
     border-bottom: 1px solid #2C3E50;
     text-transform: uppercase;
@@ -264,21 +306,20 @@ main {
     width: 100%;
     /* overflow: hidden; */
     border-top: 1px solid #2C3E50;
-    padding-top: 20px;
 }
 
 #stations {
     height: 99%;
     width: 100%;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
 }
 
     #stations .row {
         margin-bottom: 50px;
+        margin-top: 10px;
         padding: 5px;
         border: 1px solid #2D4F7F;
         background-color: #EBEBEB;
-        width: 42%;
         text-align: center;
         margin-left: auto;
         margin-right: auto;
@@ -692,6 +733,7 @@ input.volume[type=range]::-ms-thumb {
 }
 
     .radmenu > a {
+        word-wrap: break-word;
     }
 
         .radmenu > a.show {
@@ -748,12 +790,12 @@ input.volume[type=range]::-ms-thumb {
 
     @media only screen and (min-width: 200px) {
         .audio-player-button::before {
-            right: 3.7%;
+            /* right: 3.7%; */
             top: -13%;
         }
-    }    
+    }
 }
-    /*
+/*
         background: rgba(50, 50, 50, 1) none repeat scroll 0 0 !important;
     box-shadow: 0 0 10px #f1f1f1;
     color: #f1f1f1;
@@ -762,23 +804,23 @@ input.volume[type=range]::-ms-thumb {
     position: relative;
     transform: rotate(0deg) translateX(0px);
     */
-    .radmenu .selected + ul > li > a {
-        display: flex;
-    }
+.radmenu .selected + ul > li > a {
+    display: flex;
+}
 
 
-    .text-overflow {
-        /* display: inline-block; */
-        /* position: relative; */
-        white-space: normal;
-        text-decoration: none;
-    }
+.text-overflow {
+    /* display: inline-block; */
+    /* position: relative; */
+    white-space: normal;
+    text-decoration: none;
+}
 
-    .text-wrapper {
-    }
-    /* ACCOUNT */
-    .validation-summary-errors {
-        text-align: center;
-        color: red;
-        padding-top: 20px;
-    }
+.text-wrapper {
+}
+/* ACCOUNT */
+.validation-summary-errors {
+    text-align: center;
+    color: red;
+    padding-top: 20px;
+}

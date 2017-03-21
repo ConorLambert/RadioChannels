@@ -2,7 +2,6 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
-using RadioChannels.Controllers;
 using RadioChannels.DAL;
 using RadioChannels.Models;
 using RadioChannels.Services;
@@ -13,21 +12,7 @@ namespace RadioChannels.App_Start
     {
         public class ApplicationUserManager : UserManager<User>
         {
-            public ApplicationUserManager(IUserStore<User> store) : base(store)
-            {
-            }
-
-            /*
-            public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
-            {
-                var manager = new ApplicationUserManager(new UserStore<User>(context.Get<RadioContext>()));
-                manager.UserValidator = new UserValidator<User>(manager)
-                {
-                    AllowOnlyAlphanumericUserNames = false
-                };
-                return manager;
-            }
-            */
+            public ApplicationUserManager(IUserStore<User> store) : base(store) {}
 
             public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
             {
@@ -46,7 +31,6 @@ namespace RadioChannels.App_Start
                     RequireLowercase = true,
                     RequireUppercase = true,
                 };
-
                 
                 var dataProtectionProvider = options.DataProtectionProvider;
                 if (dataProtectionProvider != null)

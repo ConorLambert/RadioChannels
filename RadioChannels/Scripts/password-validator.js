@@ -57,3 +57,5 @@ function ActionOnReady() {
         }
     });      
 }
+
+$(document).ready(ActionOnReady);

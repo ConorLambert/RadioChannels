@@ -19,36 +19,20 @@ namespace RadioChannels.Controllers
 
         public HomeController()
         {            
-        }
-        
-        public HomeController(ApplicationUserManager userManager)
-        {
-            UserManager = userManager;
-        }
-        private ApplicationUserManager _userManager;
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
-
+        }      
         
         // VIEWS
 
         public ActionResult Index()
         {
+            // if the current user is logged in, then redirect them to their favourites
             if ((System.Web.HttpContext.Current.User != null) && System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
                 return Redirect(Url.Action("all", "favourites"));
-            else
+            else // return index page
                 return View();
         }
 
+        // AJAX request for index page
         public ActionResult IndexPartial()
         {
             return PartialView("Index");

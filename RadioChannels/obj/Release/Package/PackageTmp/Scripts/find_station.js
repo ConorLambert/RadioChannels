@@ -12,6 +12,7 @@ var audio_player_height = 0;
 
 $(document).ready(function () {
     initializePlayer();
+    ActionOnReady(); // password-validator
 
     if (window.location.href.includes("favourites"))
         triggerFavouritesGenreSelect();
@@ -67,7 +68,7 @@ $(document).ready(function () {
 });
 
 function resizeScreen() {
-    var deduct = $(".header-container").innerHeight() + parseInt($("#page").css("padding-top").replace("px", ""));
+    var deduct = $(".header-container").innerHeight() + parseInt($("#page").css("padding-top").replace("px", "")) - 5;
     audio_player_height = window.innerHeight - deduct;
     $("#page").css({ "height": (window.innerHeight) + "px", "max-width": window.innerWidth + "px" }); 
 }
@@ -553,6 +554,8 @@ function channels_ajax_request(index) {
                 var convert = $($.parseHTML(data));
                 $(".loading").remove();
                 $('#stations > div').append(convert);
+                    // set the overflow y-scroll
+                $("#stations").addClass("set-overflow-y");
                 $(convert).find('.activity').each(function (index, elem) {
                     // add scroll info event to each element
                     $(elem).closest(".row").find(".transitionable").each(function (index, elem) {

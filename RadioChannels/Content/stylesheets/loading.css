@@ -10,6 +10,7 @@
     transform: translateY(-50%);
 }
 
+/* dot */
 .loading__circle {
     border-radius: 50%;
     background-color: #979196;

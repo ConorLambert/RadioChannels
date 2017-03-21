@@ -8,10 +8,14 @@
 
 <h2 id="main-heading">Register An Account</h2>
 
-@Html.ValidationSummary(true)
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 @using (Html.BeginForm())
-{ 
+{
+    <p class="text-danger">
+        @ViewBag.RegisterError
+    </p>
+
     <ul class="form-style-1">      
         <li>                                                                        
             <label>Full Name <span class="required">*</span></label>@Html.TextBoxFor(model => model.FirstName, new { @class = "field-long validate", placeholder = "First", name = "field1", type = "text" })&nbsp;@Html.TextBoxFor(model => model.LastName, new { @class = "field-long validate", placeholder = "Last", name = "field2", type = "text" })
@@ -36,9 +40,9 @@
         <li class="form-line"></li>
         <li class="logos-placeholder">
             <span>Or Register Using </span>
-            <a class="icon-google-plus external-logos" href="@Url.Action("LoginExternal", "Account", new { provider = "Google"})"></a>
-            <a class="icon-facebook-sign external-logos" href="@Url.Action("LoginExternal", "Account", new { provider = "Facebook"})"></a>
-            <!-- <a class="icon-twitter-sign external-logos" href="@Url.Action("LoginExternal", "Account", new { provider = "Twitter"})"></a> -->
+            <a class="icon-google-plus external-logos" href="@Url.Action("RegisterExternal", "Account", new { provider = "Google"})"></a>
+            <a class="icon-facebook-sign external-logos" href="@Url.Action("RegisterExternal", "Account", new { provider = "Facebook"})"></a>
+            <!-- <a class="icon-twitter-sign external-logos" href="@Url.Action("RegisterExternal", "Account", new { provider = "Twitter"})"></a> -->
         </li>      
     </ul>
 }

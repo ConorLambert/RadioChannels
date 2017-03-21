@@ -1,4 +1,4 @@
-/* NAVIGATION */
+﻿/* NAVIGATION */
 
 #navigation span {
     display: inline-block;
@@ -107,6 +107,15 @@
 
 .audio-player-button:hover {
     opacity: 1;
+}
+
+@media only screen and (min-width: 200px) {
+    .audio-player-button::before {
+        /* width: 100%; */
+        /* top: -1px; */
+        margin-left: 0px;
+        /* top: 0; */
+    }
 }
 
 .audio-player-button::before {

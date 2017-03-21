@@ -16,7 +16,6 @@
 
 var docElem;
 var header;
-var header2;
 var didScroll;
 var changeHeaderOn;;
 
@@ -25,7 +24,6 @@ findHeader();
 function findHeader() {
     docElem = document.documentElement,
         header = document.querySelector('.cbp-af-header'),
-        header2 = document.querySelector('.cbp-af-header-2'),
         didScroll = false,
         changeHeaderOn = 0;
 }
@@ -34,11 +32,9 @@ function init() {
     scrollPage();
     $(".header-container").on('mouseenter', function (event) {
         classie.remove(header, 'cbp-af-header-shrink');
-        classie.remove(header2, 'cbp-af-header-shrink');
     });
     $(".header-container").on('mouseleave', function (event) {
         classie.add(header, 'cbp-af-header-shrink');
-        classie.add(header2, 'cbp-af-header-shrink');
     });
 }
 

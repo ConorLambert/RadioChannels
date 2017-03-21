@@ -10,11 +10,6 @@ namespace RadioChannels.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-
-            /*
-            var radioContext = HttpContext.Current.GetOwinContext().Get<RadioContext>();
-            Seed(radioContext);
-            */
         }
 
         protected override void Seed(RadioChannels.DAL.RadioContext context)

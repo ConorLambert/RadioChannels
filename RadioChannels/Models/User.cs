@@ -25,10 +25,5 @@ namespace RadioChannels.Models
 
         [HiddenInput]
         public string ReturnUrl { get; set; }
-
-        /*
-        [Display(Name = "Remember me?")]
-        public bool RememberMe { get; set; }
-        */
     }
 }

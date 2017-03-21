@@ -22,14 +22,14 @@
             <label>@Html.DisplayNameFor(model => model.Email)</label><span>@Html.DisplayFor(model => model.Email)</span>
         </li>
         <li>
-            <input id="edit" type="button" value="Edit" onclick="ajax_request('/Account/Edit')" />            
+            <input id="edit" type="button" value="Edit" onclick="page_ajax_request('/Account/Edit')" />            
         </li>        
         <li>
             <hr id="edit-line" />
         </li>
     </ul>
 }
-@using (Html.BeginForm("Delete", "Account", FormMethod.Post))
+@using (Html.BeginForm("Delete", "Account", FormMethod.Post, new { id = "delete-account"}))
 {
     <ul class="form-style-1" style="margin-top: -50px;">
         <li>

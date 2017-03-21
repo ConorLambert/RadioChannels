@@ -1,15 +1,9 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.Owin.Security;
 using RadioChannels.DAL;
 using RadioChannels.Models;
-using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net.Http;
-using System.Runtime.Serialization.Json;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -20,10 +14,8 @@ namespace RadioChannels.Controllers
 {
     public class AccountController : Controller
     {
-        private WebApiAccess access = new WebApiAccess();
         private RadioContext context;
         private ApplicationUserManager userManager;
-
         
         public ActionResult Index()
         {
@@ -50,32 +42,14 @@ namespace RadioChannels.Controllers
         
 
 
-        // EXTERNAL LOGIN/REGISTER
+        // EXTERNAL LOGIN/REGISTER        
 
-        public ActionResult LoginGoogle()
+        public ActionResult RegisterExternal(string provider)
         {
             HttpContext.GetOwinContext().Authentication.Challenge(new Microsoft.Owin.Security.AuthenticationProperties
             {
-                RedirectUri = "/Account/ExternalLinkLoginCallback"
-            }, "Google");
-            return new HttpUnauthorizedResult();
-        }
-
-        public ActionResult LoginFacebook()
-        {
-            HttpContext.GetOwinContext().Authentication.Challenge(new Microsoft.Owin.Security.AuthenticationProperties
-            {
-                RedirectUri = "/Account/ExternalLinkLoginCallback"
-            }, "Facebook");
-            return new HttpUnauthorizedResult();
-        }        
-
-        public ActionResult LoginTwitter()
-        {
-            HttpContext.GetOwinContext().Authentication.Challenge(new Microsoft.Owin.Security.AuthenticationProperties
-            {
-                RedirectUri = "/Account/ExternalLinkLoginCallback"
-            }, "Twitter");
+                RedirectUri = "/Account/ExternalLinkRegisterCallback"
+            }, provider);
             return new HttpUnauthorizedResult();
         }
 
@@ -86,6 +60,56 @@ namespace RadioChannels.Controllers
                 RedirectUri = "/Account/ExternalLinkLoginCallback"
             }, provider);
             return new HttpUnauthorizedResult();
+        }
+
+        public async Task<ActionResult> ExternalLinkRegisterCallback()
+        {
+            setContextProperties();
+
+            // Handle external Login Callback
+            var loginInfo = await AuthenticationManagerExtensions.GetExternalLoginInfoAsync(HttpContext.GetOwinContext().Authentication);
+            if (loginInfo == null)
+            {
+                return View("Register");
+            }
+
+            var firstName = "";
+            var lastName = "";
+                          
+            if (loginInfo.Login.LoginProvider == "Facebook")
+            {
+                var fullName = loginInfo.ExternalIdentity.Name.Split(' ');
+                firstName = fullName[0];
+                lastName = fullName[1];
+            }
+            else
+            {
+                var lastNameClaim = loginInfo.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Surname);
+                var givenNameClaim = loginInfo.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.GivenName);
+                firstName = givenNameClaim.Value;
+                lastName = lastNameClaim.Value;
+            }
+            var user = new User { UserName = loginInfo.Email, Email = loginInfo.Email, FirstName = firstName, LastName = lastName, EmailConfirmed = true };
+            var result = await userManager.CreateAsync(user);
+            if (result.Succeeded) // if not
+            {
+                result = await userManager.AddLoginAsync(user.Id, loginInfo.Login);
+                if (result.Succeeded)
+                {
+                    await new SignInManager<User, string>(userManager, HttpContext.GetOwinContext().Authentication).ExternalSignInAsync(loginInfo, isPersistent: false);
+                    return RedirectToAction("all", "favourites");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Invalid email or password");
+                    return View("Register", ModelState);
+                }
+            }
+            else  // else its a basic external login
+            {                
+                ViewBag.RegisterError = "Email already in use";
+                return View("Register");
+            }
         }
 
         public async Task<ActionResult> ExternalLinkLoginCallback()
@@ -128,7 +152,7 @@ namespace RadioChannels.Controllers
                     return RedirectToAction("all", "favourites");
                 } else {
                     ModelState.AddModelError("", "Invalid email or password");
-                    return RedirectToAction("Register", ModelState);
+                    return RedirectToAction("Login", ModelState);
                 }
             }
             else  // else its a basic external login
@@ -141,6 +165,7 @@ namespace RadioChannels.Controllers
 
         // LOCAL LOGIN/REGISTER
 
+        // AJAX Request Login
         [HttpGet]
         public ActionResult LogIn(string returnUrl)
         {
@@ -158,6 +183,7 @@ namespace RadioChannels.Controllers
             return PartialView(model);
         }
 
+        // Full Page LogIn
         [HttpGet]
         public ActionResult LogInFull(string returnUrl)
         {
@@ -229,25 +255,16 @@ namespace RadioChannels.Controllers
             }
 
             model.UserName = model.Email;
-            var result = await userManager.CreateAsync(model, model.PasswordHash); // var result = await userManager.CreateAsync(model, model.PasswordHash);
+            var result = await userManager.CreateAsync(model, model.PasswordHash);
 
             if (result.Succeeded)
-            {
-                string code = await userManager.GenerateEmailConfirmationTokenAsync(model.Id);
-                // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = model.Id, code = code }, protocol: Request.Url.Scheme);
-                string callbackUrl = await SendEmailConfirmationTokenAsync(model.Id, "Confirm your account");
-
-               //  await userManager.SendEmailAsync(model.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+            {                
+                string callbackUrl = await SendEmailConfirmationTokenAsync(model.Id, "Confirm your account");             
 
                 ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
-                         + "before you can log in.";
+                         + "before you can log in.";               
 
-                // ViewBag.Link = callbackUrl; local debug only
-
-                return View("Info");
-
-                // await SignIn(model);
-                // return RedirectToAction("index", "favourites");
+                return View("Info");                
             }
 
             foreach (var error in result.Errors)
@@ -280,13 +297,7 @@ namespace RadioChannels.Controllers
         public ActionResult ForgotPassword()
         {
             return View();
-        }
-
-        [AllowAnonymous]
-        public ActionResult ForgotPasswordConfirmation()
-        {
-            return View();
-        }
+        }        
 
         [HttpPost]
         [AllowAnonymous]
@@ -312,6 +323,12 @@ namespace RadioChannels.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        [AllowAnonymous]
+        public ActionResult ForgotPasswordConfirmation()
+        {
+            return View();
         }
 
         // GET: /Account/ResetPassword
@@ -364,6 +381,9 @@ namespace RadioChannels.Controllers
         {
             setContextProperties();
             var user = userManager.FindById(User.Identity.GetUserId());
+            // check if this is an externally registered user
+            // userManager.AddLoginAsync AddLoginAsync(user.Id, loginInfo.Login);
+            // userManager.GetLoginsAsync(user.Id)
             return PartialView(user);
         }
 
@@ -430,12 +450,9 @@ namespace RadioChannels.Controllers
                 }
 
                 if (send_email_conf)
-                {
-                    string code = await userManager.GenerateEmailConfirmationTokenAsync(current_user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = model.Id, code = code }, protocol: Request.Url.Scheme);
+                {                    
                     string callbackUrl = await SendEmailConfirmationTokenAsync(current_user.Id, "Confirm your account");
-
-                    //  await userManager.SendEmailAsync(model.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                 
                     ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
                              + "before you can log in.";
 
@@ -443,8 +460,7 @@ namespace RadioChannels.Controllers
                     var ctx = Request.GetOwinContext();
                     var authManager = ctx.Authentication;
                     authManager.SignOut("ApplicationCookie");
-
-                    // ViewBag.Link = callbackUrl; local debug only
+                    
                     return View("Info");
                 }
 

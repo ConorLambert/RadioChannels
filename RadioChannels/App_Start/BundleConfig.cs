@@ -7,12 +7,7 @@ namespace RadioChannels
     {
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
-        {
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
+        {            
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
@@ -28,12 +23,8 @@ namespace RadioChannels
                       "~/Content/stylesheets/font-awesome.css",
                       "~/Content/stylesheets/main.css",
                       "~/Content/stylesheets/loading.css",
-                      "~/Content/stylesheets/icons.css"));
-
-            bundles.Add(new ScriptBundle("~/js/mvc-spa").Include(
-                    "~/Scripts/jquery-{version}.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/angularjs").Include("~/Scripts/angular.js"));
+                      "~/Content/stylesheets/icons.css",
+                      "~/Content/stylesheets/forms.css"));           
         }
     }
 }

@@ -262,7 +262,6 @@
     <Compile Include="Controllers\FacebookBackChannelHandler.cs" />
     <Compile Include="Controllers\FavouritesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LinqToTwitterAuthenticationProvider.cs" />
     <Compile Include="Controllers\WebApiAccess.cs" />
     <Compile Include="DAL\RadioContext.cs" />
     <Compile Include="DAL\RadioInitializer.cs" />
@@ -298,30 +297,20 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\images\logo2 %281%29.png" />
-    <Content Include="Content\stylesheets\audio-waves.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\images\sunhawk-small%402x.jpg" />
-    <Content Include="Content\images\sunhawk-small-2%402x.jpg" />
-    <Content Include="Content\Site-def.css" />
     <Content Include="Content\stylesheets\font-awesome.css" />
     <Content Include="Content\stylesheets\forms.css" />
     <Content Include="Content\stylesheets\icons.css" />
     <Content Include="Content\stylesheets\loading.css" />
     <Content Include="Content\stylesheets\main.css" />
-    <Content Include="Content\stylesheets\playback-panel.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\font\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="logo2_1_.ico" />
-    <Content Include="Scripts\account.js" />
-    <Content Include="Scripts\all.js" />
-    <Content Include="Scripts\angular.js" />
-    <Content Include="Scripts\angular.min.js" />
-    <Content Include="Scripts\animations.js" />
+    <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -337,29 +326,17 @@
     <Content Include="fonts\font\FontAwesome.otf" />
     <None Include="Properties\PublishProfiles\Tunage - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\Tunage - Web Deploy.pubxml" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\cbpAnimatedHeader.js" />
     <Content Include="Scripts\classie.js" />
     <Content Include="Scripts\favourites.js" />
-    <Content Include="Scripts\find_station.js" />
-    <Content Include="Scripts\form-validator.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\find-stations.js" />
+    <Content Include="Scripts\player.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\page_navigation.js" />
+    <Content Include="Scripts\page-navigation.js" />
     <Content Include="Scripts\password-validator.js" />
-    <Content Include="Scripts\playback-panel.js" />
+    <Content Include="Scripts\radial-menu.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\Routing.js" />
-    <Content Include="Scripts\sammy-0.7.5.js" />
-    <Content Include="Scripts\sammy-0.7.5.min.js" />
-    <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -402,9 +379,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201701291826426_InitialCreate.resx">

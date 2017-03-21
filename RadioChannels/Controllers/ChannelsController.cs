@@ -11,14 +11,12 @@ namespace RadioChannels.Controllers
 {
     public class ChannelsController : ApiController
     {
-        string api_key;
-        string urlTemplate;
-        string url;
+        string shoutcast_api_key;
         HttpClient httpClient;        
 
         public ChannelsController()
         {
-            api_key = "sJXVu3hXGmKjJiIx";
+            shoutcast_api_key = "sJXVu3hXGmKjJiIx";
             httpClient = new HttpClient();
             System.Net.ServicePointManager.Expect100Continue = false;
             System.Net.ServicePointManager.UseNagleAlgorithm = false;
@@ -31,7 +29,6 @@ namespace RadioChannels.Controllers
             {
                 HttpWebRequest request = WebRequest.Create(requestUrl) as HttpWebRequest;
                 request.Method = "GET";
-                // request.Proxy = new WebProxy(); ; // null;
                 HttpWebResponse response = request.GetResponse() as HttpWebResponse;
 
                 XmlDocument xmlDoc = new XmlDocument();
@@ -54,12 +51,15 @@ namespace RadioChannels.Controllers
             XmlNamespaceManager nsmgr = new XmlNamespaceManager(response.NameTable);
             nsmgr.AddNamespace("ch", "urn:channels-schema");
 
+            // XPath query which returns all <station .../> entries
             XmlNodeList stationElements = response.SelectNodes("//station");
             List<Channel> channels = new List<Channel>();
 
             foreach (XmlNode station in stationElements)    // for each station
             {
                 XmlAttributeCollection details = station.Attributes;
+
+                // Get Playlist information
                 Channel channel = new Channel();
                 if (details["id"] != null)
                 {
@@ -93,39 +93,23 @@ namespace RadioChannels.Controllers
             
             return channels;
         }        
-
-        // GET api/<controller>
-        [HttpGet]
-        public IEnumerable<Channel> GetAllChannels()
-        {
-            System.Diagnostics.Debug.WriteLine("In Get All Channels");
-            urlTemplate = "http://api.shoutcast.com/legacy/Top500?k={0}&br=64";
-            url = string.Format(urlTemplate, api_key);
-            //Create the REST Services 'Find Location by Query' request            
-            XmlDocument response = MakeRequest(url);
-            List<Channel> channels = ProcessResponse(response);
-
-            // MAKE REQUEST TO SHOUTCAST
-            return channels;
-        }
+        
 
         // GET api/<controller>/20
         // get all channels that have the associated genre and apply pagination
         [HttpGet]
-        public List<Channel> GetChannels(string some_var, int index)
+        public List<Channel> GetChannels(string genre, int index)
         {
-            var limit = 20; // pagination limit
-            urlTemplate = "http://api.shoutcast.com/legacy/genresearch?k={0}&genre={1}&limit={2},{3}";
-            url = string.Format(urlTemplate, api_key, some_var, index, limit);
+            var limit = 20; // pagination limit            
+            string url = string.Format("http://api.shoutcast.com/legacy/genresearch?k={0}&genre={1}&limit={2},{3}", shoutcast_api_key, genre, index, limit);
             XmlDocument response = MakeRequest(url);
             List<Channel> channels = ProcessResponse(response);          
             return channels;
         }                  
              
         public Channel GetChannel(string id, string name)
-        {            
-            urlTemplate = "http://api.shoutcast.com/legacy/stationsearch?k={0}&search={1}";
-            url = string.Format(urlTemplate, api_key, name);
+        {       
+            string url = string.Format("http://api.shoutcast.com/legacy/stationsearch?k={0}&search={1}", shoutcast_api_key, name);
             XmlDocument response = MakeRequest(url);
             List<Channel> channels = ProcessResponse(response);
             foreach(var channel in channels)
@@ -133,7 +117,7 @@ namespace RadioChannels.Controllers
                 if(channel.Id == id)
                     return channel;
             }
-            return null; // JsonConvert.SerializeObject(channels.ElementAt(0));
+            return null; 
         }        
     }
 }

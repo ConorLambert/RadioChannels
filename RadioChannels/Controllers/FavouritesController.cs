@@ -22,10 +22,19 @@ namespace RadioChannels.Controllers
         private ApplicationUserManager userManager;
 
         // GET FAVOURTIES
+        /*
         [HttpGet]
         public async Task<ActionResult> Index()
         {
             return await GetChannelsAsync("partial");
+        }
+        */
+
+        // Ajax Request - favourites already exists on the client side, so just return the partial view
+        [HttpGet]
+        public ActionResult IndexPartial()
+        {
+            return PartialView("FavouritesPartial");
         }
 
         [HttpGet]
@@ -34,12 +43,9 @@ namespace RadioChannels.Controllers
             return await GetChannelsAsync("full");
         }
 
-        [HttpGet]
-        public ActionResult IndexPartial()
-        {
-            return PartialView("FavouritesPartial");
-        }
+        
 
+        // Return either a full page or partial page
         public async Task<ActionResult> GetChannelsAsync(string portion)
         {
             setContextProperties();
@@ -106,6 +112,7 @@ namespace RadioChannels.Controllers
             var myCurrent = context.Favourite.Where(u => u.ChannelName == name && u.UserId == user && u.ChannelId == id).FirstOrDefault(); // .Select(u => u.Id);
             //var myCurrent = new Favourite { Id = prim., UserId = user, ChannelName = id };
 
+            // sometimes the context has not commited a recently added favourite
             var entry = context.Entry(myCurrent);
             if (entry.State == EntityState.Detached)
                 context.Favourite.Attach(myCurrent);
@@ -120,10 +127,6 @@ namespace RadioChannels.Controllers
                 (((IObjectContextAdapter)context).ObjectContext).Refresh(RefreshMode.ClientWins, context.Favourite);
                 context.SaveChanges();
             }
-
-            // add channel to Favourties database based on user id
-            //context.Favourite.Remove(new Favourite { UserId = user, ChannelName = id });
-            //context.SaveChanges();
 
             //  Send "Success"
             return Json(new { success = true, responseText = "Successfully removed " + name + " from Favourites" }, JsonRequestBehavior.AllowGet);

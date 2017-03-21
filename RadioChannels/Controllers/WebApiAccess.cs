@@ -33,6 +33,7 @@ namespace RadioChannels.Controllers
             return channel;
         }
 
+        // executed when user searches for stations based on genre
         public async Task<List<Channel>> GetChannelsAsync(string genre, int count)
         {
             List<Channel> channels = null;                        

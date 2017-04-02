@@ -17,7 +17,7 @@
 
     <div id="stations-container">        
         <div id="stations">
-            <p class="page-message">You currently have no favourites in your selection. Navigate to the <a onclick="ajax_request('/Home/IndexPartial', triggerGenreSelect)">Search</a> page to begin searching for music channels</p>
+            <p class="page-message">You currently have no favourites in your selection. Navigate to the <a onclick="page_ajax_request('/Home/IndexPartial', initializeRadialMenu)">Search</a> page to begin searching for music channels</p>
             <div class="container-fluid">
             </div>
         </div>
@@ -26,29 +26,19 @@
         current_genre = undefined;
         current_channel = undefined;
         if (!window.location.href.includes("favourites"))  // if we have moved back to this page then, dont push it
-            history.pushState("favourites", null, "/#favourites");           
-        triggerFavouritesGenreSelect();
+            history.pushState("favourites", null, "/#favourites");
+        initializeRadialMenu();
         if (favourites !== undefined) {
             $("#stations").empty();
             $("#stations").append(favourites);   // if the user has any favourites then add them to the stations container        
-            $(favourites).find(".row").each(function (index, elem) {
-                //if (!isPlaying(this)) {
+            $(favourites).find(".row").each(function (index, elem) {                
                     initializeChannelItem(this);
-                    //triggerMouseOverIcon(elem);
-                    /*
-                } else {
-                    $("#stations .row:eq(" + index + ")").replaceWith($(current_channel).closest(".row").clone());
-                    current_channel = $("#stations .row:eq(" + index + ") .activity")[0];
-                }
-                    */
             });
             $("#stations").addClass("set-overflow-y");
-        } else {
-
-        }    
+        }   
     </script>
 }
 else
 {
-    <p> You must be a <a onclick="ajax_request('/Account/Register', ActionOnReady)"> registered </a> member and <a onclick="ajax_request('/Account/LogIn', ActionOnReady)"> logged in</a> to view this page </p>
+    <p> You must be a <a onclick="page_ajax_request('/Account/Register', ActionOnReady)"> registered </a> member and <a onclick="page_ajax_request('/Account/LogIn', ActionOnReady)"> logged in</a> to view this page </p>
 }

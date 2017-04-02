@@ -8,7 +8,7 @@
 <h2 id="main-heading">Log In</h2>
 
 @Html.ValidationSummary(true)
-@using (Html.BeginForm())
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "login-form" }))
 {
     <ul class="form-style-1">   
         <li>
@@ -22,7 +22,7 @@
         </li>        
         <li>
             <input id="submit" type="submit" value="Log In" />
-            <span class="change-log-in">Don't have an account? <a onclick="ajax_request('/Account/Register', ActionOnReady);">Register</a></span>
+            <span class="change-log-in">Don't have an account? <a onclick="page_ajax_request('/Account/Register', ActionOnReady);">Register</a></span>
         </li>  
         @* Enable this once you have account confirmation enabled for password reset functionality *@
         <li>
@@ -34,8 +34,7 @@
         <li class="logos-placeholder">  
             <span>Or Log In Using </span>          
             <a class="icon-google-plus external-logos" href="@Url.Action("LoginExternal", "Account", new { provider = "Google"})"></a>
-            <a class="icon-facebook-sign external-logos" href="@Url.Action("LoginExternal", "Account", new { provider = "Facebook"})"></a>
-            <!--<a class="icon-twitter-sign external-logos" href="@Url.Action("LoginExternal", "Account", new { provider = "Twitter"})"></a> -->
+            <a class="icon-facebook-sign external-logos" href="@Url.Action("LoginExternal", "Account", new { provider = "Facebook"})"></a>            
         </li>      
     </ul>
 }

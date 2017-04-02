@@ -10,7 +10,7 @@
 
 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(null,null, FormMethod.Post, new { id = "register-form"}))
 {
     <p class="text-danger">
         @ViewBag.RegisterError
@@ -35,14 +35,13 @@
         </li>
         <li>
             <input id="submit" type="submit" value="Register" />
-            <span class="change-log-in">Already have an account? <a onclick="ajax_request('/Account/LogIn', ActionOnReady);">Log In</a></span>
+            <span class="change-log-in">Already have an account? <a onclick="page_ajax_request('/Account/LogIn', ActionOnReady);">Log In</a></span>
         </li>  
         <li class="form-line"></li>
         <li class="logos-placeholder">
             <span>Or Register Using </span>
             <a class="icon-google-plus external-logos" href="@Url.Action("RegisterExternal", "Account", new { provider = "Google"})"></a>
-            <a class="icon-facebook-sign external-logos" href="@Url.Action("RegisterExternal", "Account", new { provider = "Facebook"})"></a>
-            <!-- <a class="icon-twitter-sign external-logos" href="@Url.Action("RegisterExternal", "Account", new { provider = "Twitter"})"></a> -->
+            <a class="icon-facebook-sign external-logos" href="@Url.Action("RegisterExternal", "Account", new { provider = "Facebook"})"></a>            
         </li>      
     </ul>
 }

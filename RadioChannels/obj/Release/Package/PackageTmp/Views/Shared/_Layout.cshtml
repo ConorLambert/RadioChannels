@@ -12,11 +12,9 @@
     <link href="~/Content/stylesheets/loading.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/stylesheets/icons.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link href="~/Content/stylesheets/audio-waves.css" rel="stylesheet" />
     <link href="~/Content/stylesheets/playback-panel.css" rel="stylesheet" />    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/account.js"></script>
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet" type="text/css">
     <script src="https://apis.google.com/js/platform.js" async defer></script>    
     <script> var favourites = undefined;</script>
@@ -35,7 +33,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a>
-                        <div id="logo-container" onclick="ajax_request('/Home/IndexPartial', triggerGenreSelect)">
+                        <div id="logo-container" onclick="page_ajax_request('/Home/IndexPartial', initializeRadialMenu)">
                             <img src="~/Content/images/logo2 (1).png" />
                         </div>
                     </a>
@@ -45,21 +43,20 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
 
-                    <ul class="nav navbar-nav navbar-right">
-                        <!--<li><a href="#">Link</a></li>-->                       
-                        <li id="item-radio-stations" class="fa-icons" onclick="ajax_request('/Home/IndexPartial', triggerGenreSelect)"><span></span></li> <!-- Home -->
-                        @if (Request.IsAuthenticated)
+                    <ul class="nav navbar-nav navbar-right">                     
+                        <li id="item-radio-stations" class="fa-icons" onclick="page_ajax_request('/Home/IndexPartial', initializeRadialMenu)"><span></span></li> <!-- Home -->
+                        @if (Request.IsAuthenticated)   // if user is logged in
                         {                            
                             <li id="item-favourites" class="fa-icons" onclick="getFavourites();"><span></span></li>
-                            <li id="item-account" class="fa-icons" onclick="ajax_request('/Account/Account')">
+                            <li id="item-account" class="fa-icons" onclick="page_ajax_request('/Account/Account')">
                                 <span class="span-horizontal hidden-sm hidden-md hidden-lg"></span>
                                 <span class="span-vertical hidden-xs"></span>
                             </li>
-                            <li id="item-log-out" class="fa-icons" onclick="signOut();"><span></span></li>
+                            <li id="item-log-out" class="fa-icons" onclick="window.location.pathname='/Account/Logout';"><span></span></li>
                         }
-                        else
+                        else // its an unknown guest
                         {
-                            <li id="item-sign-in" class="fa-icons" onclick="ajax_request('/Account/Register', ActionOnReady)">
+                            <li id="item-sign-in" class="fa-icons" onclick="page_ajax_request('/Account/Register', ActionOnReady)">
                                 <span class="span-horizontal hidden-sm hidden-md hidden-lg"></span>
                                 <span class="span-vertical hidden-xs"></span>
                             </li> <!-- Register / Sign In -->
@@ -133,13 +130,15 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jplayer/2.9.2/jplayer/jquery.jplayer.js"></script>
+    <script src="~/Scripts/app.js"></script> 
     <script src="~/Scripts/classie.js"></script>
     <script src="~/Scripts/cbpAnimatedHeader.js"></script>
-    <script src="~/Scripts/playback-panel.js"></script>
-    <script src="~/Scripts/password-validator.js"></script>
-    <script src="~/Scripts/find_station.js"></script>
+    <script src="~/Scripts/password-validator.js"></script>       
+    <script src="~/Scripts/find-stations.js"></script> 
+    <script src="~/Scripts/player.js"></script>
+    <script src="~/Scripts/radial-menu.js"></script> 
     <script src="~/Scripts/favourites.js"></script>    
-    <script src="~/Scripts/page_navigation.js"></script>
-    @RenderSection("Scripts", required: false)
+    <script src="~/Scripts/page-navigation.js"></script>
+    
 </body>
 </html>

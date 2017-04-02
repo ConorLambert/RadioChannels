@@ -382,8 +382,6 @@ main {
 }
 
 .track {
-    /* display: inline-block; */
-    /* width: 250px; */
     text-decoration: none;
 }
 
@@ -393,13 +391,6 @@ main {
 
 .now-playing, .artist, .title {
     display: block;
-    /* overflow: hidden; 
-    text-overflow: ellipsis; */
-    /* white-space: nowrap; */
-    /* Tweak 'till your heart's content */
-    /* position: relative; */
-    /* Starting transition */
-    /* left: 0%; */
     width: 100%;
 }
 
@@ -428,15 +419,15 @@ footer {
     position: absolute;
 }
 
-    .audio-player-image img {
-        position: relative;
-        max-height: 100%;
-        max-width: 100%;
-        /* width: 60px; */
-        vertical-align: middle;
-        margin-right: 10px;
-        -webkit-backface-visibility: hidden;
-    }
+.audio-player-image img {
+    position: relative;
+    max-height: 100%;
+    max-width: 100%;
+    /* width: 60px; */
+    vertical-align: middle;
+    margin-right: 10px;
+    -webkit-backface-visibility: hidden;
+}
 
 .audio-player-song-name {
     vertical-align: middle;
@@ -570,9 +561,9 @@ footer {
     color: #EBEBEB;
 }
 
-    .volumeBar:hover, .volume-up:hover, .volume-down:hover {
-        cursor: pointer;
-    }
+.volumeBar:hover, .volume-up:hover, .volume-down:hover {
+    cursor: pointer;
+}
 
 
 /* TOOLTIP */
@@ -592,9 +583,6 @@ footer {
 
 
 /* VOLUME */
-.controls {
-}
-
 .fa {
     padding: 5px;
 }
@@ -603,9 +591,9 @@ footer {
     text-align: center;
 }
 
-    .volume-chooser:hover .volume-control {
-        display: block;
-    }
+.volume-chooser:hover .volume-control {
+    display: block;
+}
 
 .volume-control {
     position: absolute;
@@ -615,76 +603,76 @@ footer {
     transform: rotate(270deg) translateY(-15px);
 }
 
-    .volume-control .volume {
-        padding: 1px;
-    }
+.volume-control .volume {
+    padding: 1px;
+}
 
 input.volume[type=range] {
     -webkit-appearance: none;
     border: none;
 }
 
-    input.volume[type=range]::-webkit-slider-runnable-track {
-        width: 100%;
-        height: 100%;
-        background: #000; /*background color of slider*/
-        border: none;
-        outline: none;
-    }
+input.volume[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 100%;
+    background: #000; /*background color of slider*/
+    border: none;
+    outline: none;
+}
 
-    input.volume[type=range]::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        border: none;
-        height: 16px;
-        width: 16px;
-        background: #A6CBFF; /* color of the slider */
-        margin-top: 0;
-    }
+input.volume[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 16px;
+    width: 16px;
+    background: #A6CBFF; /* color of the slider */
+    margin-top: 0;
+}
 
-    input.volume[type=range]:focus {
-        outline: none;
-    }
+input.volume[type=range]:focus {
+    outline: none;
+}
 
-        input.volume[type=range]:focus::-webkit-slider-runnable-track {
-            background: #000;
-        }
+input.volume[type=range]:focus::-webkit-slider-runnable-track {
+    background: #000;
+}
 
-        input.volume[type=range]:focus::-ms-fill-lower {
-            background: #000;
-        }
+input.volume[type=range]:focus::-ms-fill-lower {
+    background: #000;
+}
 
-        input.volume[type=range]:focus::-ms-fill-upper {
-            background: #000;
-        }
+input.volume[type=range]:focus::-ms-fill-upper {
+    background: #000;
+}
 
-    input.volume[type=range]::-moz-range-track {
-        width: 100%;
-        height: 100%;
-        background: #000;
-        border: none;
-    }
+input.volume[type=range]::-moz-range-track {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    border: none;
+}
 
-    input.volume[type=range]::-moz-range-thumb {
-        border: none;
-        height: 100%;
-        width: 20px;
-        background: #f00;
-        border-radius: 0;
-    }
+input.volume[type=range]::-moz-range-thumb {
+    border: none;
+    height: 100%;
+    width: 20px;
+    background: #f00;
+    border-radius: 0;
+}
 
-    input.volume[type=range]:-moz-focusring {
-        outline: 0px solid #000;
-        outline-offset: -1px;
-    }
+input.volume[type=range]:-moz-focusring {
+    outline: 0px solid #000;
+    outline-offset: -1px;
+}
 
-    input.volume[type=range]::-ms-track {
-        width: 100%;
-        height: 100%;
-        background: #fff;
-        border-color: #000;
-        border-width: 10px;
-        color: transparent;
-    }
+input.volume[type=range]::-ms-track {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border-color: #000;
+    border-width: 10px;
+    color: transparent;
+}
 
 @supports (-ms-accelerator: true) {
     input.volume[type=range]::-ms-track {
@@ -713,8 +701,6 @@ input.volume[type=range]::-ms-thumb {
 
 .categories-container {
     height: 220px;
-    /* width: 100%; */
-    /* height: 100%; */
     position: relative;
     text-align: center;
     -webkit-transition: all 0.5s;
@@ -732,56 +718,56 @@ input.volume[type=range]::-ms-thumb {
     text-align: center;
 }
 
-    .radmenu > a {
-        word-wrap: break-word;
-    }
+.radmenu > a {
+    word-wrap: break-word;
+}
 
-        .radmenu > a.show {
-            display: flex !important;
-        }
+.radmenu > a.show {
+    display: flex !important;
+}
 
-    .radmenu li {
-        -webkit-transform: translate3d(0, 0, 0);
-        transform: translate3d(0, 0, 0);
-        transition: all 1s ease;
-        /* width  (how far away from the centre and each other they are) */
-    }
+.radmenu li {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    transition: all 1s ease;
+    /* width  (how far away from the centre and each other they are) */
+}
 
-    .radmenu a:hover {
-        background-color: #2C3E50;
-    }
+.radmenu a:hover {
+    background-color: #2C3E50;
+}
 
-    .radmenu a {
-        position: absolute;
-        width: 50px;
-        height: 50px;
-        /* padding: 40px; */
-        background: rgba(255, 255, 255, 0.9);
-        text-align: center;
-        align-items: center;
-        justify-content: center;
-        border-radius: 120px;
-        display: none;
-        text-decoration: none;
-        color: #333;
-        transition: all 1s ease;
-        box-shadow: 0 0 15px #222;
-        font-family: "segoe ui";
-        font-weight: 200;
-        /* font-size: 0.6em; */
-        color: #16A085;
-    }
+.radmenu a {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    /* padding: 40px; */
+    background: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    border-radius: 120px;
+    display: none;
+    text-decoration: none;
+    color: #333;
+    transition: all 1s ease;
+    box-shadow: 0 0 15px #222;
+    font-family: "segoe ui";
+    font-weight: 200;
+    /* font-size: 0.6em; */
+    color: #16A085;
+}
 
-    .radmenu .selected {
-        background: rgba(51, 51, 51, 0.9);
-        display: flex;
-        color: #f1f1f1;
-        box-shadow: 0 0 10px #f1f1f1;
-        -webkit-transform: rotate(0deg) translateX(0px);
-        transform: rotate(0deg) translateX(0px);
-    }
+.radmenu .selected {
+    background: rgba(51, 51, 51, 0.9);
+    display: flex;
+    color: #f1f1f1;
+    box-shadow: 0 0 10px #f1f1f1;
+    -webkit-transform: rotate(0deg) translateX(0px);
+    transform: rotate(0deg) translateX(0px);
+}
 
-
+/* for firefox radial menu */ 
 @-moz-document url-prefix() {
     .radmenu .selected, .radmenu > a.show {
         right: 47.5%;
@@ -795,30 +781,20 @@ input.volume[type=range]::-ms-thumb {
         }
     }
 }
-/*
-        background: rgba(50, 50, 50, 1) none repeat scroll 0 0 !important;
-    box-shadow: 0 0 10px #f1f1f1;
-    color: #f1f1f1;
-    display: inline-block;
-    left: 25px;
-    position: relative;
-    transform: rotate(0deg) translateX(0px);
-    */
+
 .radmenu .selected + ul > li > a {
     display: flex;
 }
 
 
 .text-overflow {
-    /* display: inline-block; */
-    /* position: relative; */
     white-space: normal;
     text-decoration: none;
 }
 
-.text-wrapper {
-}
+
 /* ACCOUNT */
+
 .validation-summary-errors {
     text-align: center;
     color: red;

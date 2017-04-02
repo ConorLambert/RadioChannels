@@ -3,10 +3,9 @@
 
         // genre favourties
         if (window.location.href.includes("/#favourites/")) {
-            ajax_request('/Favourites/IndexPartial', function () {
-                triggerFavouritesGenreSelect();
+            page_ajax_request('/Favourites/IndexPartial', function () {
                 $(".radmenu > a").trigger("click");
-                $(".radmenu a").each(function (index, elem) {
+                $(".radmenu a").each(function (index, elem) {   // find the genre 
                     if ($(elem).text().toLowerCase() === event.state.toLowerCase()) {
                         $(elem).trigger("click");
                         return false;
@@ -20,29 +19,24 @@
         } else if (event.state === "index") {
             $("#item-radio-stations").trigger("click");
         } else if (event.state === "register") {
-            ajax_request('/Account/Register', ActionOnReady);
+            page_ajax_request('/Account/Register', ActionOnReady);
         } else if (event.state === "login") {
-            ajax_request('/Account/Login', ActionOnReady);
+            page_ajax_request('/Account/Login', ActionOnReady);
         } else if (event.state === "account") {
-            ajax_request('/Account/Account', ActionOnReady);
+            page_ajax_request('/Account/Account', ActionOnReady);
         } else if (event.state === "edit") {
-            //window.location.pathname = '/Account/Edit';
-            ajax_request('/Account/Edit', ActionOnReady);
+            page_ajax_request('/Account/Edit', ActionOnReady);
         } else if (event.state === "editpassword") {
-            //window.location.pathname = '/Account/EditPassword';
-            ajax_request('/Account/EditPassword', ActionOnReady);
+            page_ajax_request('/Account/EditPassword', ActionOnReady);
         } else if (event.state === "forgotpassword") {
-            // window.location.pathname = '/Account/ForgotPassword';
-            ajax_request('/Account/ForgotPassword', ActionOnReady);
+            page_ajax_request('/Account/ForgotPassword', ActionOnReady);
         } else if (event.state === "resetpassword") {
-            // window.location.pathname = '/Account/ResetPassword';
-            ajax_request('/Account/ResetPassword', ActionOnReady);
+            page_ajax_request('/Account/ResetPassword', ActionOnReady);
         } else { // else its index genre
-            //$("#item-radio-stations").find("a").trigger("click");
-            ajax_request('/Home/IndexPartial', function () {
-                triggerGenreSelect();
-                $(".radmenu > a").trigger("click");
-                $(".radmenu a").each(function (index, elem) {
+            page_ajax_request('/Home/IndexPartial', function () {
+                initializeRadialMenu();
+                $(".radmenu > a").trigger("click"); // select "Genre" item
+                $(".radmenu a").each(function (index, elem) {   // find the Genre selected and trigger it
                     if ($(elem).text().toLowerCase() === event.state.toLowerCase()) {
                         $(elem).trigger("click");
                         return false;
@@ -50,7 +44,7 @@
                 });
             });
         }
-    } else {
+    } else {    // reinitialize it
         // return to home page
         $("#stations > div").empty();
         // remove selected genre

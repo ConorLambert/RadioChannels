@@ -21,7 +21,14 @@
 </div>
 <script>      
     current_genre = undefined;  
-    current_channel = undefined;
-    if (!window.location.href.includes("index"))
-        history.pushState("index", null, "/#index");    
+    current_channel = undefined;    
+    console.log(window.location.href);
+    if (window.location.href.includes("home")) {
+        console.log("There was home");
+        history.replaceState("index", null, "/#index");
+    }
+    else if (!window.location.href.includes("/#index"))
+        history.replaceState("index", null, "/#index");    
+    findHeader();
+    init();
 </script>

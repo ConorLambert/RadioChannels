@@ -1,5 +1,5 @@
 ﻿.form-style-1 {
-    overflow-y: auto;
+    /* overflow-y: auto; */
 }
 
 .change-log-in {
@@ -37,6 +37,15 @@
     color: red;
 }
 
+#register-form, #login-form {
+    max-height: 100%;
+    overflow: auto;
+}
+
+#delete-account {
+    margin-top: 50px;
+}
+
 #submit {
     margin-right: 20px;
 }
@@ -44,7 +53,8 @@
 .form-style-1 {
     margin: 10px auto;
     max-width: 400px;
-    padding: 20px 12px 10px 20px;    
+    max-height: 100%;
+    /* padding: 20px 12px 10px 20px; */
 }
 
     .form-style-1 li {
@@ -62,44 +72,44 @@
         font-weight: bold;
     }
 
-.form-style-1 input[type=text],
-.form-style-1 input[type=date],
-.form-style-1 input[type=datetime],
-.form-style-1 input[type=number],
-.form-style-1 input[type=search],
-.form-style-1 input[type=time],
-.form-style-1 input[type=url],
-.form-style-1 input[type=email],
-textarea,
-select {
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    border: 1px solid #BEBEBE;
-    padding: 7px;
-    margin: 0px;
-    -webkit-transition: all 0.30s ease-in-out;
-    -moz-transition: all 0.30s ease-in-out;
-    -ms-transition: all 0.30s ease-in-out;
-    -o-transition: all 0.30s ease-in-out;
-    outline: none;
-}
+    .form-style-1 input[type=text],
+    .form-style-1 input[type=date],
+    .form-style-1 input[type=datetime],
+    .form-style-1 input[type=number],
+    .form-style-1 input[type=search],
+    .form-style-1 input[type=time],
+    .form-style-1 input[type=url],
+    .form-style-1 input[type=email],
+    textarea,
+    select {
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        border: 1px solid #BEBEBE;
+        padding: 7px;
+        margin: 0px;
+        -webkit-transition: all 0.30s ease-in-out;
+        -moz-transition: all 0.30s ease-in-out;
+        -ms-transition: all 0.30s ease-in-out;
+        -o-transition: all 0.30s ease-in-out;
+        outline: none;
+    }
 
-.form-style-1 input[type=text]:focus,
-.form-style-1 input[type=date]:focus,
-.form-style-1 input[type=datetime]:focus,
-.form-style-1 input[type=number]:focus,
-.form-style-1 input[type=search]:focus,
-.form-style-1 input[type=time]:focus,
-.form-style-1 input[type=url]:focus,
-.form-style-1 input[type=email]:focus,
-.form-style-1 textarea:focus,
-.form-style-1 select:focus {
-    -moz-box-shadow: 0 0 8px #88D5E9;
-    -webkit-box-shadow: 0 0 8px #88D5E9;
-    box-shadow: 0 0 8px #88D5E9;
-    border: 1px solid #88D5E9;
-}
+        .form-style-1 input[type=text]:focus,
+        .form-style-1 input[type=date]:focus,
+        .form-style-1 input[type=datetime]:focus,
+        .form-style-1 input[type=number]:focus,
+        .form-style-1 input[type=search]:focus,
+        .form-style-1 input[type=time]:focus,
+        .form-style-1 input[type=url]:focus,
+        .form-style-1 input[type=email]:focus,
+        .form-style-1 textarea:focus,
+        .form-style-1 select:focus {
+            -moz-box-shadow: 0 0 8px #88D5E9;
+            -webkit-box-shadow: 0 0 8px #88D5E9;
+            box-shadow: 0 0 8px #88D5E9;
+            border: 1px solid #88D5E9;
+        }
 
     .form-style-1 .field-divided {
         width: 49%;

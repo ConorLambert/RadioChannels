@@ -1,23 +1,15 @@
 ﻿/* NAVIGATION */
 
-#navigation span {
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 10px;
-    font-size: 1.4em;
-    left: 0;
-}
-
 .fa-icons {
     opacity: 0.8;
 }
 
-    .fa-icons:hover, #add-favourite:hover:before {
-        -webkit-transition: all 0.5s;
-        transition: all 0.5s;
-        color: #ffffff;
-        opacity: 1.0;
-    }
+.fa-icons:hover, #add-favourite:hover:before {
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+    color: #ffffff;
+    opacity: 1.0;
+}
 
 #item-account span:before, #item-log-out span:before, #item-radio-stations span:before, #item-favourites span:before, #item-sign-in span:before, #item-logout span:before {
     font-size: 1.7em;
@@ -111,32 +103,16 @@
 
 @media only screen and (min-width: 200px) {
     .audio-player-button::before {
-        /* width: 100%; */
-        /* top: -1px; */
         margin-left: 0px;
-        /* top: 0; */
     }
 }
 
 .audio-player-button::before {
     position: absolute;
-    /* width: 100%; */
-    /* top: 6px; */
-    /* left: 50%; */
-    /* margin-left: -5px; */
-    /* top: 0; */
     transform: translate(-50%, 50%);
     text-decoration: none;
 }
 
-/*
-.audio-player-button.icon-pause::before {
-    
-    top: 1px;
-    left: -15px;
-    text-decoration: none;
-}
-*/
 
 .audio-player-button.icon-backward::before {
     left: -17px;

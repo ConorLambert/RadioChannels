@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="app">
 <head>
     <meta charset="utf-8" />
     <title>Tunage</title>
@@ -19,9 +19,8 @@
     <script src="https://apis.google.com/js/platform.js" async defer></script>    
     <script> var favourites = undefined;</script>
 </head>
-<body>
-
-    <header>
+<body ng-controller="MainController">
+    <header ng-controller="NavigationController">
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
@@ -67,11 +66,11 @@
         </nav>
     </header>
     
-    <main id="page">         
+    <main id="page" ng-view>         
         @RenderBody()
     </main>  
 
-    <footer class="navbar-fixed-bottom" >
+    <footer class="navbar-fixed-bottom" ng-controller="AudioController">
         <div id="audio-player" class="container-fluid">
             <div class="row">
                 <div id="jplayer" class="jp-jplayer" style="width: 0px; height: 0px;">
@@ -129,8 +128,11 @@
 
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-route.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jplayer/2.9.2/jplayer/jquery.jplayer.js"></script>
     <script src="~/Scripts/app.js"></script> 
+    <script src="~/Scripts/script.js"></script>
+    <script src="~/Scripts/Navigation.js"></script>
     <script src="~/Scripts/classie.js"></script>
     <script src="~/Scripts/cbpAnimatedHeader.js"></script>
     <script src="~/Scripts/password-validator.js"></script>       

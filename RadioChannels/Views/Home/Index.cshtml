@@ -2,29 +2,15 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="container-fluid header-container">
-    <div class="row">
-        <div class="col-xs-12">
-            <h2 id="search-heading">Search</h2>
-            <div class="categories-container cbp-af-header cbp-af-header-shrink">
-                @RenderPage("~/Views/Shared/_Categories.cshtml")
-            </div>
-        </div>        
-    </div>     
-</div>
-<div id="stations-container">
-    <div id="stations">
-        <p class="page-message">Please hover your mouse over the search area above to begin searching for music channels</p> 
-        <div class="container-fluid">                       
-        </div>
-    </div>
-</div>
+@RenderPage("~/Views/Shared/_Search.cshtml", new { Title = "Search" })
+
+@RenderPage("~/Views/Shared/_Stations.cshtml", new { Controller = "StationsController" })
+
 <script>      
     current_genre = undefined;  
     current_channel = undefined;    
     console.log(window.location.href);
     if (window.location.href.includes("home")) {
-        console.log("There was home");
         history.replaceState("index", null, "/#index");
     }
     else if (!window.location.href.includes("/#index"))

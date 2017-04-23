@@ -91,7 +91,7 @@ function getFavouritesOf(genre) {
         }
     });
     if ($("#stations").find(".row").length === 0)
-        $("#stations").append('<p class="page-message">You currently have no ' + genre + ' favourites in your selection. Navigate to the <a onclick="ajax_request(\'/Home/IndexPartial\', triggerGenreSelect)">Search</a> page to begin searching for ' + genre + ' music channels</p>');
+        $("#stations").append('<p class="page-message">You currently have no ' + genre + ' favourites in your selection. Navigate to the <a onclick="page_ajax_request(\'/Home/IndexPartial\', initializeRadialMenu)">Search</a> page to begin searching for ' + genre + ' music channels</p>');
     if (!window.location.href.includes("/" + encodeURIComponent(genre)))  // if we have moved back to this page then, dont push it
         history.pushState(genre, null, "/#favourites/" + genre);
 }

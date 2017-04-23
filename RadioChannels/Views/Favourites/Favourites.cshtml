@@ -1,30 +1,13 @@
-﻿@model IEnumerable<RadioChannels.Models.Channel>
-
-@{
+﻿@{
     ViewBag.Title = "Favourites";
 }
 
 @if (Request.IsAuthenticated)
 {
-<div class="container-fluid header-container">
-    <div class="row">
-        <div class="col-xs-12">
-            <h2 id="search-heading">Favourites</h2>
-            <div class="categories-container cbp-af-header cbp-af-header-shrink">
-                @RenderPage("~/Views/Shared/_Categories.cshtml")
-            </div>
-        </div>        
-    </div>
-</div>
 
-<div id="stations-container">
-    <div id="stations">
-        <p class="page-message">You currently have no favourites in your selection. Navigate to the <a onclick="page_ajax_request('/Home/IndexPartial', initializeRadialMenu)">Search</a> page to begin searching for music channels</p>
-        <div class="container-fluid">
-            @RenderPage("~/Views/Shared/_Stations.cshtml")
-        </div>
-    </div>
-</div>
+@RenderPage("~/Views/Shared/_Search.cshtml", new { Title = "Favourites" })
+@RenderPage("~/Views/Shared/_Search.cshtml", new { Controller = "FavouritesController" })
+
 <script>
     current_genre = undefined;
     current_channel = undefined;

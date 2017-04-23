@@ -3,4 +3,7 @@
   <parameter name="RadioContext-Web.config Connection String" description="RadioContext Connection String used in web.config by the application to access the database." defaultValue="Data Source=.\SQLEXPRESS;Initial Catalog=RadioContext;Integrated Security=SSPI;" tags="SqlConnectionString">
     <parameterEntry kind="XmlFile" scope="C:\\Users\\Conor\\documents\\visual\ studio\ 2017\\Projects\\RadioChannels\\RadioChannels\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='RadioContext']/@connectionString" />
   </parameter>
+  <parameter name="RadioContext_DatabasePublish-Web.config Connection String" description="RadioContext_DatabasePublish Connection String used in web.config by the application to access the database." defaultValue="RadioContext_DatabasePublish.ConnetionString" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Conor\\documents\\visual\ studio\ 2017\\Projects\\RadioChannels\\RadioChannels\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='RadioContext_DatabasePublish']/@connectionString" />
+  </parameter>
 </parameters>
